@@ -57,12 +57,36 @@ body {
     font-size: 1rem;
 }
 
+/* --- EFFETTO ZOOM LINK NELLA HERO --- */
+
+/* Applichiamo lo zoom solo quando l'header NON è scrolled */
+.main-header:not(.scrolled) .menu-links a:hover {
+    transform: scale(1.2); /* Ingrandisce del 20% */
+    opacity: 1;            /* Diventa totalmente bianco */
+    letter-spacing: 4px;   /* Opzionale: aumenta leggermente il respiro tra le lettere */
+}
+
+/* Assicurati che il link abbia queste basi per rendere lo zoom fluido */
+.menu-links a {
+    display: inline-block; /* Necessario perché il transform funzioni correttamente */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                opacity 0.3s ease, 
+                letter-spacing 0.3s ease;
+}
+
+/* Manteniamo il pallino che abbiamo configurato prima */
+.main-header:not(.scrolled) .menu-links a:hover::after {
+    transform: translateX(-50%) scale(1);
+    bottom: -15px; /* Lo abbassiamo un filo di più durante lo zoom per non sovrapporlo */
+}
+
 .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1600px; margin: 0 auto; }
 .logo-area { display: flex; align-items: center; text-decoration: none; color: var(--white); }
 .logo-area img { height: 35px; }
 .brand-text { font-size: 1.2rem; letter-spacing: 4px; text-transform: uppercase; font-weight: 100; margin-left: 15px; }
 .brand-bold { font-weight: 800; }
 
+/* --- Menu Links Base --- */
 /* --- Menu Links Base --- */
 .menu-links a { 
     text-decoration: none; 
@@ -71,41 +95,51 @@ body {
     text-transform: uppercase; 
     margin-left: 40px; 
     letter-spacing: 3px; 
-    font-weight: 300; /* Tutti gli altri sono sottili */
+    font-weight: 300; /* Leggero nella Hero */
     position: relative; 
-    display: inline-block; 
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+    transition: all 0.3s ease;
     opacity: 0.7;
 }
 
-/* --- Tasto Contatti (Grassetto 800) --- */
-.menu-links a.btn-nav { 
-    font-weight: 800 !important; /* Forza il grassetto massimo */
-    opacity: 1; /* Più visibile fin da subito */
+/* Hover e Stato Attivo: Opacità piena */
+.menu-links a:hover,
+.menu-links a.active {
+    opacity: 1;
 }
 
-/* --- Effetto Zoom al passaggio (Hover) --- */
-.menu-links a:hover { 
-    opacity: 1; 
-    transform: scale(1.15); /* Ingrandimento del 15% */
+/* Quando l'header è "Pillola" (Scrolled), la sezione attiva diventa BOLD */
+.main-header.scrolled .menu-links a.active {
+    font-weight: 800 !important;
 }
 
-/* --- Il Pallino Bianco sotto --- */
+/* --- IL PALLINO BIANCO --- */
+/* Lo creiamo una volta sola per entrambi gli stati */
 .menu-links a::after {
     content: ''; 
     position: absolute; 
-    bottom: -12px; 
+    bottom: -12px; /* Distanza dalla scritta */
     left: 50%;
     transform: translateX(-50%) scale(0); 
     width: 6px; 
     height: 6px;
-    background: var(--white); 
+    background: #fff; 
     border-radius: 50%; 
-    transition: transform 0.4s ease;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.menu-links a:hover::after { 
-    transform: translateX(-50%) scale(1); 
+/* Il pallino appare se il link è ACTIVE o se ci passi sopra col MOUSE */
+.menu-links a.active::after,
+.menu-links a:hover::after {
+    transform: translateX(-50%) scale(1);
+}
+
+/* Eccezione: Tasto Contatti (Sempre Bold, niente pallino) */
+.menu-links a.btn-nav {
+    font-weight: 800 !important;
+    opacity: 1;
+}
+.menu-links a.btn-nav::after {
+    display: none; /* Rimuove il pallino solo dal tasto contatti se preferisci */
 }
 
 /* HERO SLIDER */

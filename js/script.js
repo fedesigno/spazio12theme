@@ -89,3 +89,58 @@ window.addEventListener('scroll', () => {
         header.classList.remove('scrolled');
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.menu-links a');
+    const header = document.querySelector('.main-header');
+
+    function updateNav() {
+        const scrollPos = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const bodyHeight = document.body.offsetHeight;
+        let currentSection = "";
+
+        // 1. Gestione Header (Pillola)
+        if (scrollPos > 80) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+
+        // 2. Logica Home: se sei in alto, pulisci tutto
+        if (scrollPos < 300) {
+            navLinks.forEach(link => link.classList.remove('active'));
+            return;
+        }
+
+        // 3. LOGICA SPECIALE PER IL FONDO PAGINA (CONTATTI)
+        // Se la distanza dal fondo è minima (es. 100px), siamo nei contatti
+        if ((windowHeight + scrollPos) >= (bodyHeight - 150)) {
+            navLinks.forEach(link => link.classList.remove('active'));
+            // Se vuoi che si accenda il pallino su contatti (anche se è un bottone), 
+            // decommenta la riga sotto:
+            // document.querySelector('a[href="#contatti"]').classList.add('active');
+            return; 
+        }
+
+        // 4. Individua la sezione attiva (classico)
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (scrollPos >= (sectionTop - 350)) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(currentSection) && currentSection !== "") {
+                link.classList.add('active');
+            }
+        });
+        }
+
+    window.addEventListener('scroll', updateNav);
+    updateNav(); // Esegui al caricamento
+});
+
