@@ -823,7 +823,8 @@ body {
     letter-spacing: 1px;
 }
 
-/* --- LISTA CONTATTI --- */
+/* --- LISTA CONTATTI: ICONE & LINK --- */
+
 .contact-links {
     list-style: none;
     padding: 0;
@@ -831,39 +832,54 @@ body {
 }
 
 .contact-links li {
-    margin-bottom: 12px;
+    margin-bottom: 16px; /* Spazio leggermente aumentato per leggibilità */
     display: flex;
-    align-items: flex-start;
+    align-items: center; /* Allineamento verticale icone-testo */
+    gap: 15px;           /* Distanza tra icona e contenuto */
     font-size: 0.95rem;
 }
 
-.contact-links .label {
-    font-weight: 800;
-    color: #111;
-    width: 25px;
-    flex-shrink: 0;
+/* Stile per le icone (FontAwesome) */
+.contact-links i {
+    color: #3c88a6f7;      /* Il tuo Blu-Grigio professionale */
+    width: 25px;         /* Larghezza fissa per incolonnare perfettamente il testo */
+    text-align: center;  /* Centra l'icona nello spazio di 25px */
+    font-size: 1.1rem;
+    flex-shrink: 0;      /* Impedisce all'icona di rimpicciolirsi */
 }
 
-.contact-links a {
+/* Stile per i testi e i link */
+.contact-links a, 
+.contact-links p {
     color: #444;
     text-decoration: none;
-    transition: color 0.3s;
+    margin: 0;
+    line-height: 1.5;
+    transition: all 0.3s ease;
 }
 
+/* Effetto interattivo sui link */
 .contact-links a:hover {
-    color: #000;
-    text-decoration: underline;
+    color: #4a5568;      /* Richiama il colore delle icone al passaggio del mouse */
+    text-decoration: none;
+    transform: translateX(3px); /* Piccolissimo spostamento a destra per feedback visivo */
 }
-
-.contact-links p { margin: 0; color: #444; }
 
 /* --- RESPONSIVE --- */
+
 @media (max-width: 900px) {
     .contact-grid {
-        flex-direction: column;
+        flex-direction: column !important; /* Forza la colonna su mobile */
         align-items: center;
+        gap: 30px;
     }
+    
     .contact-block {
-        width: 100%;
+        width: 100% !important; /* Occupa tutto lo spazio disponibile */
+        max-width: 100%;
+    }
+    
+    .contact-details {
+        padding: 25px; /* Riduce leggermente il padding su schermi piccoli */
     }
 }
