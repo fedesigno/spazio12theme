@@ -478,26 +478,281 @@ body {
     .member-name { font-size: 2.5rem; }
 }
 
-/* PROGETTI */
-.section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 40px; }
-.filter-controls { display: flex; gap: 20px; }
-.filter-btn { background: none; border: none; font-family: inherit; font-size: 0.75rem; letter-spacing: 2px; cursor: pointer; opacity: 0.4; transition: 0.3s; }
-.filter-btn.active { opacity: 1; font-weight: 800; border-bottom: 1px solid var(--black); }
+/* --- SEZIONE PROGETTI: LAYOUT --- */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 80px;
+    flex-wrap: wrap;
+    gap: 40px;
+}
 
-.project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-.project-card { transition: 0.4s; }
-.p-image { height: 400px; overflow: hidden; margin-bottom: 20px; }
-.p-image img { width: 100%; height: 100%; object-fit: cover; transition: 1s; }
-.project-card:hover .p-image img { transform: scale(1.1); }
+.subtitle-tech { 
+    font-size: 0.8rem; 
+    color: #999; 
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    display: block;
+}
 
-/* FOOTER */
-.footer { background: var(--black); color: var(--white); padding: 100px 8%; }
-.section-title.white { color: var(--white); }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
-.contact-item h3 { font-size: 1.5rem; margin-bottom: 15px; letter-spacing: 2px; }
-.contact-item p { opacity: 0.7; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 5px; }
+/* --- FILTRI BEAUTIFUL & MINIMAL --- */
+.filter-controls { 
+    display: flex; 
+    gap: 30px; 
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
 
+.filter-btn {
+    background: transparent;
+    border: none;
+    padding: 5px 0;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #aaa;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.4s ease;
+    text-transform: uppercase;
+}
+
+.filter-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -11px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--black);
+    transition: width 0.4s ease;
+}
+
+.filter-btn.active { color: var(--black); }
+.filter-btn.active::after { width: 100%; }
+.filter-btn:hover { color: var(--black); }
+
+/* --- GRIGLIA E ANIMAZIONI --- */
+#project-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 50px;
+    transition: opacity 0.8s ease; /* Per il cambio filtro */
+}
+
+/* Animazione di entrata a cascata */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.project-card.animate-in {
+    animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    opacity: 0; /* Parte invisibile prima dell'animazione */
+}
+
+.project-card {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+    border-color: #ddd;
+}
+
+/* Immagine e Stato */
+.p-image { 
+    height: 300px; 
+    position: relative; 
+    overflow: hidden; 
+    background: #f8f8f8;
+}
+
+.p-image img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transition: transform 1.2s ease, filter 0.8s ease;
+    filter: grayscale(20%);
+}
+
+.project-card:hover .p-image img { 
+    transform: scale(1.08); 
+    filter: grayscale(0%);
+}
+
+.p-status {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--black);
+    color: #fff;
+    padding: 8px 15px;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    z-index: 2;
+}
+
+/* Contenuto Testuale */
+.p-content { 
+    padding: 35px; 
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.p-meta { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 20px; 
+}
+
+.p-year { color: #7bb7c5; font-weight: 900; font-size: 0.9rem; letter-spacing: 1px; }
+
+.p-funding { 
+    font-size: 0.6rem; 
+    border: 1px solid #eee;
+    padding: 4px 10px; 
+    font-weight: 700; 
+    color: #888;
+    letter-spacing: 1px;
+}
+
+.p-title { 
+    font-size: 1.5rem; 
+    font-weight: 800; 
+    margin-bottom: 8px; 
+    letter-spacing: 1px; 
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.p-location { font-size: 0.8rem; color: #999; margin-bottom: 25px; font-weight: 600; letter-spacing: 1px; }
+
+.p-desc { 
+    font-size: 0.95rem; 
+    color: #666; 
+    line-height: 1.7; 
+    margin-bottom: 30px; 
+    flex-grow: 1;
+}
+
+.p-spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid #eee;
+    padding-top: 25px;
+    gap: 20px;
+}
+
+.spec-item span { display: block; font-size: 0.6rem; color: #bbb; letter-spacing: 2px; margin-bottom: 6px; text-transform: uppercase; }
+.spec-item strong { font-size: 0.95rem; color: var(--black); font-weight: 800; }
+
+/* --- CONTENITORE PULSANTE --- */
+#more-btn-container {
+    text-align: center;
+    margin: 80px auto 40px auto;
+    display: flex;
+    justify-content: center;
+    perspective: 1000px; /* Per un effetto 3D leggero */
+}
+
+/* --- IL PULSANTE PILLOLA (BLU-GRIGIO) --- */
+.discover-more-btn {
+    /* Struttura a Pillola */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 45px !important;
+    border-radius: 50px !important; /* Arrotondamento totale */
+    
+    /* Colori del sito */
+    background-color: #227a8d !important; /* Il tuo blu-grigio */
+    border: none !important;
+    color: #ffffff !important;
+    
+    /* Tipografia */
+    font-size: 0.75rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase;
+    cursor: pointer;
+    
+    /* Animazioni e Movimento */
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    box-shadow: 0 10px 20px rgba(123, 183, 197, 0.3);
+    outline: none;
+}
+
+/* --- EFFETTI AL PASSAGGIO (Hover) --- */
+.discover-more-btn:hover {
+    transform: scale(1.1) translateY(-5px); /* Zoom + Spostamento in alto */
+    background-color: #164e5a !important; /* Si scurisce leggermente */
+    box-shadow: 0 20px 35px rgba(123, 183, 197, 0.5); /* L'ombra si espande */
+    letter-spacing: 3px !important;
+}
+
+/* Movimento dell'icona dentro al tasto */
+.discover-more-btn i, .discover-more-btn span.plus-icon {
+    font-size: 1.1rem;
+    transition: transform 0.4s ease;
+}
+
+.discover-more-btn:hover span.plus-icon {
+    transform: rotate(180deg) scale(1.2);
+}
+
+/* Effetto al click (Active) */
+.discover-more-btn:active {
+    transform: scale(0.95); /* Effetto "rimbalzo" quando premuto */
+}
+
+/* --- FOOTER: DARK & TECHNICAL --- */
+.footer { 
+    background: #111;
+    color: var(--white); 
+    padding: 120px 8% 60px; 
+}
+
+.contact-grid { 
+    display: grid; 
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 60px; 
+    margin-top: 60px; 
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 60px;
+}
+
+.contact-item h3 { font-size: 0.8rem; color: #7bb7c5; margin-bottom: 25px; letter-spacing: 4px; text-transform: uppercase; }
+.contact-item p { opacity: 0.8; font-size: 1rem; line-height: 1.8; margin-bottom: 10px; }
+.contact-item a { color: white; text-decoration: none; transition: color 0.3s; }
+.contact-item a:hover { color: #7bb7c5; }
+
+/* Responsive */
 @media (max-width: 1024px) {
-    .services-grid, .team-layout, .project-grid, .contact-grid { grid-template-columns: 1fr; }
-    .main-header { padding: 20px 5%; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .project-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+}
+
+@media (max-width: 600px) {
+    .section-header { flex-direction: column; align-items: flex-start; gap: 30px; }
+    .filter-controls { width: 100%; overflow-x: auto; padding-bottom: 15px; }
+    .p-title { font-size: 1.3rem; }
 }
