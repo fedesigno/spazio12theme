@@ -344,15 +344,14 @@ body {
     letter-spacing: -2px;
     line-height: 1;
 }
-
 .pillar-item h4 { 
-    font-size: 1rem; 
+    font-size: 1.2rem; 
     letter-spacing: 2px; 
     margin-bottom: 20px; 
     font-weight: 800; 
     color: var(--black);
 }
-.pillar-item p { font-size: 0.9rem; color: #666; }
+.pillar-item p { font-size: 1rem; color: #666; }
 
 /* Mobile */
 @media (max-width: 1024px) {
