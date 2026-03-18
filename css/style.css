@@ -724,94 +724,146 @@ body {
     transform: scale(0.95); /* Effetto "rimbalzo" quando premuto */
 }
 
-/* --- FOOTER: DARK & TECHNICAL --- */
-.footer { 
-    background: #111;
-    color: var(--white); 
-    padding: 120px 8% 60px; 
-}
-
-/* --- CONTENITORE GENERALE (FORZATO) --- */
+/* --- LAYOUT GENERALE --- */
 .contact-grid { 
-    display: flex !important;
-    flex-direction: row !important; /* Forza la riga */
-    flex-wrap: nowrap !important;   /* IMPEDISCE categoricamente di andare a capo */
+    display: flex;
     justify-content: center; 
-    align-items: stretch; 
-    gap: 30px; 
-    margin-top: 60px; 
-    border-top: 1px solid rgba(0,0,0,0.05);
-    padding: 60px 0;
+    gap: 40px; 
+    margin-top: 50px; 
     width: 100%;
-    box-sizing: border-box;
 }
 
-/* --- SINGOLA SCHEDA (LARGHEZZA MATEMATICA) --- */
 .contact-block {
+    flex: 1; /* Distribuisce lo spazio equamente */
+    max-width: 500px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 16px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    background: #fff;
-    border: 1px solid #eee;
-    overflow: hidden;
-    
-    /* Calcolo preciso: 50% dello spazio meno metà del gap */
-    width: calc(50% - 15px); 
-    max-width: 480px;
-    /* Rimuovi eventuali min-width eccessivi che avevamo messo prima */
-    min-width: 0; 
-    
-    border-radius: 24px;
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-    box-sizing: border-box;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.contact-block:hover {
+    transform: translateY(-5px);
 }
 
 /* --- MAPPA --- */
+/* --- STATO INIZIALE DELLA MAPPA --- */
 .map-wrapper {
     width: 100%;
-    height: 220px;
-    filter: grayscale(100%) opacity(0.6);
-    transition: all 0.8s ease;
+    height: 200px;
+    /* Inizialmente in bianco e nero e un po' sbiadita */
+    filter: grayscale(100%) contrast(1.1) opacity(0.7);
+    border-bottom: 1px solid #eee;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Transizione morbida */
+    cursor: pointer;
+}
+
+/* --- EFFETTO HOVER (QUANDO PASSI IL MOUSE) --- */
+/* Applichiamo l'effetto alla mappa quando si passa il mouse su tutto il blocco o solo sulla mappa */
+.contact-block:hover .map-wrapper {
+    filter: grayscale(0%) contrast(1) opacity(1);
 }
 
 .map-wrapper iframe {
     width: 100%;
     height: 100%;
     border: none;
+    display: block; /* Rimuove piccoli spazi bianchi sotto l'iframe */
 }
 
-/* --- DETTAGLI TESTUALI --- */
+
+/* --- CONTENUTI --- */
 .contact-details {
-    padding: 30px; /* Ridotto leggermente per sicurezza */
-    display: flex;
-    flex-direction: column;
-    background: #ffffff;
-    flex-grow: 1;
+    padding: 35px;
+}
+
+/* --- BOX LOCALITÀ (TORINO / PINEROLO) --- */
+.location-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    
+    /* Il colore Blu-Grigio Professionale */
+    background-color: #4a5568; /* Un blu-grigio equilibrato */
+    color: #ffffff;            /* Scritta bianca */
+    
+    padding: 6px 14px;
+    border-radius: 4px;        /* Angoli leggermente smussati */
+    margin-bottom: 20px;
+    border: none;              /* Rimuoviamo il bordo se presente */
+    
+    /* Un piccolo tocco di profondità */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Opzionale: cambia colore leggermente quando passi il mouse sul blocco */
+.contact-block:hover .location-tag {
+    background-color: #328bab; /* Un tono più scuro al passaggio del mouse */
+    transition: background-color 0.3s ease;
 }
 
 .contact-details h3 { 
-    font-size: 1.3rem; 
-    margin-bottom: 5px;
-    text-transform: uppercase;
+    font-size: 1.6rem; 
+    margin: 0;
+    color: #111;
+    font-weight: 600;
 }
 
 .role-text {
-    font-size: 0.7rem;
-    color: #aaa;
-    letter-spacing: 2px;
-    margin-bottom: 25px;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 30px;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-/* --- RESPONSIVE (SOLO QUI POSSONO ANDARE A CAPO) --- */
+/* --- LISTA CONTATTI --- */
+.contact-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-links li {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    font-size: 0.95rem;
+}
+
+.contact-links .label {
+    font-weight: 800;
+    color: #111;
+    width: 25px;
+    flex-shrink: 0;
+}
+
+.contact-links a {
+    color: #444;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-links a:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+.contact-links p { margin: 0; color: #444; }
+
+/* --- RESPONSIVE --- */
 @media (max-width: 900px) {
     .contact-grid {
-        flex-direction: column !important; /* Torna verticale solo su schermi piccoli */
-        flex-wrap: wrap !important;
+        flex-direction: column;
         align-items: center;
     }
     .contact-block {
-        width: 100% !important;
-        max-width: 450px;
+        width: 100%;
     }
 }
