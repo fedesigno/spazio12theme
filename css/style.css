@@ -27,7 +27,36 @@ body {
     position: fixed; width: 100%; top: 0; z-index: 1000; 
     padding: 35px 8%; transition: var(--transition); background: transparent; 
 }
-.main-header.scrolled { background: rgba(38, 48, 51, 0.98); padding: 18px 8%; }
+
+/* Stile dell'header quando si scrolla (Effetto Pillola) */
+.main-header.scrolled { 
+    width: 90%; /* Si stringe rispetto ai bordi */
+    max-width: 1100px; /* Larghezza massima elegante */
+    left: 50%;
+    transform: translateX(-50%); /* Centratura perfetta */
+    top: 20px; /* Si stacca dal soffitto */
+    
+    /* Sfondo: Colore scuro + Texture grana + Effetto Vetro */
+    background: linear-gradient(rgba(38, 48, 51, 0.8), rgba(38, 48, 51, 0.8)), 
+                url('https://grainy-gradients.vercel.app/noise.svg');
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    
+    padding: 12px 40px; 
+    border-radius: 100px; /* Forma a pillola moderna */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Bordino tecnico luce */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); /* Ombra profonda */
+}
+
+/* Opzionale: Rimpiccioliamo leggermente il logo quando l'header si stringe */
+.main-header.scrolled .logo-area img {
+    height: 28px;
+}
+
+.main-header.scrolled .brand-text {
+    font-size: 1rem;
+}
+
 .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1600px; margin: 0 auto; }
 .logo-area { display: flex; align-items: center; text-decoration: none; color: var(--white); }
 .logo-area img { height: 35px; }
