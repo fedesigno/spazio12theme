@@ -1,0 +1,80 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const projects = [
+        {
+            title: "TEATRO BAUDI DI SELVE",
+            location: "Vigone (TO)",
+            year: "2022",
+            desc: "Efficientamento energetico e restauro conservativo della pavimentazione lignea di metà '800 tramite PNRR.",
+            tag: "PNRR",
+            img: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=800"
+        },
+        {
+            title: "SCUOLA ELEMENTARE",
+            location: "Macello (TO)",
+            year: "2023",
+            desc: "Impianto fotovoltaico con accumulo e relamping LED completo per la pubblica amministrazione.",
+            tag: "C.S.E. 2022",
+            img: "https://images.unsplash.com/photo-1523050853051-be991f85a6ad?q=80&w=800"
+        },
+        {
+            title: "BIBLIOTECA COMUNALE",
+            location: "S. Pietro Val Lemina",
+            year: "2022",
+            desc: "Riqualificazione termica della centrale ed installazione serramenti a taglio termico.",
+            tag: "CONTO TERMICO 2.0",
+            img: "https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=800"
+        }
+    ];
+
+    const projectContainer = document.getElementById('project-list');
+
+    function renderProjects(filter = 'all') {
+        if(!projectContainer) return;
+        projectContainer.innerHTML = '';
+        
+        projects.forEach(p => {
+            if (filter === 'all' || p.year === filter) {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.innerHTML = `
+                    <div class="p-image"><img src="${p.img}" alt="${p.title}"></div>
+                    <span class="team-role">${p.year} | ${p.tag}</span>
+                    <h3 style="margin: 10px 0; font-size: 1.4rem; letter-spacing:1px;">${p.title}</h3>
+                    <p style="color:#666; font-size:0.85rem; margin-bottom:15px;">${p.desc}</p>
+                    <div style="font-weight:700; font-size:0.7rem; color: var(--accent);">📍 ${p.location}</div>
+                `;
+                projectContainer.appendChild(card);
+            }
+        });
+    }
+
+    renderProjects();
+
+    // Filtri
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderProjects(btn.dataset.filter);
+        });
+    });
+
+    // Scroll Effects
+    const header = document.querySelector('.main-header');
+    const mouse = document.querySelector('.scroll-indicator');
+
+    window.addEventListener('scroll', () => {
+        // Header
+        if (window.scrollY > 80) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+
+        // Mouse opacity
+        if (window.scrollY > 100) {
+            mouse.style.opacity = '0';
+            mouse.style.visibility = 'hidden';
+        } else {
+            mouse.style.opacity = '0.6';
+            mouse.style.visibility = 'visible';
+        }
+    });
+});

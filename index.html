@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPAZIO DODICI | Studio Integrato</title>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <nav class="nav-container">
+            <a href="#" class="logo-area">
+                <img src="logo/spaziododici_logo.png" alt="Logo SPAZIO DODICI">
+                <div class="brand-text"><strong>SPAZIO</strong>DODICI</div>
+            </a>
+            <div class="menu-links">
+                <a href="#cosa-facciamo">Servizi</a>
+                <a href="#chi-siamo">Studio</a>
+                <a href="#progetti">Progetti</a>
+                <a href="#contatti" class="btn-nav">Contatti</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-slider">
+            <div class="slide" style="background-image: url('logo/hero/Legno.png');"></div>
+            <div class="slide" style="background-image: url('logo/hero/Mattoni.png');"></div>
+            <div class="slide" style="background-image: url('logo/hero/Tubi.png');"></div>
+        </div>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <div class="hero-logo-container">
+                <h1 class="hero-title">
+                    <span class="hero-bold">SPAZIO</span>
+                    <span class="hero-thin">DODICI</span>
+                </h1>
+                <div class="hero-line"></div>
+                <p class="hero-subtitle">
+                    <span class="sub-bold">ARCHITETTURA</span> 
+                    <span class="sub-divider">•</span> 
+                    <span class="sub-bold">INGEGNERIA</span>
+                </p>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="mouse"></div>
+        </div>
+    </section>
+
+    <section id="cosa-facciamo" class="section">
+        <div class="container">
+            <h2 class="section-title">COSA FACCIAMO</h2>
+            <div class="services-grid">
+                <div class="services-image">
+                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200" alt="Ufficio">
+                </div>
+                <div class="services-text">
+                    <h3>Efficientamento energetico con approccio integrato.</h3>
+                    <p class="intro-p">Gestiamo l'intero processo di riqualificazione, dall'involucro edilizio alla gestione avanzata degli impianti.</p>
+                    <ul class="service-list">
+                        <li><strong>Involucro e Impianti:</strong> Soluzioni termotecniche d'avanguardia.</li>
+                        <li><strong>Energy Management:</strong> Gestione incentivi (PNRR, Conto Termico).</li>
+                        <li><strong>Progettazione ex-novo:</strong> Supporto tecnico completo.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="chi-siamo" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">IL NOSTRO TEAM</h2>
+            <div class="team-layout">
+                <div class="team-card">
+                    <div class="team-img"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600" alt="Sara Zanardini"></div>
+                    <div class="team-info">
+                        <span class="team-role">Ingegnere Energetico</span>
+                        <h3>SARA ZANARDINI</h3>
+                        <p>Specializzata in Energy Management e progettazione termotecnica.</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-img"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=600" alt="Alberto Chialva"></div>
+                    <div class="team-info">
+                        <span class="team-role">Architetto</span>
+                        <h3>ALBERTO CHIALVA</h3>
+                        <p>Esperto in restauro e conservazione del patrimonio storico.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="progetti" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">PROGETTI</h2>
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">TUTTI</button>
+                    <button class="filter-btn" data-filter="2023">2023</button>
+                    <button class="filter-btn" data-filter="2022">2022</button>
+                </div>
+            </div>
+            <div id="project-list" class="project-grid"></div>
+        </div>
+    </section>
+
+    <footer id="contatti" class="footer">
+        <div class="container">
+            <h2 class="section-title white">CONTATTI</h2>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h3>SARA ZANARDINI</h3>
+                    <p>T. +39 340 0564978</p>
+                    <p>INFO@ZANARDINISTUDIO.IT</p>
+                </div>
+                <div class="contact-item">
+                    <h3>ALBERTO CHIALVA</h3>
+                    <p>T. +39 334 3527005</p>
+                    <p>ALBERTO.CHIALVA@GMAIL.COM</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
