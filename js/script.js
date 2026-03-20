@@ -73,20 +73,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const projectContainer = document.getElementById('project-list');
     const moreBtnContainer = document.getElementById('more-btn-container');
 
-    // --- FUNZIONE DI RENDERING (Globale per permettere l'onclick del bottone) ---
+    // --- FUNZIONE DI RENDERING PROGETTI ---
     window.renderProjects = function(filter = 'all', stretch = false) {
         if(!projectContainer) return;
 
-        // Effetto dissolvenza prima del cambio
         projectContainer.style.opacity = '0';
         
         setTimeout(() => {
             projectContainer.innerHTML = '';
-            
-            // Filtriamo i dati
             const filtered = filter === 'all' ? projects : projects.filter(p => p.year === filter);
-            
-            // Logica "Scopri di più": mostra solo 2 se non c'è lo stretch attivo e ci sono più di 2 progetti
             const projectsToDisplay = (filtered.length <= 2 || stretch) ? filtered : filtered.slice(0, 2);
 
             projectsToDisplay.forEach((p, index) => {
@@ -94,136 +89,109 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.className = 'project-card animate-in';
                 card.style.animationDelay = `${index * 0.1}s`;
                 card.innerHTML = `
-                    <div class="p-image">
-                        <img src="${p.img}" alt="${p.title}">
-                        <div class="p-status">${p.status}</div>
-                    </div>
+                    <div class="p-image"><img src="${p.img}" alt="${p.title}"><div class="p-status">${p.status}</div></div>
                     <div class="p-content">
-                        <div class="p-meta">
-                            <span class="p-year">${p.year}</span>
-                            <span class="p-funding">${p.tag}</span>
-                        </div>
+                        <div class="p-meta"><span class="p-year">${p.year}</span><span class="p-funding">${p.tag}</span></div>
                         <h3 class="p-title">${p.title}</h3>
                         <p class="p-location">📍 ${p.location}</p>
                         <p class="p-desc">${p.desc}</p>
                         <div class="p-spec-grid">
-                            <div class="spec-item">
-                                <span>IMPORTO</span>
-                                <strong>${p.amount}</strong>
-                            </div>
-                            <div class="spec-item">
-                                <span>FINE</span>
-                                <strong>${p.end}</strong>
-                            </div>
+                            <div class="spec-item"><span>IMPORTO</span><strong>${p.amount}</strong></div>
+                            <div class="spec-item"><span>FINE</span><strong>${p.end}</strong></div>
                         </div>
-                    </div>
-                `;
+                    </div>`;
                 projectContainer.appendChild(card);
             });
 
-            // Gestione del pulsante Discover More
-            // Cerca questo blocco dentro la funzione renderProjects:
-            // Cerca questo blocco dentro renderProjects e sostituiscilo:
-            // Cerca questo blocco dentro renderProjects e sostituiscilo:
             if (moreBtnContainer) {
                 if (filtered.length > 2 && !stretch) {
                     moreBtnContainer.innerHTML = `
-                        <button class="discover-more-btn animate-in" 
-                                onclick="renderProjects('${filter}', true)">
-                            <span>MOSTRA DI PIù</span>
-                            <span class="plus-icon">+</span>
+                        <button class="discover-more-btn animate-in" onclick="renderProjects('${filter}', true)">
+                            <span>MOSTRA DI PIÙ</span><span class="plus-icon">+</span>
                         </button>`;
                 } else {
                     moreBtnContainer.innerHTML = '';
                 }
             }
-
             projectContainer.style.opacity = '1';
         }, 600);
     };
 
-    // --- INIZIALIZZAZIONE FILTRI ---
+    // --- GESTIONE FILTRI ---
     document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            // Rimuovi active da tutti e aggiungi al corrente
+        btn.addEventListener('click', () => {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
-            // Chiama il render resettando lo stretch (mostra solo i primi 2 del nuovo filtro)
             renderProjects(btn.dataset.filter, false);
         });
     });
 
-    // --- LOGICA SCROLL (Header + ScrollSpy + Indicator) ---
+    // --- LOGICA MOBILE MENU (MORPHING) ---
+    const menuBtn = document.querySelector('.mobile-menu-btn');
     const header = document.querySelector('.main-header');
-    const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.menu-links a');
+
+    if (menuBtn && header) {
+        menuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            menuBtn.classList.toggle('open');
+            header.classList.toggle('menu-open');
+            
+            // Blocca lo scroll se il menu è aperto
+            document.body.style.overflow = header.classList.contains('menu-open') ? 'hidden' : '';
+        });
+
+        // Chiudi il menu cliccando sui link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuBtn.classList.remove('open');
+                header.classList.remove('menu-open');
+                document.body.style.overflow = '';
+            });
+        });
+    }
+
+    // --- SCROLL EFFECTS (Pillola & ScrollSpy) ---
+    const sections = document.querySelectorAll('section[id]');
     const scrollIndicator = document.querySelector('.scroll-indicator');
 
     function handleScrollEffects() {
         const scrollPos = window.scrollY;
-        const windowHeight = window.innerHeight;
-        const bodyHeight = document.body.offsetHeight;
-        let currentSection = "";
-
+        
         // 1. Header (Effetto Pillola)
         if (scrollPos > 80) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
+            // Chiudi il menu se l'utente torna in cima (opzionale)
+            header.classList.remove('menu-open');
+            menuBtn.classList.remove('open');
         }
 
-        // 2. Indicatore Mouse (Sparisce dopo lo scroll)
+        // 2. Nascondi indicatore mouse
         if (scrollIndicator) {
-            if (scrollPos > 100) {
-                scrollIndicator.style.opacity = '0';
-                scrollIndicator.style.visibility = 'hidden';
-            } else {
-                scrollIndicator.style.opacity = '0.6';
-                scrollIndicator.style.visibility = 'visible';
+            scrollIndicator.style.opacity = scrollPos > 100 ? '0' : '0.6';
+        }
+
+        // 3. ScrollSpy (Pallino Attivo)
+        let currentSection = "";
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (scrollPos >= (sectionTop - 350)) {
+                currentSection = section.getAttribute('id');
             }
-        }
+        });
 
-        // 3. ScrollSpy (Gestione pallino attivo)
-        if (scrollPos < 300 || (windowHeight + scrollPos) >= (bodyHeight - 150)) {
-            navLinks.forEach(link => link.classList.remove('active'));
-        } else {
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (scrollPos >= (sectionTop - 350)) {
-                    currentSection = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(currentSection) && currentSection !== "") {
-                    link.classList.add('active');
-                }
-            });
-        }
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(currentSection) && currentSection !== "") {
+                link.classList.add('active');
+            }
+        });
     }
 
     // --- AVVIO ---
     window.addEventListener('scroll', handleScrollEffects);
-    renderProjects('all', false); // Caricamento iniziale
-    handleScrollEffects(); // Controllo scroll iniziale
-});
-
-const mobileBtn = document.querySelector('.mobile-menu-btn');
-const menuLinks = document.querySelector('.menu-links');
-const navLinksAll = document.querySelectorAll('.menu-links a');
-
-// Apri/Chiudi menu
-mobileBtn.addEventListener('click', () => {
-    mobileBtn.classList.toggle('open');
-    menuLinks.classList.toggle('active');
-});
-
-// Chiudi il menu quando clicchi su un link (per scorrere alla sezione)
-navLinksAll.forEach(link => {
-    link.addEventListener('click', () => {
-        mobileBtn.classList.remove('open');
-        menuLinks.classList.remove('active');
-    });
+    renderProjects('all', false);
+    handleScrollEffects();
 });
