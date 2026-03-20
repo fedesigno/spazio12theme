@@ -115,26 +115,55 @@ body {
 /* --- LA RIGA MINIMAL (Sostituisce il Pallino) --- */
 /* --- LINEA SOTTO: ATTIVA SOLO DA DESKTOP --- */
 @media (min-width: 769px) {
+    .menu-links {
+        display: flex;
+        align-items: center;
+    }
+
+    .menu-links a {
+        position: relative;
+        text-decoration: none;
+        display: inline-block;   /* Fondamentale: deve avvolgere solo il testo */
+        padding: 0 !important;   /* Elimina ingombri laterali */
+        margin-left: 45px;       /* Distanza tra le voci */
+        color: #fff;
+        
+        /* FIX PER LETTER-SPACING: 
+           Aggiungiamo un rientro a sinistra pari allo spazio tra le lettere
+           per pareggiare lo spazio vuoto che il browser mette alla fine. */
+        letter-spacing: 4px; 
+        text-indent: 4px; 
+    }
+
     .menu-links a::after {
-        content: ''; 
-        position: absolute; 
-        bottom: -8px; 
-        left: 0;      
-        width: 0;     
-        height: 1px;  
-        background: #fff; 
-        transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        
+        /* POSIZIONAMENTO FISICO AL CENTRO */
+        left: 50%; 
+        width: 100%;             /* Lunga quanto il testo */
+        height: 1px;
+        background: #fff;
+        
+        /* TRICK DEFINITIVO:
+           1. translateX(-50%) sposta la linea indietro di metà della sua lunghezza (centratura fisica)
+           2. scaleX(0) la rimpicciolisce per l'animazione */
+        transform: translateX(-50%) scaleX(0);
+        transform-origin: center;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Effetto allungamento su Hover e Active */
-    .menu-links a.active::after,
-    .menu-links a:hover::after {
-        width: 100%; 
+    /* Effetto Hover e Active: manteniamo translateX e cambiamo solo lo scale */
+    .menu-links a:hover::after,
+    .menu-links a.active::after {
+        transform: translateX(-50%) scaleX(1);
     }
 
-    /* Colore della linea quando l'header è "Pillola" */
+    /* Colore e posizione nella Pillola (Scrolled) */
     .main-header.scrolled .menu-links a::after {
-        background: #7bb7c5; 
+        background: #7bb7c5;
+        bottom: -4px;
     }
 }
 
