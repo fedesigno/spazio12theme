@@ -278,7 +278,7 @@ body {
 
 /* --- REGOLE SOLO PER MOBILE (< 768px) --- */
 @media (max-width: 768px) {
-    /* 1. POSIZIONAMENTO TASTO (HAMBURGER) - Sempre visibile */
+    /* 1. POSIZIONAMENTO TASTO (HAMBURGER) - (Invariato) */
     .mobile-menu-btn { 
         display: block; 
         position: absolute; 
@@ -317,7 +317,7 @@ body {
         background: rgba(38, 48, 51, 0.95);
     }
 
-    /* STATO MORPHING APERTO */
+    /* --- STATO APERTO MODIFICATO PER EFFETTO VETRO TRASPARENTE --- */
     .main-header.menu-open,
     .main-header.scrolled.menu-open {
         width: 280px !important;    
@@ -327,11 +327,24 @@ body {
         transform: none !important; 
         border-radius: 30px !important;
         padding-top: 80px !important; 
-        background: rgba(38, 48, 51, 0.98) !important;
         overflow: visible; 
+
+        /* --- EFFETTO VETRO (GLASSMORPHISM) --- */
+        /* Sfondo scuro ma molto trasparente */
+        background: rgba(20, 25, 27, 0.6) !important; 
+        
+        /* Sfocatura dello sfondo sottostante (la magia) */
+        backdrop-filter: blur(15px) !important;
+        -webkit-backdrop-filter: blur(15px) !important; /* Supporto Safari */
+        
+        /* Bordino sottile chiaro per definire la forma */
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        
+        /* Ombra più morbida */
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
     }
 
-    /* 3. LOGO */
+    /* 3. LOGO - (Invariato) */
     .logo-area {
         position: absolute;
         top: 30px; 
@@ -346,7 +359,7 @@ body {
         opacity: 0.7;
     }
 
-    /* 4. I LINK */
+    /* 4. I LINK (Aggiunto text-shadow per leggibilità) */
     .menu-links {
         display: none !important; 
         flex-direction: column;
@@ -374,9 +387,13 @@ body {
         margin: 0 !important;
         text-transform: uppercase;
         position: relative;
+        
+        /* Aggiungiamo un'ombra al testo per assicurarci che si legga 
+           anche se lo sfondo sfocato è chiaro */
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
 
-    /* --- RIMOZIONE LINEE (AFTER E BEFORE) --- */
+    /* --- RIMOZIONE LINEE (Invariato) --- */
     .menu-links a::after,
     .menu-links a::before,
     .menu-open .menu-links a::before,
@@ -386,7 +403,6 @@ body {
         width: 0 !important;
     }
 
-    /* Opzionale: un tocco di colore alla voce attiva per distinguerla senza linee */
     .menu-links a.active {
         color: #7bb7c5 !important;
         font-weight: 500 !important;
