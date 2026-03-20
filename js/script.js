@@ -209,3 +209,21 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProjects('all', false); // Caricamento iniziale
     handleScrollEffects(); // Controllo scroll iniziale
 });
+
+const mobileBtn = document.querySelector('.mobile-menu-btn');
+const menuLinks = document.querySelector('.menu-links');
+const navLinksAll = document.querySelectorAll('.menu-links a');
+
+// Apri/Chiudi menu
+mobileBtn.addEventListener('click', () => {
+    mobileBtn.classList.toggle('open');
+    menuLinks.classList.toggle('active');
+});
+
+// Chiudi il menu quando clicchi su un link (per scorrere alla sezione)
+navLinksAll.forEach(link => {
+    link.addEventListener('click', () => {
+        mobileBtn.classList.remove('open');
+        menuLinks.classList.remove('active');
+    });
+});

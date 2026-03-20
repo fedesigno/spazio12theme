@@ -142,6 +142,116 @@ body {
     display: none; /* Rimuove il pallino solo dal tasto contatti se preferisci */
 }
 
+/* --- HAMBURGER "ARCHI-TECH" --- */
+.mobile-menu-btn {
+    display: none; /* Si attiva solo in media query */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 2000;
+}
+
+.hamburger-box {
+    width: 30px;
+    height: 20px;
+    position: relative;
+}
+
+.line {
+    position: absolute;
+    height: 2px;
+    background-color: #ffffff; /* Le linee ora sono BIANCHE */
+    right: 0;
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Lunghezze diverse per un look più dinamico */
+.line:nth-child(1) { top: 0; width: 100%; }
+.line:nth-child(2) { top: 50%; width: 70%; transform: translateY(-50%); }
+.line:nth-child(3) { bottom: 0; width: 40%; }
+
+/* Animazione quando aperto */
+.mobile-menu-btn.open .line:nth-child(1) { transform: translateY(9px) rotate(45deg); width: 100%; }
+.mobile-menu-btn.open .line:nth-child(2) { opacity: 0; transform: translateX(20px); }
+.mobile-menu-btn.open .line:nth-child(3) { transform: translateY(-9px) rotate(-45deg); width: 100%; }
+
+/* --- MENU A TENDINA "FULL OVERLAY" --- */
+@media (max-width: 768px) {
+    /* Hamburger con linee BIANCHE (per vederle sulla foto hero) */
+    .mobile-menu-btn {
+        display: block;
+        z-index: 2001; /* Sopra a tutto */
+    }
+
+    .line {
+        background-color: #ffffff; /* Bianche inizialmente */
+        height: 1.5px; /* Ancora più sottili */
+    }
+
+    /* Quando il menu è aperto, le linee diventano NERE per contrasto sul fondo bianco */
+    .mobile-menu-btn.open .line {
+        background-color: #111;
+    }
+
+    /* MENU A TENDINA: STILE NAVBAR */
+    .menu-links {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.98); /* Bianco quasi totale, molto pulito */
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+        transform: translateY(-100%);
+        transition: transform 0.5s cubic-bezier(0.82, 0.01, 0.21, 1);
+        z-index: 2000;
+        counter-reset: nav-counter;
+    }
+
+    .menu-links.active {
+        transform: translateY(0);
+    }
+
+    /* Stile voci menu: Elegante e leggero */
+    .menu-links a {
+        color: #111 !important;
+        font-size: 2rem !important;
+        font-family: 'League Spartan', sans-serif;
+        font-weight: 300; /* Molto leggero */
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    /* Numerazione sottile e tecnica */
+    .menu-links a::before {
+        content: "0" counter(nav-counter);
+        counter-increment: nav-counter;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #aaa; /* Grigio chiaro tecnico */
+        margin-right: 15px;
+        letter-spacing: 1px;
+    }
+
+    /* Effetto hover: la scritta diventa bold o cambia leggermente */
+    .menu-links a:hover {
+        font-weight: 600;
+        letter-spacing: 6px; /* Si espande leggermente */
+    }
+}
+
+/* Animazione Hamburger quando aperto */
+.mobile-menu-btn.open .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.mobile-menu-btn.open .bar:nth-child(2) { opacity: 0; }
+.mobile-menu-btn.open .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
 /* HERO SLIDER */
 .hero { 
     height: 100vh; 
