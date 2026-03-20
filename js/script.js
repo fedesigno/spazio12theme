@@ -126,30 +126,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- LOGICA MOBILE MENU (MORPHING) ---
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    const header = document.querySelector('.main-header');
-    const navLinks = document.querySelectorAll('.menu-links a');
+// --- LOGICA MOBILE MENU (MORPHING) ---
+const menuBtn = document.querySelector('.mobile-menu-btn');
+const header = document.querySelector('.main-header');
+const navLinks = document.querySelectorAll('.menu-links a');
 
-    if (menuBtn && header) {
-        menuBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            menuBtn.classList.toggle('open');
-            header.classList.toggle('menu-open');
-            
-            // Blocca lo scroll se il menu è aperto
-            document.body.style.overflow = header.classList.contains('menu-open') ? 'hidden' : '';
-        });
+if (menuBtn && header) {
+    menuBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        menuBtn.classList.toggle('open');
+        header.classList.toggle('menu-open');
+        
+        // CANCELLA O COMMENTA QUESTA RIGA:
+        // document.body.style.overflow = header.classList.contains('menu-open') ? 'hidden' : '';
+        
+        // LASCIALA COSÌ (VUOTA O RIMOSSA) PER PERMETTERE LO SCROLL:
+        document.body.style.overflow = ''; 
+    });
 
-        // Chiudi il menu cliccando sui link
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                menuBtn.classList.remove('open');
-                header.classList.remove('menu-open');
-                document.body.style.overflow = '';
-            });
+    // Chiudi il menu cliccando sui link
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            menuBtn.classList.remove('open');
+            header.classList.remove('menu-open');
+            document.body.style.overflow = ''; // Assicurati che torni normale
         });
-    }
+    });
+}
 
     // --- SCROLL EFFECTS (Pillola & ScrollSpy) ---
     const sections = document.querySelectorAll('section[id]');

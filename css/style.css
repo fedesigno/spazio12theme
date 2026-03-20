@@ -87,7 +87,6 @@ body {
 .brand-bold { font-weight: 800; }
 
 /* --- Menu Links Base --- */
-/* --- Menu Links Base --- */
 .menu-links a { 
     text-decoration: none; 
     color: var(--white); 
@@ -112,26 +111,52 @@ body {
     font-weight: 800 !important;
 }
 
-/* --- IL PALLINO BIANCO --- */
-/* Lo creiamo una volta sola per entrambi gli stati */
-.menu-links a::after {
-    content: ''; 
-    position: absolute; 
-    bottom: -12px; /* Distanza dalla scritta */
-    left: 50%;
-    transform: translateX(-50%) scale(0); 
-    width: 6px; 
-    height: 6px;
-    background: #fff; 
-    border-radius: 50%; 
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+/* --- LA RIGA MINIMAL (Sostituisce il Pallino) --- */
+/* --- LINEA SOTTO: ATTIVA SOLO DA DESKTOP --- */
+@media (min-width: 769px) {
+    .menu-links a::after {
+        content: ''; 
+        position: absolute; 
+        bottom: -8px; 
+        left: 0;      
+        width: 0;     
+        height: 1px;  
+        background: #fff; 
+        transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Effetto allungamento su Hover e Active */
+    .menu-links a.active::after,
+    .menu-links a:hover::after {
+        width: 100%; 
+    }
+
+    /* Colore della linea quando l'header è "Pillola" */
+    .main-header.scrolled .menu-links a::after {
+        background: #7bb7c5; 
+    }
 }
 
-/* Il pallino appare se il link è ACTIVE o se ci passi sopra col MOUSE */
+/* La riga si allunga se il link è ACTIVE o in HOVER */
 .menu-links a.active::after,
 .menu-links a:hover::after {
-    transform: translateX(-50%) scale(1);
+    width: 100%; /* Si allunga per tutta la scritta */
 }
+
+/* Quando l'header è "Pillola" (Scrolled), la riga si adatta */
+.main-header.scrolled .menu-links a::after {
+    background: #7bb7c5; /* Colore d'accento quando sei sulla pillola scura */
+    bottom: -5px;        /* Più vicina al testo nella pillola */
+}
+
+/* Stato Attivo nella Pillola: Testo Bold + Riga Accento */
+.main-header.scrolled .menu-links a.active {
+    font-weight: 800 !important;
+    opacity: 1;
+}
+
+
 
 /* Eccezione: Tasto Contatti (Sempre Bold, niente pallino) */
 .menu-links a.btn-nav {
@@ -224,32 +249,35 @@ body {
 
 /* --- REGOLE SOLO PER MOBILE (< 768px) --- */
 @media (max-width: 768px) {
-    /* 1. POSIZIONAMENTO TASTO (HAMBURGER) */
+    /* 1. POSIZIONAMENTO TASTO (HAMBURGER) - Sempre visibile */
     .mobile-menu-btn { 
         display: block; 
         position: absolute; 
         right: 25px; 
-        top: 30px; /* Posizione fissa dall'alto della pillola */
-        transform: translateY(-50%); /* Centrato rispetto ai 60px iniziali */
+        top: 30px; 
+        transform: translateY(-50%); 
         z-index: 2200; 
         transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
     }
 
-    /* Gestione colore X e blocco posizione quando aperto */
     .mobile-menu-btn.open {
-        top: 30px; /* Resta fisso in alto anche se la box cresce */
-        transform: none; /* Rimuoviamo il centramento verticale */
+        top: 30px; 
+        transform: none; 
     }
 
     .mobile-menu-btn.open .line {
         background-color: #ffffff !important;
     }
 
-    /* 2. LA PILLOLA (HEADER) */
+    /* 2. L'HEADER (PILLOLA O HERO) */
+    .main-header {
+        transition: all 0.7s cubic-bezier(0.2, 1, 0.3, 1) !important;
+    }
+
     .main-header.scrolled {
         width: 90% !important;
         max-width: 400px;
-        height: 60px; /* Altezza iniziale */
+        height: 60px; 
         left: 50% !important;
         top: 20px !important;
         transform: translateX(-50%);
@@ -257,51 +285,52 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        transition: all 0.7s cubic-bezier(0.2, 1, 0.3, 1) !important;
         background: rgba(38, 48, 51, 0.95);
     }
 
-    /* STATO MORPHING APERTO (SPOSTATO A DESTRA) */
+    /* STATO MORPHING APERTO */
+    .main-header.menu-open,
     .main-header.scrolled.menu-open {
-        width: 280px !important;    /* Larghezza scheda */
-        height: 400px !important;   /* Altezza scheda */
-        left: auto !important;      /* Sgancia da sinistra */
-        right: 5% !important;       /* Incolla a destra */
-        transform: none !important; /* Rimuove translateX per stare a destra */
+        width: 280px !important;    
+        height: 400px !important;   
+        left: auto !important;      
+        right: 5% !important;       
+        transform: none !important; 
         border-radius: 30px !important;
-        padding-top: 80px !important; /* Spazio per non coprire logo/X */
+        padding-top: 80px !important; 
+        background: rgba(38, 48, 51, 0.98) !important;
+        overflow: visible; 
     }
 
-    /* 3. LOGO (Sempre in alto a sinistra) */
+    /* 3. LOGO */
     .logo-area {
         position: absolute;
         top: 30px; 
         left: 25px;
         transform: translateY(-50%);
-        transition: all 0.5s ease;
         z-index: 2100;
     }
 
     .menu-open .logo-area {
         top: 30px;
-        transform: scale(0.85); /* Leggermente più piccolo quando aperto */
+        transform: scale(0.85);
         opacity: 0.7;
     }
 
-    /* 4. I LINK ALL'INTERNO */
+    /* 4. I LINK */
     .menu-links {
-        display: flex !important;
+        display: none !important; 
         flex-direction: column;
         align-items: flex-start;
         padding-left: 35px;
         gap: 25px;
         opacity: 0;
-        pointer-events: none;
         transform: translateY(20px);
-        transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+        transition: all 0.5s ease;
     }
 
     .menu-open .menu-links {
+        display: flex !important;
         opacity: 1;
         pointer-events: auto;
         transform: translateY(0);
@@ -315,21 +344,25 @@ body {
         letter-spacing: 4px !important;
         margin: 0 !important;
         text-transform: uppercase;
+        position: relative;
     }
 
-    /* Numeri 01, 02... */
-    .menu-links a::before {
-        content: "●";
-        font-size: 0.6rem;
-        color: #7bb7c5;
-        margin-right: 12px;
-        opacity: 0.8;
+    /* --- RIMOZIONE LINEE (AFTER E BEFORE) --- */
+    .menu-links a::after,
+    .menu-links a::before,
+    .menu-open .menu-links a::before,
+    .menu-links a.active::before {
+        display: none !important;
+        content: none !important;
+        width: 0 !important;
     }
 
-    /* Rimuove pallini bianchi desktop */
-    .menu-links a::after { display: none !important; }
+    /* Opzionale: un tocco di colore alla voce attiva per distinguerla senza linee */
+    .menu-links a.active {
+        color: #7bb7c5 !important;
+        font-weight: 500 !important;
+    }
 }
-
 /* HERO SLIDER */
 .hero { 
     height: 100vh; 
