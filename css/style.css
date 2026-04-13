@@ -138,11 +138,11 @@ body {
     .menu-links a::after {
         content: '';
         position: absolute;
-        bottom: -8px;
+        bottom: -6px !important;
         
         /* POSIZIONAMENTO FISICO AL CENTRO */
         left: 50%; 
-        width: 100%;             /* Lunga quanto il testo */
+        width: 90%;             /* Lunga quanto il testo */
         height: 1px;
         background: #fff;
         
@@ -160,23 +160,16 @@ body {
         transform: translateX(-50%) scaleX(1);
     }
 
-    /* Colore e posizione nella Pillola (Scrolled) */
-    .main-header.scrolled .menu-links a::after {
-        background: #7bb7c5;
-        bottom: -4px;
-    }
 }
-
 /* La riga si allunga se il link è ACTIVE o in HOVER */
 .menu-links a.active::after,
 .menu-links a:hover::after {
-    width: 100%; /* Si allunga per tutta la scritta */
+    width: 90%; /* Si allunga per tutta la scritta */
 }
-
 /* Quando l'header è "Pillola" (Scrolled), la riga si adatta */
 .main-header.scrolled .menu-links a::after {
     background: #7bb7c5; /* Colore d'accento quando sei sulla pillola scura */
-    bottom: -5px;        /* Più vicina al testo nella pillola */
+    bottom: -2px;        /* Più vicina al testo nella pillola */
 }
 
 /* Stato Attivo nella Pillola: Testo Bold + Riga Accento */
@@ -232,9 +225,15 @@ body {
 
 /* Animazione X: le linee diventano nere solo quando il menu bianco è APERTO */
 .mobile-menu-btn.open .line { background-color: #111 !important; } 
-.mobile-menu-btn.open .line:nth-child(1) { transform: translateY(8px) rotate(45deg); width: 100%; }
+.mobile-menu-btn.open .line:nth-child(1) { 
+    transform: translateY(6px) rotate(45deg); /* Ridotto translateY da 8px a 6px */
+    width: 22px !important; /* Era 100% (30px), ora è più corta */
+}
 .mobile-menu-btn.open .line:nth-child(2) { opacity: 0; transform: translateX(20px); }
-.mobile-menu-btn.open .line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); width: 100%; }
+.mobile-menu-btn.open .line:nth-child(3) { 
+    transform: translateY(-6px) rotate(-45deg); /* Ridotto translateY da 8px a 6px */
+    width: 22px !important; /* Uguale alla linea sopra */
+}
 
 /* --- REGOLE SOLO PER MOBILE (< 768px) --- */
 /* =================================================
@@ -242,14 +241,12 @@ body {
 ================================================= */
 
 /* --- Tasto Hamburger (Sempre visibile su Mobile) --- */
-.mobile-menu-btn {
-    display: none; 
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 2100; 
-    position: relative;
+.mobile-menu-btn { 
+    display: block; 
+    position: absolute; 
+    right: 20px; /* Portato da 25px a 20px per stare più vicino al bordo */
+    top: 25px;   /* Alzato leggermente (era 30px) */
+    z-index: 2200; 
 }
 
 .hamburger-box {
@@ -356,7 +353,11 @@ body {
     .menu-open .logo-area {
         top: 30px;
         transform: scale(0.85);
-        opacity: 0.7;
+        opacity: 1;
+    }
+
+    .menu-open .brand-text {
+    font-size: 1rem; /* Qui imposti la dimensione esatta per il mobile */
     }
 
     /* 4. I LINK (Aggiunto text-shadow per leggibilità) */
@@ -523,8 +524,8 @@ body {
 .bg-light { background-color: var(--light-gray); }
 .container { max-width: 1400px; margin: 0 auto; }
 
-.section-title { font-size: 0.9rem; letter-spacing: 5px; font-weight: 800; margin-bottom: 60px; position: relative; }
-.section-title::after { content: ''; display: block; width: 40px; height: 2px; background: var(--accent); margin-top: 10px; }
+.section-title { font-size: 1.5rem; letter-spacing: 5px; font-weight: 800; margin-bottom: 60px; position: relative; }
+.section-title::after { content: ''; display: block; width: 80px; height: 3px; background: var(--accent); margin-top: 10px; }
 
 /* SERVIZI */
 .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
