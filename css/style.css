@@ -120,7 +120,7 @@ body {
 ================================================= */
 
 @media (max-width: 768px) {
-    /* --- Tasto Hamburger: Più minimale --- */
+    /* --- IL MENU (INVARIATO) --- */
     .mobile-menu-btn { 
         display: block; 
         position: absolute; 
@@ -132,12 +132,13 @@ body {
     }
 
     .hamburger-box { width: 28px; height: 14px; }
-    .line { height: 1.5px; background-color: var(--white); } /* Linee più sottili */
+    .line { height: 1.5px; background-color: var(--white); position: absolute; transition: all 0.4s ease; width: 100%; }
+    .line:nth-child(1) { top: 0; }
+    .line:nth-child(2) { top: 50%; transform: translateY(-50%); }
+    .line:nth-child(3) { bottom: 0; }
 
-    /* Quando l'header è scrolled, le linee seguono il design del logo */
     .main-header.scrolled .line { background-color: #ffffff; }
 
-    /* --- L'Header "Contenitore" --- */
     .main-header {
         transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
         height: 70px;
@@ -145,7 +146,6 @@ body {
         align-items: center;
     }
 
-    /* Versione Scrolled: Pillola più compatta */
     .main-header.scrolled {
         width: 92% !important;
         height: 55px;
@@ -153,7 +153,6 @@ body {
         padding: 0 25px !important;
     }
 
-    /* --- STATO APERTO: Full Screen Blur --- */
     .main-header.menu-open {
         width: 100% !important;
         height: 100vh !important;
@@ -163,24 +162,23 @@ body {
         bottom: 0 !important;
         transform: none !important;
         border-radius: 0 !important;
-        background: rgba(8, 8, 8, 0.95) !important; /* Sfondo scuro profondo */
+        background: rgba(8, 8, 8, 0.95) !important;
         backdrop-filter: blur(20px) !important;
         -webkit-backdrop-filter: blur(20px) !important;
         display: flex;
         flex-direction: column;
-        justify-content: center; /* Centratura verticale dei link */
+        justify-content: center;
         align-items: center;
         padding-top: 0 !important;
         border: none !important;
     }
 
-    /* --- MENU LINKS: Animazione a cascata --- */
     .menu-links {
         display: none !important;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 35px; /* Più respiro tra le voci */
+        gap: 35px;
         width: 100%;
         opacity: 0;
     }
@@ -193,7 +191,7 @@ body {
 
     .menu-links a {
         font-family: 'Roboto', sans-serif;
-        font-size: 1.4rem !important; /* Più grande e leggibile */
+        font-size: 1.4rem !important;
         font-weight: 100 !important;
         letter-spacing: 14px !important;
         text-align: center;
@@ -203,8 +201,6 @@ body {
         transition: color 0.3s ease;
     }
 
-
-    /* Effetto comparsa ritardata per ogni link */
     .menu-open .menu-links a:nth-child(1) { animation: slideUpIn 0.5s 0.2s forwards; }
     .menu-open .menu-links a:nth-child(2) { animation: slideUpIn 0.5s 0.3s forwards; }
     .menu-open .menu-links a:nth-child(3) { animation: slideUpIn 0.5s 0.4s forwards; }
@@ -214,14 +210,12 @@ body {
         to { opacity: 0.8; transform: translateY(0); }
     }
 
-    /* Link Attivo nel Mobile */
     .menu-links a.active {
         color: #7bb7c5 !important;
         opacity: 1 !important;
         font-weight: 500 !important;
     }
 
-    /* Footer del menu mobile (opzionale: per contatti rapidi) */
     .menu-open::after {
         content: 'INGEGNERIA | DESIGN | ARCHITETTURA';
         position: absolute;
@@ -230,6 +224,57 @@ body {
         letter-spacing: 4px;
         color: rgba(255,255,255,0.3);
     }
+
+    /* --- LOGO FIX (Per farlo leggere sempre) --- */
+    .logo-area {
+        position: relative;
+        z-index: 3000;
+    }
+    .brand-text {
+        font-size: 1 rem !important; /* Ridotto per mobile */
+        letter-spacing: 3px !important;
+        display: block !important; /* Assicura che si legga */
+        font-weight: 100;
+    }
+
+    /* --- SISTEMAZIONE CONTENUTI PAGINA (Per non tagliare nulla) --- */
+    
+    /* Hero */
+    .hero-bold, .hero-thin { font-size: 2.2rem !important; }
+    .hero-thin { letter-spacing: 8px !important; margin-right: -8px !important; }
+    .hero { padding-bottom: 80px; }
+
+    /* Griglie sezioni (Vision, Servizi, Team) */
+    .vision-grid, .services-grid, .pillars-grid, .team-member-row {
+        grid-template-columns: 1fr !important; /* Tutto su una colonna */
+        gap: 40px !important;
+    }
+
+    .section { 
+        padding: 120px 8%; 
+    }
+    .big-statement { font-size: 2.2rem !important; }
+
+    /* Immagini responsive */
+    .vision-image img, .services-image img, .member-photo img {
+        height: 350px !important; /* Altezza fissa ma proporzionata */
+        width: 100% !important;
+        object-fit: cover;
+    }
+
+    /* Team Layout */
+    .team-member-row.reverse .member-photo { order: 1 !important; }
+    .team-member-row.reverse .member-details { order: 2 !important; text-align: left !important; }
+    .member-name { font-size: 2.2rem !important; }
+    
+    .member-tag {
+        writing-mode: horizontal-tb !important; /* Tag leggibile su mobile */
+        top: -10px !important;
+        right: 10px !important;
+        height: auto !important;
+    }
+
+    .pillar-num { font-size: 3rem !important; top: -45px !important; }
 }
 /* La riga si allunga se il link è ACTIVE o in HOVER */
 .menu-links a.active::after,
