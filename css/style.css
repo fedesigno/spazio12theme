@@ -13,7 +13,8 @@
 html { scroll-behavior: smooth; }
 
 body { 
-    font-family: 'League Spartan', sans-serif; 
+    /* Cambia League Spartan con Roboto */
+    font-family: 'Roboto', sans-serif; 
     background: var(--white); 
     color: var(--black); 
     line-height: 1.6;
@@ -191,15 +192,17 @@ body {
     }
 
     .menu-links a {
+        font-family: 'Roboto', sans-serif;
         font-size: 1.4rem !important; /* Più grande e leggibile */
-        font-weight: 200 !important;
-        letter-spacing: 6px !important;
+        font-weight: 100 !important;
+        letter-spacing: 14px !important;
         text-align: center;
         width: 100%;
         opacity: 0;
         transform: translateY(20px);
         transition: color 0.3s ease;
     }
+
 
     /* Effetto comparsa ritardata per ogni link */
     .menu-open .menu-links a:nth-child(1) { animation: slideUpIn 0.5s 0.2s forwards; }
