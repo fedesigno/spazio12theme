@@ -114,52 +114,119 @@ body {
 
 /* --- LA RIGA MINIMAL (Sostituisce il Pallino) --- */
 /* --- LINEA SOTTO: ATTIVA SOLO DA DESKTOP --- */
-@media (min-width: 769px) {
-    .menu-links {
+/* =================================================
+   4. NAVIGATION & MOBILE MENU (RE-DESIGNED)
+================================================= */
+
+@media (max-width: 768px) {
+    /* --- Tasto Hamburger: Più minimale --- */
+    .mobile-menu-btn { 
+        display: block; 
+        position: absolute; 
+        right: 20px; 
+        top: 50%; 
+        transform: translateY(-50%); 
+        z-index: 2200; 
+        padding: 10px;
+    }
+
+    .hamburger-box { width: 28px; height: 14px; }
+    .line { height: 1.5px; background-color: var(--white); } /* Linee più sottili */
+
+    /* Quando l'header è scrolled, le linee seguono il design del logo */
+    .main-header.scrolled .line { background-color: #ffffff; }
+
+    /* --- L'Header "Contenitore" --- */
+    .main-header {
+        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        height: 70px;
         display: flex;
         align-items: center;
     }
 
+    /* Versione Scrolled: Pillola più compatta */
+    .main-header.scrolled {
+        width: 92% !important;
+        height: 55px;
+        top: 15px !important;
+        padding: 0 25px !important;
+    }
+
+    /* --- STATO APERTO: Full Screen Blur --- */
+    .main-header.menu-open {
+        width: 100% !important;
+        height: 100vh !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        transform: none !important;
+        border-radius: 0 !important;
+        background: rgba(8, 8, 8, 0.95) !important; /* Sfondo scuro profondo */
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centratura verticale dei link */
+        align-items: center;
+        padding-top: 0 !important;
+        border: none !important;
+    }
+
+    /* --- MENU LINKS: Animazione a cascata --- */
+    .menu-links {
+        display: none !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 35px; /* Più respiro tra le voci */
+        width: 100%;
+        opacity: 0;
+    }
+
+    .menu-open .menu-links {
+        display: flex !important;
+        opacity: 1;
+        animation: fadeInLinks 0.8s ease forwards;
+    }
+
     .menu-links a {
-        position: relative;
-        text-decoration: none;
-        display: inline-block;   /* Fondamentale: deve avvolgere solo il testo */
-        padding: 0 !important;   /* Elimina ingombri laterali */
-        margin-left: 45px;       /* Distanza tra le voci */
-        color: #fff;
-        
-        /* FIX PER LETTER-SPACING: 
-           Aggiungiamo un rientro a sinistra pari allo spazio tra le lettere
-           per pareggiare lo spazio vuoto che il browser mette alla fine. */
-        letter-spacing: 4px; 
-        text-indent: 4px; 
+        font-size: 1.4rem !important; /* Più grande e leggibile */
+        font-weight: 200 !important;
+        letter-spacing: 6px !important;
+        text-align: center;
+        width: 100%;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: color 0.3s ease;
     }
 
-    .menu-links a::after {
-        content: '';
+    /* Effetto comparsa ritardata per ogni link */
+    .menu-open .menu-links a:nth-child(1) { animation: slideUpIn 0.5s 0.2s forwards; }
+    .menu-open .menu-links a:nth-child(2) { animation: slideUpIn 0.5s 0.3s forwards; }
+    .menu-open .menu-links a:nth-child(3) { animation: slideUpIn 0.5s 0.4s forwards; }
+    .menu-open .menu-links a:nth-child(4) { animation: slideUpIn 0.5s 0.5s forwards; }
+
+    @keyframes slideUpIn {
+        to { opacity: 0.8; transform: translateY(0); }
+    }
+
+    /* Link Attivo nel Mobile */
+    .menu-links a.active {
+        color: #7bb7c5 !important;
+        opacity: 1 !important;
+        font-weight: 500 !important;
+    }
+
+    /* Footer del menu mobile (opzionale: per contatti rapidi) */
+    .menu-open::after {
+        content: 'INGEGNERIA | DESIGN | ARCHITETTURA';
         position: absolute;
-        bottom: -6px !important;
-        
-        /* POSIZIONAMENTO FISICO AL CENTRO */
-        left: 50%; 
-        width: 90%;             /* Lunga quanto il testo */
-        height: 1px;
-        background: #fff;
-        
-        /* TRICK DEFINITIVO:
-           1. translateX(-50%) sposta la linea indietro di metà della sua lunghezza (centratura fisica)
-           2. scaleX(0) la rimpicciolisce per l'animazione */
-        transform: translateX(-50%) scaleX(0);
-        transform-origin: center;
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        bottom: 40px;
+        font-size: 0.6rem;
+        letter-spacing: 4px;
+        color: rgba(255,255,255,0.3);
     }
-
-    /* Effetto Hover e Active: manteniamo translateX e cambiamo solo lo scale */
-    .menu-links a:hover::after,
-    .menu-links a.active::after {
-        transform: translateX(-50%) scaleX(1);
-    }
-
 }
 /* La riga si allunga se il link è ACTIVE o in HOVER */
 .menu-links a.active::after,
@@ -276,139 +343,201 @@ body {
 .mobile-menu-btn.open .line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); width: 100%; }
 
 /* --- REGOLE SOLO PER MOBILE (< 768px) --- */
+/* =================================================
+   4. NAVIGATION & MOBILE MENU (ELITE REFINED)
+================================================= */
+
 @media (max-width: 768px) {
-    /* 1. POSIZIONAMENTO TASTO (HAMBURGER) - (Invariato) */
-    .mobile-menu-btn { 
-        display: block; 
-        position: absolute; 
-        right: 25px; 
-        top: 30px; 
-        transform: translateY(-50%); 
-        z-index: 2200; 
-        transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-    }
 
-    .mobile-menu-btn.open {
-        top: 30px; 
-        transform: none; 
-    }
-
-    .mobile-menu-btn.open .line {
-        background-color: #ffffff !important;
-    }
-
-    /* 2. L'HEADER (PILLOLA O HERO) */
+    /* --- 1. L'HEADER "CONTENITORE" (Pillola Scrolled) --- */
     .main-header {
-        transition: all 0.7s cubic-bezier(0.2, 1, 0.3, 1) !important;
+        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px !important; /* Allineamento base per logo e hamburger */
     }
 
+    /* Versione "Scrolled": Pillola Compatta (come prima) */
     .main-header.scrolled {
-        width: 90% !important;
-        max-width: 400px;
-        height: 60px; 
-        left: 50% !important;
-        top: 20px !important;
-        transform: translateX(-50%);
+        width: 92% !important;
+        max-width: 500px;
+        height: 55px;
+        top: 15px !important;
+        padding: 0 20px !important; /* Manteniamo lo stesso padding */
+        background: linear-gradient(rgba(38, 48, 51, 0.9), rgba(38, 48, 51, 0.9)),
+                    url('https://grainy-gradients.vercel.app/noise.svg');
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* --- 2. TASTO HAMBURGER: POSIZIONE E DESIGN --- */
+    .mobile-menu-btn {
+        display: block;
+        position: absolute;
+        right: 20px; /* Allineato a destra */
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 3000; /* Sopra a tutto */
+        padding: 10px; /* Area di tocco ottimizzata */
+        cursor: pointer;
+        transition: transform 0.3s var(--transition);
+    }
+
+    .hamburger-box {
+        width: 26px;
+        height: 12px;
+        position: relative;
+    }
+
+    .line {
+        position: absolute;
+        height: 1px; /* Linea ultra-sottile per eleganza */
+        background-color: var(--white);
+        right: 0;
+        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        width: 100%;
+    }
+
+    /* Posizioni iniziali delle linee (vicine) */
+    .line:nth-child(1) { top: 0; }
+    .line:nth-child(2) { top: 50%; transform: translateY(-50%); }
+    .line:nth-child(3) { bottom: 0; }
+
+    /* --- ANIMAZIONE TASTO 'APERTO' (X) --- */
+    .mobile-menu-btn.open .line {
+        background-color: var(--white) !important; /* Sempre bianco sull'overlay scuro */
+    }
+
+    .mobile-menu-btn.open .line:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+    }
+
+    /* La linea centrale scompare */
+    .mobile-menu-btn.open .line:nth-child(2) {
+        opacity: 0;
+        transform: translateY(-50%) translateX(10px);
+    }
+
+    .mobile-menu-btn.open .line:nth-child(3) {
+        transform: translateY(-5px) rotate(-45deg);
+    }
+
+    /* --- 3. OVERLAY MENU FULL-SCREEN (L'EFFETTO "WOW") --- */
+    /* Quando il menu è aperto, l'header diventa un overlay a tutto schermo */
+    .main-header.menu-open {
+        width: 100% !important;
+        height: 100vh !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        transform: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
         overflow: hidden;
+
+        /* SFONDO: Ultra-scuro con Grana Profonda */
+        background: radial-gradient(circle at center, rgba(15, 15, 15, 0.98) 0%, rgba(5, 5, 5, 1) 100%),
+                    url('https://grainy-gradients.vercel.app/noise.svg');
+        
+        /* BLUR: Molto profondo per isolare il menu */
+        backdrop-filter: blur(25px) !important;
+        -webkit-backdrop-filter: blur(25px) !important;
+        
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
-        background: rgba(38, 48, 51, 0.95);
+        justify-content: center; /* Centratura verticale dei link */
+        align-items: center;
+        border: none !important;
+        z-index: 2500; /* Sotto il tasto ma sopra a tutto il resto */
     }
 
-    /* --- STATO APERTO MODIFICATO PER EFFETTO VETRO TRASPARENTE --- */
-    .main-header.menu-open,
-    .main-header.scrolled.menu-open {
-        width: 280px !important;    
-        height: 400px !important;   
-        left: auto !important;      
-        right: 5% !important;       
-        transform: none !important; 
-        border-radius: 30px !important;
-        padding-top: 80px !important; 
-        overflow: visible; 
-
-        /* --- EFFETTO VETRO (GLASSMORPHISM) --- */
-        /* Sfondo scuro ma molto trasparente */
-        background: rgba(20, 25, 27, 0.6) !important; 
-        
-        /* Sfocatura dello sfondo sottostante (la magia) */
-        backdrop-filter: blur(15px) !important;
-        -webkit-backdrop-filter: blur(15px) !important; /* Supporto Safari */
-        
-        /* Bordino sottile chiaro per definire la forma */
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        
-        /* Ombra più morbida */
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
-    }
-
-    /* 3. LOGO - (Invariato) */
-    .logo-area {
+    /* Il logo deve rimanere visibile in alto a sinistra nell'overlay */
+    .main-header.menu-open .logo-area {
         position: absolute;
-        top: 30px; 
-        left: 25px;
-        transform: translateY(-50%);
-        z-index: 2100;
+        top: 25px; /* Allineamento verticale con la X */
+        left: 20px;
+        opacity: 0.7; /* Leggermente sbiadito per non disturbare */
+        transform: scale(0.9); /* Leggermente più piccolo per delicatezza */
     }
 
-    .menu-open .logo-area {
-        top: 30px;
-        transform: scale(0.85);
-        opacity: 1;
+    /* Assicuriamoci che il tasto sia allineato con il logo quando aperto */
+    .main-header.menu-open .mobile-menu-btn {
+        top: 25px; /* Stessa altezza del logo */
+        transform: none; /* Rimuoviamo la centratura verticale */
     }
 
-    .menu-open .brand-text {
-    font-size: 1rem; /* Qui imposti la dimensione esatta per il mobile */
-    }
-
-    /* 4. I LINK (Aggiunto text-shadow per leggibilità) */
+    /* --- 4. I LINK: TIPOGRAFIA RAFFINATA --- */
     .menu-links {
-        display: none !important; 
+        display: none !important; /* Nascondi di base */
         flex-direction: column;
-        align-items: flex-start;
-        padding-left: 35px;
-        gap: 25px;
+        align-items: center;
+        justify-content: center;
+        gap: 15px; /* Spazio equilibrato e compatto */
+        width: 100%;
         opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.5s ease;
+        padding: 0 10%;
     }
 
     .menu-open .menu-links {
         display: flex !important;
         opacity: 1;
-        pointer-events: auto;
-        transform: translateY(0);
-        transition-delay: 0.2s;
+        transition: opacity 0.4s ease;
     }
 
     .menu-links a {
-        color: #ffffff !important;
-        font-size: 1rem !important;
-        font-weight: 200 !important;
-        letter-spacing: 4px !important;
-        margin: 0 !important;
-        text-transform: uppercase;
-        position: relative;
+        color: var(--white) !important;
+        text-decoration: none;
         
-        /* Aggiungiamo un'ombra al testo per assicurarci che si legga 
-           anche se lo sfondo sfocato è chiaro */
-        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        /* TIPOGRAFIA ELITE: Dimensioni ridotte, Spaziatura importante, Peso equilibrato */
+        font-size: 1.3rem !important; /* Ridotto da 1.8rem, ora "un pelo più piccolo" */
+        font-weight: 200 !important; /* Aumentato da 100 a 200 per leggibilità a dimensione inferiore */
+        letter-spacing: 10px !important; /* Respiro importante, leggermente ridotto per bilanciare la dimensione */
+        text-transform: uppercase;
+        
+        text-align: center;
+        width: auto;
+        opacity: 0;
+        transform: translateY(30px); /* Parte più in basso */
+        position: relative;
+        padding: 8px 0; /* Area di tocco compattata */
+        
+        /* Transizione fluida per l'hover */
+        transition: transform 0.4s ease, color 0.3s ease, opacity 0.3s ease;
     }
 
-    /* --- RIMOZIONE LINEE (Invariato) --- */
-    .menu-links a::after,
-    .menu-links a::before,
-    .menu-open .menu-links a::before,
-    .menu-links a.active::before {
-        display: none !important;
-        content: none !important;
-        width: 0 !important;
+    /* Hover Minimalista: sbiadimento elegante */
+    .menu-links a:hover {
+        color: rgba(255, 255, 255, 0.5) !important;
     }
 
+    /* --- ANIMAZIONE A CASCATA DEI LINK (STAGGER) --- */
+    .menu-open .menu-links a {
+        animation: eliteLinkIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* Ritardi calibrati per ogni link */
+    .menu-open .menu-links a:nth-child(1) { animation-delay: 0.2s; }
+    .menu-open .menu-links a:nth-child(2) { animation-delay: 0.3s; }
+    .menu-open .menu-links a:nth-child(3) { animation-delay: 0.4s; }
+    .menu-open .menu-links a:nth-child(4) { animation-delay: 0.5s; }
+
+    @keyframes eliteLinkIn {
+        0% {
+            opacity: 0;
+            transform: translateY(30px) scaleY(1.1); /* Leggero allungamento */
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scaleY(1);
+        }
+    }
+
+    /* --- LINK ATTIVO (Active) --- */
     .menu-links a.active {
-        color: #7bb7c5 !important;
-        font-weight: 500 !important;
+        color: #7bb7c5 !important; /* Colore accento Space Twelve */
+        opacity: 1 !important;
+        font-weight: 400 !important; /* Leggermente più visibile per lo stato attivo */
     }
 }
 /* HERO SLIDER */
@@ -494,7 +623,7 @@ body {
 /* SOTTOTITOLO: I due pilastri */
 .hero-subtitle {
     font-size: 1rem;
-    letter-spacing: 6px;
+    letter-spacing: 4px;
     text-transform: uppercase;
     color: #ffffff;
     display: flex;
@@ -504,7 +633,7 @@ body {
 }
 
 .sub-bold {
-    font-weight: 700; /* Bold ma meno "pesante" del titolo principale */
+    font-weight: 600; /* Bold ma meno "pesante" del titolo principale */
     opacity: 0.9;
 }
 
@@ -625,9 +754,159 @@ body {
 .pillar-item p { font-size: 1rem; color: #666; }
 
 /* Mobile */
-@media (max-width: 1024px) {
-    .vision-grid, .pillars-grid { grid-template-columns: 1fr; gap: 50px; }
-    .vision-image img { height: 400px; }
+/* =================================================
+   4. NAVIGATION & MOBILE MENU (DEFINITIVE ELITE)
+================================================= */
+
+@media (max-width: 768px) {
+
+    /* --- 1. L'HEADER "CONTENITORE" --- */
+    .main-header {
+        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px !important;
+    }
+
+    /* Versione Scrolled (Pillola) */
+    .main-header.scrolled {
+        width: 92% !important;
+        max-width: 500px;
+        height: 55px;
+        top: 15px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        background: linear-gradient(rgba(38, 48, 51, 0.92), rgba(38, 48, 51, 0.92)),
+                    url('https://grainy-gradients.vercel.app/noise.svg');
+        border-radius: 100px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* --- 2. LOGO E HAMBURGER: ALLINEAMENTO FISSO --- */
+    /* Usiamo la stessa logica di posizionamento per entrambi per evitare il "salto" */
+    
+    .logo-area {
+        position: absolute;
+        top: 50%;
+        left: 25px;
+        transform: translateY(-50%);
+        z-index: 3100;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mobile-menu-btn {
+        display: block;
+        position: absolute;
+        right: 25px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 3100;
+        padding: 10px;
+        cursor: pointer;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Stato Aperto: spostiamo entrambi leggermente più in alto in sincrono */
+    .main-header.menu-open .logo-area,
+    .main-header.menu-open .mobile-menu-btn {
+        top: 40px; /* Posizione fissa in alto quando il menu è a tutto schermo */
+    }
+
+    .main-header.menu-open .logo-area {
+        opacity: 0.7;
+        transform: translateY(-50%) scale(0.85);
+    }
+
+    /* --- 3. DESIGN HAMBURGER (X) --- */
+    .hamburger-box {
+        width: 26px;
+        height: 12px;
+        position: relative;
+    }
+
+    .line {
+        position: absolute;
+        height: 1px;
+        background-color: var(--white);
+        right: 0;
+        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        width: 100%;
+    }
+
+    .line:nth-child(1) { top: 0; }
+    .line:nth-child(2) { top: 50%; transform: translateY(-50%); }
+    .line:nth-child(3) { bottom: 0; }
+
+    .mobile-menu-btn.open .line { background-color: var(--white) !important; }
+    .mobile-menu-btn.open .line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .mobile-menu-btn.open .line:nth-child(2) { opacity: 0; transform: translateX(10px); }
+    .mobile-menu-btn.open .line:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+    /* --- 4. OVERLAY FULL-SCREEN --- */
+    .main-header.menu-open {
+        width: 100% !important;
+        height: 100vh !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: none !important;
+        border-radius: 0 !important;
+        background: radial-gradient(circle at center, rgba(10, 10, 10, 0.98) 0%, rgba(5, 5, 5, 1) 100%),
+                    url('https://grainy-gradients.vercel.app/noise.svg');
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: none !important;
+    }
+
+    /* --- 5. I LINK --- */
+    .menu-links {
+        display: none !important;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        width: 100%;
+        opacity: 0;
+    }
+
+    .menu-open .menu-links {
+        display: flex !important;
+        opacity: 1;
+    }
+
+    .menu-links a {
+        color: var(--white) !important;
+        font-size: 1.25rem !important; /* Raffinato e piccolo */
+        font-weight: 200 !important;
+        letter-spacing: 10px !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        opacity: 0;
+        transform: translateY(20px);
+        padding: 10px 0;
+        transition: color 0.3s ease;
+    }
+
+    .menu-links a:hover { color: rgba(255, 255, 255, 0.5) !important; }
+
+    /* Animazione a cascata */
+    .menu-open .menu-links a { animation: eliteLinkIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .menu-open .menu-links a:nth-child(1) { animation-delay: 0.1s; }
+    .menu-open .menu-links a:nth-child(2) { animation-delay: 0.2s; }
+    .menu-open .menu-links a:nth-child(3) { animation-delay: 0.3s; }
+    .menu-open .menu-links a:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes eliteLinkIn {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .menu-links a.active {
+        color: #7bb7c5 !important;
+        font-weight: 400 !important;
+    }
 }
 
 .pillar-num { 
