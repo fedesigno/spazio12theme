@@ -751,24 +751,12 @@ body {
 .vision-image { position: relative; }
 .vision-image img { 
     width: 100%; 
-    height: 600px; 
+    height: 500px; 
     object-fit: cover; 
     filter: grayscale(100%) contrast(1.1); /* Look architettonico */
     transition: 0.8s ease;
 }
 .vision-image:hover img { filter: grayscale(0%); }
-
-.experience-badge {
-    position: absolute;
-    bottom: -20px;
-    right: -20px;
-    background: var(--black);
-    color: white;
-    padding: 20px 30px;
-    font-weight: 800;
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-}
 
 .vision-text h3 { font-size: 2.2rem; margin-bottom: 30px; font-weight: 700; }
 .vision-text p { font-size: 1.1rem; color: #555; margin-bottom: 20px; line-height: 1.8; }
@@ -975,7 +963,7 @@ body {
 
 /* La cifra attiva prende il colore del brand */
 .num-active { 
-    color: #7bb7c5; /* Il tuo blu/grigio Space Twelve */
+    color: #7bb7c5; /* Il blu/grigio Spazio12 */
     margin-left: -5px; /* Sovrapposizione leggera per un look più "design" */
 }
 
@@ -1014,7 +1002,7 @@ body {
 .member-photo { position: relative; }
 .member-photo img { 
     width: 100%; 
-    height: 550px; 
+    height: 450px; 
     object-fit: cover; 
     filter: grayscale(100%); 
     transition: 0.6s ease;
