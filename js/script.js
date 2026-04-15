@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const morphEl = document.querySelector('.morph-word');
     const lineEl = document.querySelector('.hero-line');
     const subtitleEl = document.querySelector('.hero-subtitle');
-    const scrollImages = document.querySelectorAll('.vision-image, .member-photo, .map-wrapper');
+    const scrollImages = document.querySelectorAll('.vision-image, .member-photo, .map-wrapper, .team-member-row');
 
     const observerOptions = {
         root: null, // usa il viewport del browser
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver(observerCallback, {
         root: null,
         rootMargin: '0px',
-        threshold: 0.9 // Regola questo per decidere quanto deve essere visibile prima di colorarsi
+        threshold: 0.8 // Regola questo per decidere quanto deve essere visibile prima di colorarsi
     });
     
     scrollImages.forEach(image => {

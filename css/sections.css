@@ -356,19 +356,25 @@
 .member-details::before {
     content: '';
     display: block;
-    width: 40px;
+    /* La linea parte da 0 per l'effetto apparizione */
+    width: 0px; 
     height: 2px;
     background: var(--accent);
     margin-bottom: 30px;
-    transition: width 0.4s ease;
+    /* Transition MOLTO LENTA per eleganza (2 secondi) */
+    transition: width 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    opacity: 0.7; /* Sottile */
+    margin-left: 0; /* Forza a sinistra per default */
 }
 
-.team-member-row:hover .member-details::before {
-    width: 60px;
+.team-member-row.is-visible .member-details::before {
+    width: 80px; /* Larghezza finale "Elite" */
+    opacity: 1;
 }
 
 .team-member-row.reverse .member-details::before {
     margin-left: auto;
+    margin-right: 0;
 }
 
 /* --- Responsive --- */
