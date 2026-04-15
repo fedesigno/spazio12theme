@@ -65,7 +65,8 @@
         left: 50% !important;
         transform: translateX(-50%) !important;
         border-radius: 100px;
-        background: rgba(15, 15, 15, 0.95);
+        background: linear-gradient(rgba(38, 48, 51, 0.8), rgba(38, 48, 51, 0.8)), 
+                url('https://grainy-gradients.vercel.app/noise.svg');
         backdrop-filter: blur(20px);
     }
 
