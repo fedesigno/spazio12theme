@@ -9,15 +9,21 @@
     <link rel="icon" type="image/png" href="logo/spaziododici_logo.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body>
 
+
     <header class="main-header">
         <nav class="nav-container">
-            <a href="#" class="logo-area">
+            <a href="#hero" class="logo-area">
                 <img src="logo/spaziododici_logo.png" alt="Logo SPAZIO DODICI">
                 <div class="brand-text"><strong>SPAZIO</strong>DODICI</div>
             </a>
@@ -39,35 +45,31 @@
         </nav>
     </header>
 
-    <section class="hero">
-        <div class="hero-slider">
-            <div class="slide" style="background-image: url('logo/hero/Legno.png');"></div>
-            <div class="slide" style="background-image: url('logo/hero/Mattoni.png');"></div>
-            <div class="slide" style="background-image: url('logo/hero/Tubi.png');"></div>
-        </div>
-        <div class="hero-overlay"></div>
+<section class="hero">
+    <div class="hero-slider">
+        <div class="slide" style="background-image: url('logo/hero/Legno.png');"></div>
+        <div class="slide" style="background-image: url('logo/hero/Mattoni.png');"></div>
+        <div class="slide" style="background-image: url('logo/hero/Tubi.png');"></div>
+    </div>
+    <div class="hero-overlay"></div>
 
-        <div class="hero-content">
-            <div class="hero-logo-container">
-                <h1 class="hero-title">
-                    <span class="hero-bold">SPAZIO</span>
-                    <span class="hero-thin">DODICI</span>
-                </h1>
-                <div class="hero-line"></div>
-                <p class="hero-subtitle">
-                    <span class="sub-bold">INGEGNERIA</span>
-                    <span class="sub-divider">•</span>
-                    <span class="sub-bold">DESIGN</span> 
-                    <span class="sub-divider">•</span> 
-                    <span class="sub-bold">ARCHITETTURA</span>
-                </p>
-            </div>
+    <div class="hero-content">
+        <div class="hero-logo-container">
+            <h1 class="hero-title">
+                <span id="hero-bold" class="hero-bold"></span>
+                <span id="hero-thin" class="hero-thin"></span>
+            </h1>
+            <div class="hero-line" id="hero-line"></div>
+            <p class="hero-subtitle">
+                <span id="morph-text" class="morph-word"></span>
+            </p>
         </div>
-        
-        <div class="scroll-indicator">
-            <div class="mouse"></div>
-        </div>
-    </section>
+    </div>
+    
+    <div class="scroll-indicator">
+        <div class="mouse"></div>
+    </div>
+</section>
 
     <section id="cosa-facciamo" class="section">
         <div class="container">

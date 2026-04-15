@@ -1,0 +1,199 @@
+/* =================================================
+   HERO SECTION - SPAZIO DODICI (ELITE ZOOM-OUT)
+================================================= */
+.hero { 
+    height: 100vh; 
+    width: 100%;
+    position: relative; 
+    overflow: hidden; 
+    background: #000;
+    display: flex;
+    align-items: flex-end; 
+    justify-content: center;
+    padding-bottom: 120px; 
+}
+
+/* --- SLIDER (EFFETTO ZOOM OUT ELEGANTE) --- */
+
+.hero { 
+    height: 100vh; 
+    position: relative; 
+    overflow: hidden; 
+    background: #000;
+    display: flex;
+    /* Cambiamo da center a flex-end per spingere tutto giù */
+    align-items: flex-end; 
+    justify-content: center;
+    /* Distanza dal bordo inferiore (regola questo per alzare/abbassare) */
+    padding-bottom: 120px; 
+}
+
+.hero-slider { position: absolute; inset: 0; z-index: 1; }
+.slide { 
+    position: absolute; inset: 0; background-size: cover; background-position: center; 
+    opacity: 0; transform: scale(1.3); animation: smoothFadeZoom 25s infinite ease-in-out; 
+}
+.slide:nth-child(1) { animation-delay: 0s; }
+.slide:nth-child(2) { animation-delay: 8s; }
+.slide:nth-child(3) { animation-delay: 16s; }
+@keyframes smoothFadeZoom {
+    0% { opacity: 0; transform: scale(1.3); }
+    15% { opacity: 1; }
+    33% { opacity: 1; }
+    48% { opacity: 0; transform: scale(1); }
+    100% { opacity: 0; }
+}
+
+
+.hero-overlay { 
+    position: absolute; 
+    inset: 0; 
+    z-index: 2; 
+    /* Overlay leggero per profondità senza scurire troppo */
+    background: rgba(0, 0, 0, 0.3); 
+}
+
+/* --- LOGO CENTRALE (STRUTTURA FERMA) --- */
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: #ffffff;
+    width: 100%;
+    /* Altezza fissa per prevenire scossoni verticali durante il typing */
+    min-height: 300px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(40px); /* Posizionamento ribassato */
+}
+
+.hero-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 0.85;
+    margin-bottom: 30px;
+}
+
+.hero-bold, .hero-thin {
+    display: block;
+    text-transform: uppercase;
+    color: #ffffff;
+    min-height: 1.1em;
+}
+
+.hero-bold {
+    font-size: 3.2rem;
+    font-weight: 800;
+    letter-spacing: 8px;
+}
+
+.hero-thin {
+    font-size: 3.2rem;
+    font-weight: 100;
+    letter-spacing: 24px;
+    margin-right: -24px;
+}
+
+/* --- LINEA ORIZZONTALE CENTRATA --- */
+.hero-line {
+    width: 0; /* Animata da JS a 60-80px */
+    height: 1px;
+    background-color: #ffffff;
+    margin: 0 auto 30px auto; 
+    opacity: 0.7;
+    transition: width 1s cubic-bezier(0.65, 0, 0.35, 1);
+    display: block;
+    position: relative;
+}
+
+/* --- SOTTOTITOLO CON CURSORE WORD-STYLE --- */
+.hero-subtitle {
+    font-size: 1.3rem;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    font-weight: 200;
+    color: #ffffff;
+    opacity: 0; /* Appare dopo il logo via JS */
+    transition: opacity 0.8s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.morph-word {
+    font-weight: 250;
+    color: #ffffff;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    /* Larghezza minima generosa per non far muovere il blocco sopra */
+    min-width: 400px; 
+}
+
+/* CURSORE VERTICALE ADESIVO */
+.morph-word::after {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: 2px; /* Più visibile */
+    height: 1.1em;
+    background-color: #ffffff;
+    margin-left: 6px; /* Attaccato all'ultima lettera scritta */
+    animation: blinkVertical 1.2s infinite;
+}
+
+@keyframes blinkVertical {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* --- INDICATORE MOUSE --- */
+.scroll-indicator { 
+    position: absolute; 
+    bottom: 40px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    z-index: 10; 
+    opacity: 0;
+    animation: fadeInUI 1s 4s forwards; /* Appare alla fine di tutta la sequenza */
+}
+
+.mouse { 
+    width: 22px; 
+    height: 38px; 
+    border: 1.5px solid rgba(255,255,255,0.5); 
+    border-radius: 20px; 
+    position: relative; 
+}
+
+.mouse::after { 
+    content: ''; 
+    position: absolute; 
+    top: 8px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 2px; 
+    height: 6px; 
+    background: #ffffff; 
+    animation: mouseWheel 2s infinite; 
+}
+
+@keyframes mouseWheel { 
+    0% { opacity: 0; top: 8px; } 
+    30% { opacity: 1; } 
+    100% { opacity: 0; top: 24px; } 
+}
+
+@keyframes fadeInUI { to { opacity: 0.6; } }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .hero-content { min-height: 220px; transform: translateY(20px); }
+    .hero-bold, .hero-thin { font-size: 2.2rem; }
+    .hero-thin { letter-spacing: 12px; margin-right: -12px; }
+    .hero-subtitle { font-size: 0.85rem; letter-spacing: 3px; }
+    .morph-word { min-width: 250px; }
+}

@@ -1,0 +1,440 @@
+/* =================================================
+   SEZIONI GENERALI & SCROLL
+================================================= */
+
+.section { 
+    padding: 120px 8%; 
+    scroll-margin-top: 80px; /* Evita che l'header copra il titolo della sezione */
+}
+
+/* Sezione Bianca (Default) */
+.bg-white {
+    background-color: #ffffff;
+}
+
+/* Sezione Grigino "Aria" (molto tenue e professionale) */
+.bg-light-soft {
+    background-color: #f8f9fa; /* Un grigio quasi impercettibile, molto elite */
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.container { max-width: 1400px; margin: 0 auto; }
+
+.section-title { 
+    font-size: 1.5rem; 
+    letter-spacing: 5px; 
+    font-weight: 800; 
+    margin-bottom: 60px; 
+    position: relative; 
+    text-transform: uppercase;
+}
+
+.section-title::after { 
+    content: ''; 
+    display: block; 
+    width: 80px; 
+    height: 3px; 
+    background: var(--accent); 
+    margin-top: 10px; 
+}
+
+/* --- Elementi Tipografici Ricorrenti --- */
+.eyebrow { 
+    display: block; 
+    text-transform: uppercase; 
+    letter-spacing: 4px; 
+    font-size: 0.8rem; 
+    color: #999; 
+    margin-bottom: 15px;
+}
+
+.big-statement {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.2;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin-bottom: 60px;
+    max-width: 900px; /* Bilanciamento: evita righe troppo lunghe */
+}
+
+.text-accent { color: #7bb7c5; }
+
+/* =================================================
+   COSA FACCIAMO (VERSIONE ELITE - REFINEMENT)
+================================================= */
+
+.vision-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: center;
+    margin-bottom: 80px; /* Ridotto per maggiore compattezza e coesione */
+}
+
+.vision-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.vision-image img { 
+    width: 100%; 
+    height: 520px; 
+    object-fit: cover; 
+    filter: grayscale(100%) contrast(1.1);
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+}
+
+.vision-image:hover img { 
+    filter: grayscale(0%); 
+    transform: scale(1.03); /* Leggero zoom fluido */
+}
+
+.vision-text { 
+    padding-left: 30px; 
+    border-left: 1px solid rgba(0,0,0,0.08); /* Linea sottile di separazione */
+}
+
+.vision-text h3 { 
+    font-size: 2rem; 
+    margin-bottom: 25px; 
+    font-weight: 800; 
+    letter-spacing: -1px;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+.vision-text p { 
+    font-size: 1.05rem; 
+    color: #555; 
+    line-height: 1.8; 
+    font-weight: 300;
+    margin-bottom: 25px; 
+    max-width: 480px;
+}
+
+/* --- PILASTRI (VERSIONE PULITA ED ELEGANTE) --- */
+.pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    border-top: 1px solid #eee;
+    padding-top: 10px; /* Ridotto lo spazio superiore per "attaccarlo" alla Vision */
+}
+
+.pillar-item { 
+    position: relative; 
+    padding-top: 15px;
+    transition: transform 0.3s ease;
+}
+
+/* Numerazione Sottile Background */
+.pillar-num { 
+    font-size: 4rem; 
+    font-weight: 900; 
+    position: absolute; 
+    top: -55px; 
+    left: 0; 
+    letter-spacing: -3px;
+    line-height: 1;
+    pointer-events: none;
+    display: flex;
+}
+
+.num-zero { color: #f5f5f5; }
+.num-active { 
+    color: var(--accent); 
+    opacity: 0.3; 
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.pillar-item:hover .num-active { 
+    opacity: 0.8; 
+    transform: translateY(-5px); 
+}
+
+/* --- ICONE GEOMETRICHE (Ripristinate e Perfezionate) --- */
+.abstract-icon {
+    width: 60px; height: 60px;
+    margin-bottom: 25px;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.abstract-icon div, 
+.abstract-icon div::before, 
+.abstract-icon div::after {
+    content: ''; 
+    position: absolute; 
+    box-sizing: border-box;
+    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+/* Icona 01: Efficienza */
+.geom-efficiency { 
+    width: 20px; height: 35px; 
+    border: 1.5px solid var(--black); 
+}
+.geom-efficiency::before { 
+    width: 40px; height: 45px; 
+    border-left: 2px solid var(--accent); 
+    left: -15px; top: -5px; 
+}
+
+/* Icona 02: Management */
+.geom-management { 
+    width: 35px; height: 35px; 
+    border-left: 1.5px solid var(--black); 
+    border-bottom: 1.5px solid var(--black); 
+}
+.geom-management::before { 
+    width: 2px; height: 12px; 
+    background: var(--accent); 
+    bottom: 6px; left: 6px; 
+    box-shadow: 10px -5px 0 var(--accent), 20px -10px 0 var(--accent); 
+}
+
+/* Icona 03: Design */
+.geom-design { 
+    width: 30px; height: 30px; 
+    border: 1.5px solid var(--black); 
+}
+.geom-design::before { 
+    width: 30px; height: 30px; 
+    border: 1.5px solid var(--accent); 
+    top: -12px; right: -12px; 
+}
+
+/* Animazione Hover Icone */
+.pillar-item:hover .abstract-icon div { 
+    transform: scale(1.1); 
+    border-color: var(--accent);
+}
+
+/* Testo Pilastri */
+.pillar-item h4 { 
+    font-size: 0.9rem; 
+    letter-spacing: 3px; 
+    margin-top: 10px; 
+    text-transform: uppercase; 
+    font-weight: 800;
+    color: var(--black);
+}
+
+.pillar-item p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #666;
+    margin-top: 12px;
+    font-weight: 300;
+}
+
+
+/* =================================================
+   TEAM SECTION (VERSIONE ELITE DEFINITIVA)
+================================================= */
+.team-container { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 120px; 
+    margin-top: 60px; 
+}
+
+.team-member-row { 
+    display: grid; 
+    grid-template-columns: 1fr 1.2fr; 
+    gap: 80px; 
+    align-items: center; 
+}
+
+.team-member-row.reverse { 
+    grid-template-columns: 1.2fr 1fr; 
+}
+
+.team-member-row.reverse .member-photo { order: 2; }
+.team-member-row.reverse .member-details { order: 1; text-align: right; }
+.team-member-row.reverse .member-bio { margin-left: auto; }
+
+/* --- Fotografia & Tag --- */
+.member-photo { 
+    position: relative; 
+}
+
+.member-photo img { 
+    width: 100%; 
+    height: 500px; 
+    object-fit: cover; 
+    filter: grayscale(100%); 
+    transition: 1s cubic-bezier(0.19, 1, 0.22, 1); 
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+}
+
+.member-photo:hover img { 
+    filter: grayscale(0%); 
+    transform: scale(1.02);
+}
+
+.member-role { 
+    display: block; 
+    text-transform: uppercase; 
+    letter-spacing: 5px; 
+    font-size: 0.8rem; 
+    color: #999; 
+    margin-bottom: 10px; 
+}
+
+.member-tag {
+    position: absolute; 
+    top: 40px; 
+    right: -15px;
+    background: var(--accent); 
+    color: white; 
+    padding: 10px 15px;
+    font-size: 0.6rem; 
+    font-weight: 800; 
+    letter-spacing: 3px;
+    writing-mode: vertical-rl; 
+    text-transform: uppercase;
+    z-index: 2;
+}
+
+.team-member-row.reverse .member-tag {
+    right: auto;
+    left: -15px;
+}
+
+/* --- Tipografia & Gerarchia --- */
+
+/* 1. Qualifica Professionale (Elite & Tecnica) */
+.bio-intro { 
+    font-size: 1rem; /* Ridotto per non sovrastare il nome */
+    font-weight: 800; 
+    color: #444; /* Antracite profondo */
+    text-transform: uppercase;
+    letter-spacing: 3px; 
+    line-height: 1;
+    margin-bottom: 15px; 
+    display: block;
+}
+
+/* 2. Nome e Cognome (Contrasto Moderno) */
+.member-name { 
+    font-size: clamp(2rem, 3.5vw, 2.8rem); 
+    font-weight: 300; 
+    color: var(--black);
+    margin-bottom: 25px; 
+    line-height: 1.1; 
+    text-transform: uppercase;
+}
+
+.member-name strong { 
+    font-weight: 800; /* Il cognome rimane l'ancora visiva */
+}
+
+/* 3. Bio Paragrafo (Piccolo, Leggero, Pulito) */
+.member-bio { 
+    max-width: 450px; 
+}
+
+.member-bio p { 
+    font-size: 0.9rem; /* Dimensione ridotta per eleganza */
+    color: #777; /* Grigio più morbido */
+    line-height: 1.8; 
+    font-weight: 300;
+    margin-bottom: 15px;
+}
+
+/* Linea decorativa minima */
+.member-details::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+    margin-bottom: 30px;
+    transition: width 0.4s ease;
+}
+
+.team-member-row:hover .member-details::before {
+    width: 60px;
+}
+
+.team-member-row.reverse .member-details::before {
+    margin-left: auto;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+    .team-member-row, .team-member-row.reverse {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .member-photo img { height: 400px; }
+    .member-name { font-size: 2.2rem; }
+    .team-member-row.reverse .member-details { text-align: left; }
+    .team-member-row.reverse .member-details::before { margin-left: 0; }
+    .team-member-row.reverse .member-bio { margin-left: 0; }
+}
+
+/* =================================================
+   PROGETTI (FILTRI)
+================================================= */
+.section-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 60px; flex-wrap: wrap; gap: 30px;
+}
+
+.filter-controls { display: flex; gap: 30px; border-bottom: 1px solid #eee; }
+
+.filter-btn {
+    background: transparent; border: none; padding: 10px 0;
+    font-size: 0.75rem; font-weight: 800; letter-spacing: 2px;
+    color: #aaa; cursor: pointer; position: relative;
+    transition: color 0.3s ease; text-transform: uppercase;
+}
+
+.filter-btn::after {
+    content: ''; position: absolute; bottom: -1px; left: 0;
+    width: 0; height: 2px; background: var(--black); transition: width 0.4s ease;
+}
+
+.filter-btn.active, .filter-btn:hover { color: var(--black); }
+.filter-btn.active::after { width: 100%; }
+
+/* =================================================
+   CONTATTI & MAPPA
+================================================= */
+.contact-grid { 
+    display: flex; justify-content: center; 
+    gap: 40px; margin-top: 60px; width: 100%;
+}
+
+.contact-block {
+    flex: 1; max-width: 550px;
+    background: #fff; border: 1px solid #eee; border-radius: 20px;
+    overflow: hidden; display: flex; flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    transition: all 0.4s ease;
+}
+
+.contact-block:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+
+.map-wrapper {
+    width: 100%; height: 250px;
+    filter: grayscale(100%) opacity(0.7);
+    transition: all 0.6s ease;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.contact-block:hover .map-wrapper { filter: grayscale(0%) opacity(1); }
+
+.contact-details { padding: 40px; }
+.role-text { font-size: 0.8rem; color: #888; letter-spacing: 2px; text-transform: uppercase; margin: 10px 0 30px; }
+
+.contact-links { list-style: none; }
+.contact-links li { margin-bottom: 18px; display: flex; align-items: center; gap: 15px; }
+
+.contact-links i { color: #7bb7c5; width: 20px; text-align: center; font-size: 1.1rem; }
+.contact-links a { color: #444; text-decoration: none; transition: var(--transition); }
+.contact-links a:hover { color: var(--black); transform: translateX(5px); }

@@ -1,0 +1,225 @@
+/* =================================================
+   HEADER & NAVIGATION
+================================================= */
+
+.main-header { 
+    position: fixed; 
+    width: 100%; 
+    top: 0; 
+    z-index: 1000; 
+    padding: 35px 8%; 
+    transition: var(--transition); 
+    background: transparent; 
+}
+
+/* --- Effetto Pillola (Scrolled) --- */
+.main-header.scrolled { 
+    width: 90%; 
+    max-width: 1100px; 
+    left: 50%;
+    transform: translateX(-50%); 
+    top: 20px; 
+    background: linear-gradient(rgba(38, 48, 51, 0.8), rgba(38, 48, 51, 0.8)), 
+                url('https://grainy-gradients.vercel.app/noise.svg');
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 12px 40px; 
+    border-radius: 100px; 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); 
+}
+
+.nav-container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    max-width: 1600px; 
+    margin: 0 auto; 
+}
+
+/* --- Logo Area --- */
+.logo-area { 
+    display: flex; 
+    align-items: center; 
+    text-decoration: none; 
+    color: var(--white); 
+    transition: var(--transition);
+}
+
+.logo-area img { height: 35px; transition: height 0.3s ease; }
+.brand-text { 
+    font-size: 1.2rem; 
+    letter-spacing: 4px; 
+    text-transform: uppercase; 
+    font-weight: 100; 
+    margin-left: 15px; 
+    transition: font-size 0.3s ease;
+}
+.brand-bold { font-weight: 800; }
+
+/* Logo Scaling quando Scrolled */
+.main-header.scrolled .logo-area img { height: 28px; }
+.main-header.scrolled .brand-text { font-size: 1rem; }
+
+/* --- Menu Links (Desktop) --- */
+.menu-links a { 
+    text-decoration: none; 
+    color: var(--white); 
+    font-size: 0.9rem; 
+    text-transform: uppercase; 
+    margin-left: 40px; 
+    letter-spacing: 3px; 
+    font-weight: 300; 
+    position: relative; 
+    display: inline-block;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                opacity 0.3s ease, 
+                letter-spacing 0.3s ease,
+                font-weight 0.3s ease;
+    opacity: 0.9;
+}
+
+.menu-links a:hover,
+.menu-links a.active { opacity: 1; }
+
+/* Zoom effetto Hero (Non scrolled) */
+.main-header:not(.scrolled) .menu-links a:hover {
+    transform: scale(1.2);
+    letter-spacing: 4px;
+}
+
+/* Riga Minimal (Sottolineatura) */
+.menu-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--white);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.menu-links a:hover::after,
+.menu-links a.active::after { width: 90%; }
+
+/* Adattamenti Navigazione nella Pillola */
+.main-header.scrolled .menu-links a.active { font-weight: 800; }
+.main-header.scrolled .menu-links a::after { background: var(--accent); bottom: -2px; }
+
+/* Eccezione Tasto Contatti */
+.menu-links a.btn-nav { font-weight: 800; opacity: 1; }
+.menu-links a.btn-nav::after { display: none; }
+
+/* =================================================
+   MOBILE NAVIGATION (UNIFIED)
+================================================= */
+
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 3100;
+}
+
+@media (max-width: 768px) {
+    .main-header { padding: 0 20px; height: 70px; }
+    
+    .main-header.scrolled {
+        width: 92%;
+        height: 55px;
+        top: 15px;
+        padding: 0 20px;
+    }
+
+    /* Hamburger Icon */
+    .mobile-menu-btn { 
+        display: block; 
+        position: absolute;
+        right: 25px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    .hamburger-box { width: 26px; height: 12px; position: relative; }
+    .line { 
+        position: absolute; 
+        height: 1px; 
+        background-color: var(--white); 
+        width: 100%; 
+        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
+    }
+    .line:nth-child(1) { top: 0; }
+    .line:nth-child(2) { top: 50%; transform: translateY(-50%); }
+    .line:nth-child(3) { bottom: 0; }
+
+    /* Hamburger Animato (X) */
+    .mobile-menu-btn.open .line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .mobile-menu-btn.open .line:nth-child(2) { opacity: 0; transform: translateX(10px); }
+    .mobile-menu-btn.open .line:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+    /* Menu Overlay */
+    .main-header.menu-open {
+        inset: 0;
+        width: 100% !important;
+        height: 100vh !important;
+        border-radius: 0;
+        background: radial-gradient(circle at center, rgba(10, 10, 10, 0.98) 0%, rgba(5, 5, 5, 1) 100%),
+                    url('https://grainy-gradients.vercel.app/noise.svg');
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        transform: none !important;
+        border: none;
+    }
+
+    .main-header.menu-open .logo-area {
+        position: absolute;
+        top: 40px;
+        left: 25px;
+        opacity: 0.7;
+        transform: translateY(-50%) scale(0.85);
+    }
+
+    .main-header.menu-open .mobile-menu-btn { top: 40px; }
+
+    .menu-links {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .menu-open .menu-links { display: flex; opacity: 1; }
+
+    .menu-links a {
+        margin: 0;
+        font-size: 1.3rem;
+        font-weight: 200;
+        letter-spacing: 10px;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .menu-open .menu-links a { animation: eliteLinkIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .menu-open .menu-links a:nth-child(1) { animation-delay: 0.2s; }
+    .menu-open .menu-links a:nth-child(2) { animation-delay: 0.3s; }
+    .menu-open .menu-links a:nth-child(3) { animation-delay: 0.4s; }
+    .menu-open .menu-links a:nth-child(4) { animation-delay: 0.5s; }
+
+    @keyframes eliteLinkIn {
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .menu-open::after {
+        content: 'INGEGNERIA | DESIGN | ARCHITETTURA';
+        position: absolute;
+        bottom: 40px;
+        font-size: 0.6rem;
+        letter-spacing: 4px;
+        color: rgba(255,255,255,0.3);
+    }
+}
