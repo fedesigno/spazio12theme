@@ -50,7 +50,7 @@
     inset: 0; 
     z-index: 2; 
     /* Overlay leggero per profondità senza scurire troppo */
-    background: rgba(0, 0, 0, 0.3); 
+    background: rgba(0, 0, 0, 0.1); 
 }
 
 /* --- LOGO CENTRALE (STRUTTURA FERMA) --- */
@@ -194,6 +194,6 @@
     .hero-content { min-height: 220px; transform: translateY(20px); }
     .hero-bold, .hero-thin { font-size: 2.2rem; }
     .hero-thin { letter-spacing: 12px; margin-right: -12px; }
-    .hero-subtitle { font-size: 0.85rem; letter-spacing: 3px; }
+    .hero-subtitle { font-size: 1rem; letter-spacing: 4px; }
     .morph-word { min-width: 250px; }
 }

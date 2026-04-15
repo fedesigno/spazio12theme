@@ -140,6 +140,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const morphEl = document.querySelector('.morph-word');
     const lineEl = document.querySelector('.hero-line');
     const subtitleEl = document.querySelector('.hero-subtitle');
+    const scrollImages = document.querySelectorAll('.vision-image, .member-photo, .map-wrapper');
+
+    const observerOptions = {
+        root: null, // usa il viewport del browser
+        rootMargin: '0px', // nessun margine extra
+        threshold: 0.30 // l'effetto parte quando il 20% dell'immagine è visibile
+    };
+
+    // Funzione che viene eseguita quando l'elemento entra/esce dal viewport
+    const observerCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Quando l'immagine ENTRA nel campo visivo
+                entry.target.classList.add('is-visible');
+            } else {
+                // Quando l'immagine ESCE dal campo visivo (torna grigia)
+                entry.target.classList.remove('is-visible');
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.9 // Regola questo per decidere quanto deve essere visibile prima di colorarsi
+    });
+    
+    scrollImages.forEach(image => {
+        observer.observe(image);
+    });
 
     function typeEffect(element, text, speed, callback) {
         let i = 0;
@@ -181,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
         typeEffect(boldEl, boldStr, 200, () => {
             typeEffect(thinEl, thinStr, 200, () => {
                 // Finito il testo, allunghiamo la linea
-                lineEl.style.width = "300px"; 
+                lineEl.style.width = "70%";
                 
                 setTimeout(() => {
                     subtitleEl.style.opacity = "1";
