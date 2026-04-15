@@ -96,17 +96,17 @@
     left: 50%;
     width: 0;
     height: 1px;
-    background: var(--white);
+    background:  #6c8587ef;
     transform: translateX(-50%);
     transition: width 0.3s ease;
 }
 
 .menu-links a:hover::after,
-.menu-links a.active::after { width: 90%; }
+.menu-links a.active::after { width: 98%; }
 
 /* Adattamenti Navigazione nella Pillola */
 .main-header.scrolled .menu-links a.active { font-weight: 800; }
-.main-header.scrolled .menu-links a::after { background: var(--accent); bottom: -2px; }
+.main-header.scrolled .menu-links a::after { background: #70a9afef; bottom: -6px; }
 
 /* Eccezione Tasto Contatti */
 .menu-links a.btn-nav { font-weight: 800; opacity: 1; }
