@@ -403,38 +403,125 @@
 .filter-btn.active::after { width: 100%; }
 
 /* =================================================
-   CONTATTI & MAPPA
+   CONTATTI & MAPPA - DISTRIBUZIONE OTTIMIZZATA
 ================================================= */
+
+.subtitle-tech { 
+    font-size: 0.8rem; 
+    color: #7a7a7a; 
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    display: block;
+}
+
 .contact-grid { 
-    display: flex; justify-content: center; 
-    gap: 40px; margin-top: 60px; width: 100%;
+    display: flex; 
+    justify-content: center; 
+    align-items: stretch; /* Fa sì che tutte le box abbiano la stessa altezza */
+    gap: 30px; 
+    margin: 60px auto; 
+    width: 100%;
+    max-width: 1200px; /* Evita che le box si allontanino troppo su schermi enormi */
+    padding: 0 20px;
 }
 
 .contact-block {
-    flex: 1; max-width: 550px;
-    background: #fff; border: 1px solid #eee; border-radius: 20px;
-    overflow: hidden; display: flex; flex-direction: column;
+    flex: 1; 
+    /* Rimosso il max-width fisso per permettere una distribuzione più fluida */
+    background: #fff; 
+    border: 1px solid #eee; 
+    border-radius: 24px; /* Angoli più moderni */
+    overflow: hidden; 
+    display: flex; 
+    flex-direction: column;
     box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-    transition: all 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.contact-block:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+.contact-block:hover { 
+    transform: translateY(-10px); 
+    box-shadow: 0 25px 50px rgba(0,0,0,0.1); 
+}
 
+/* --- MAPPA: PIÙ SPAZIO VISIVO --- */
 .map-wrapper {
-    width: 100%; height: 250px;
-    filter: grayscale(100%) opacity(0.7);
-    transition: all 0.6s ease;
-    border-bottom: 1px solid #f5f5f5;
+    width: 100%; 
+    height: 320px; /* Aumentata l'altezza per bilanciare il blocco */
+    filter: grayscale(100%) contrast(1.2) opacity(0.8);
+    transition: all 0.8s ease;
+    border-bottom: 1px solid #f0f0f0;
 }
 
-.contact-block:hover .map-wrapper { filter: grayscale(0%) opacity(1); }
+.map-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
 
-.contact-details { padding: 40px; }
-.role-text { font-size: 0.8rem; color: #888; letter-spacing: 2px; text-transform: uppercase; margin: 10px 0 30px; }
+.contact-block:hover .map-wrapper { 
+    filter: grayscale(0%) contrast(1) opacity(1); 
+}
 
-.contact-links { list-style: none; }
-.contact-links li { margin-bottom: 18px; display: flex; align-items: center; gap: 15px; }
+/* --- DETTAGLI: SPAZIATURA PULITA --- */
+.contact-details { 
+    padding: 45px 40px; /* Aumentato leggermente il padding verticale */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Spinge il contenuto a riempire la box */
+}
 
-.contact-links i { color: #7bb7c5; width: 20px; text-align: center; font-size: 1.1rem; }
-.contact-links a { color: #444; text-decoration: none; transition: var(--transition); }
-.contact-links a:hover { color: var(--black); transform: translateX(5px); }
+.contact-details h3 {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.role-text { 
+    font-size: 0.75rem; 
+    color: #aaa; 
+    letter-spacing: 3px; 
+    text-transform: uppercase; 
+    margin-bottom: 35px; /* Più respiro prima dei link */
+}
+
+.contact-links { list-style: none; padding: 0; }
+.contact-links li { 
+    margin-bottom: 22px; 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+}
+
+.contact-links i { 
+    color: #7bb7c5; 
+    width: 25px; 
+    text-align: center; 
+    font-size: 1.2rem; 
+}
+
+.contact-links a { 
+    color: #555; 
+    text-decoration: none; 
+    font-size: 0.95rem;
+    transition: all 0.3s ease; 
+}
+
+.contact-links a:hover { 
+    color: #000; 
+    padding-left: 5px; /* Effetto slittamento elegante */
+}
+
+/* --- RESPONSIVE MAPPE --- */
+@media (max-width: 992px) {
+    .contact-grid { 
+        flex-direction: column; 
+        align-items: center; 
+    }
+    .contact-block { 
+        width: 100%; 
+        max-width: 600px; 
+    }
+    .map-wrapper { height: 280px; }
+}
