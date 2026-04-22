@@ -212,3 +212,72 @@
 @keyframes eliteLinkIn {
     to { opacity: 1; transform: translateY(0); }
 }
+
+
+/* --- RESPONSIVE DESIGN PROGETTI--- */
+
+/* Tablet e schermi medi (sotto i 1024px) */
+@media (max-width: 1024px) {
+    .category-grid {
+        gap: 30px; /* Riduciamo lo spazio tra le card macro */
+        grid-template-columns: 1fr 1fr; /* Restano ancora due colonne */
+    }
+
+    .cat-main h3 {
+        font-size: 2.2rem; /* Testo leggermente più piccolo */
+    }
+}
+
+/* Smartphone (sotto i 768px) */
+@media (max-width: 768px) {
+    .category-grid {
+        grid-template-columns: 1fr; /* Le card PA e PRIVATI vanno una sotto l'altra */
+        margin-top: 40px;
+        gap: 20px;
+    }
+
+    .cat-elite-card {
+        height: 350px; /* Riduciamo l'altezza dello slider di sfondo */
+        padding: 25px;
+    }
+
+    .cat-main h3 {
+        font-size: 1.8rem; /* Font più leggibile su mobile */
+    }
+
+    .cat-footer p {
+        display: none; /* Nascondiamo la descrizione lunga per pulizia, lasciamo solo "ESPLORA" */
+    }
+
+    /* Griglia Progetti Interna */
+    .project-grid {
+        grid-template-columns: 1fr; /* Progetti singoli uno sotto l'altro */
+    }
+
+    .p-image {
+        height: 300px; /* Foto dei progetti meno alte su mobile */
+    }
+
+    /* Frecce dello slider su mobile */
+    .nav-arrow {
+        width: 40px;
+        height: 70px;
+        font-size: 1rem;
+    }
+    
+    .nav-arrow:hover {
+        width: 45px; /* Effetto meno invasivo su touch */
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .filter-controls {
+        overflow-x: auto; /* Se gli anni sono tanti, permettiamo lo scroll orizzontale */
+        width: 100%;
+        padding-bottom: 10px;
+    }
+}

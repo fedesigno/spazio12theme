@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- ELEMENTI COMUNI ---
+// --- ELEMENTI COMUNI ---
     const header = document.querySelector('.main-header');
     const menuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelectorAll('.menu-links a');
@@ -12,31 +12,231 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- DATABASE PROGETTI ---
     const projects = [
-        { title: "PALAZZO COMUNALE", location: "San Pietro Val Lemina (TO)", year: "2023", status: "IN ATTIVO", amount: "50.000 €", end: "In corso", tag: "LEGGE 160/2019", desc: "Sostituzione illuminazione, impianto fotovoltaico 6 kW e isolamento solaio con manutenzione copertura.", img: "img/comune_sanpietro.png" },
-        { title: "TEATRO BAUDI DI SELVE", location: "Vigone (TO)", year: "2023", status: "CONCLUSO", amount: "250.000 €", end: "29 Sett. 2023", tag: "PNRR", desc: "Riqualificazione energetica e restauro conservativo della pavimentazione lignea di metà '800 con ausilio della Soprintendenza.", img: "img/baudi.png" },
-        { title: "SCUOLA MATERNA", location: "San Pietro Val Lemina (TO)", year: "2023", status: "CONCLUSO", amount: "215.000 €", end: "30 Agosto 2023", tag: "C.S.E. 2022", desc: "Efficientamento energetico del complesso scolastico tramite la sostituzione di tutti i serramenti esterni.", img: "img/scuola_materna.png" },
-        { title: "SCUOLA ELEMENTARE", location: "Macello (TO)", year: "2023", status: "CONCLUSO", amount: "100.000 €", end: "31 Agosto 2023", tag: "C.S.E. 2022", desc: "Illuminazione LED, serramenti e installazione impianto fotovoltaico con relativa batteria di accumulo.", img: "img/scuola_elementare.png" },
-        { title: "PALAZZO COMUNALE", location: "Macello (TO)", year: "2023", status: "CONCLUSO", amount: "60.000 €", end: "11 Sett. 2023", tag: "C.S.E. 2022", desc: "Efficientamento impianto di illuminazione e riqualificazione centrale termica con sostituzione caldaia.", img: "img/comune_macello.png" },
-        { title: "BIBLIOTECA COMUNALE", location: "San Pietro Val Lemina (TO)", year: "2022", status: "CONCLUSO", amount: "140.000 €", end: "12 Aprile 2022", tag: "CONTO TERMICO 2.0", desc: "Rifacimento completo dei sistemi di generazione, distribuzione ed emissione calore e nuovi serramenti.", img: "img/biblioteca.png" }
+        { 
+            category: "PA", 
+            title: "PALAZZO COMUNALE", 
+            location: "San Pietro Val Lemina (TO)", 
+            year: "2023", 
+            amount: "50.000 €", 
+            end: "In corso", 
+            tag: "LEGGE 160/2019", 
+            desc: "Sostituzione illuminazione, impianto fotovoltaico 6 kW e isolamento solaio con manutenzione copertura.", 
+            images: ["img/biblioteca.png", "img/baudi.png"] 
+        },
+        { 
+            category: "PA", 
+            title: "TEATRO BAUDI DI SELVE", 
+            location: "Vigone (TO)", 
+            year: "2023", 
+            amount: "250.000 €", 
+            end: "29 Sett. 2023", 
+            tag: "PNRR", 
+            desc: "Riqualificazione energetica e restauro conservativo...", 
+            images: ["img/baudi.png", "img/baudi.png"] 
+        },
+        { 
+            category: "PRIVATI", 
+            title: "INTERVENTO RESIDENZIALE", 
+            location: "Pinerolo (TO)", 
+            year: "2022", 
+            amount: "120.000 €", 
+            end: "2022", 
+            tag: "PRIVATO", 
+            desc: "Riqualificazione energetica villa unifamiliare.", 
+            images: ["img/scuola_materna.png", "img/baudi.png"] 
+        }
     ];
 
-    // --- FUNZIONE RENDERING PROGETTI ---
-    window.renderProjects = function(filter = 'all', stretch = false) {
-        if(!projectContainer) return;
+    let currentCategory = null;
 
-        projectContainer.style.opacity = '0';
+// 1. INIZIALIZZAZIONE CATEGORIE (Conteggio e Sfondo Animato)
+// Funzione per inizializzare tutto ciò che riguarda i progetti
+function setupProjectSystem() {
+    console.log("Inizializzazione sistema progetti... Progetti trovati:", projects.length);
+    
+    // Se per qualche motivo l'array è vuoto, fermati e segnalalo
+    if (projects.length === 0) {
+        console.error("ERRORE: L'array 'projects' è vuoto. Controlla il database.");
+        return;
+    }
+
+    initCategories();
+}
+
+function initCategories() {
+    const cats = ['PA', 'PRIVATI'];
+    
+    cats.forEach(cat => {
+        const filtered = projects.filter(p => p.category === cat);
+        const label = document.querySelector(`.cat-elite-card[onclick*="${cat}"] .cat-count`);
+        const slider = document.getElementById(`bg-slider-${cat.toLowerCase()}`);
+
+        console.log(`Categoria ${cat}: ${filtered.length} progetti trovati.`);
+
+        // 1. Forza il conteggio (anche se è 0 deve scriverlo, ma qui deve essere > 0)
+        if(label) {
+            label.textContent = `/ ${filtered.length.toString().padStart(2, '0')}`;
+        }
+
+        // 2. Caricamento Immagini
+        if(slider) {
+            // Pulizia totale
+            if(window[`timer_${cat}`]) clearInterval(window[`timer_${cat}`]);
+            slider.innerHTML = ''; 
+
+            if (filtered.length > 0) {
+                const allPhotos = filtered.flatMap(p => p.images).map(src => src.replace('iimg/', 'img/'));
+                
+                allPhotos.forEach((src, i) => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.style.position = 'absolute';
+                    img.style.inset = '0';
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+                    img.style.transition = 'opacity 1.5s ease-in-out';
+                    
+                    if(i === 0) {
+                        img.classList.add('active');
+                        img.style.opacity = '1';
+                        img.style.zIndex = '1';
+                    } else {
+                        img.style.opacity = '0';
+                        img.style.zIndex = '0';
+                    }
+                    slider.appendChild(img);
+                });
+
+                // 3. Timer Scorrimento
+                if(allPhotos.length > 1) {
+                    window[`timer_${cat}`] = setInterval(() => {
+                        const imgs = slider.querySelectorAll('img');
+                        let activeIdx = Array.from(imgs).findIndex(img => img.classList.contains('active'));
+                        if (activeIdx === -1) activeIdx = 0;
+
+                        imgs[activeIdx].classList.remove('active');
+                        imgs[activeIdx].style.opacity = '0';
+                        imgs[activeIdx].style.zIndex = '0';
+                        
+                        let nextIdx = (activeIdx + 1) % imgs.length;
+                        imgs[nextIdx].classList.add('active');
+                        imgs[nextIdx].style.opacity = '1';
+                        imgs[nextIdx].style.zIndex = '1';
+                    }, 4000);
+                }
+            }
+        }
+    });
+}
+
+// Chiamata all'avvio: assicurati che sia l'ULTIMA cosa nel tuo file script.js
+// o mettila dentro il window.onload per essere certi che i dati siano pronti
+window.onload = () => {
+    setupProjectSystem();
+};
+
+window.closeCategories = function() {
+    const projectsDisplay = document.getElementById('projects-display');
+    const categorySelection = document.getElementById('category-selection');
+    const cards = categorySelection.querySelectorAll('.cat-elite-card');
+
+    // 1. FASE DI USCITA: Nascondi i progetti con dissolvenza
+    projectsDisplay.classList.add('fade-out-down');
+
+    // 2. CAMBIO STATO: Aspettiamo che la dissolvenza finisca
+    setTimeout(() => {
+        projectsDisplay.style.display = 'none';
+        projectsDisplay.classList.remove('fade-out-down');
+        
+        // Prepariamo le card settori: le mettiamo invisibili prima di mostrarle
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.classList.remove('fade-in-up');
+        });
+
+        categorySelection.style.display = 'grid';
+
+        // 3. FASE DI ENTRATA: Forza il browser a far ripartire l'animazione
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                cards.forEach(card => {
+                    card.classList.add('fade-in-up');
+                });
+                
+                // Facciamo ripartire slider e conteggi
+                initCategories();
+            });
+        });
+
+        // 4. SCROLL: Torna su dolcemente
+        const section = document.getElementById('progetti');
+        if (section) {
+            window.scrollTo({
+                top: section.offsetTop - 50,
+                behavior: 'smooth'
+            });
+        }
+
+    }, 400); // Questo deve essere leggermente meno o uguale al tempo del CSS (0.4s)
+};
+
+// 3. AVVIO AL CARICAMENTO
+// Usiamo un piccolo trucco (timeout di 100ms) per essere sicuri che il browser abbia renderizzato i div
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(initCategories, 100);
+});
+
+    // 2. NAVIGAZIONE
+    window.openCategory = function(cat) {
+        currentCategory = cat;
+        document.getElementById('category-selection').style.display = 'none';
+        document.getElementById('projects-display').style.display = 'block';
+        
+        const years = [...new Set(projects.filter(p => p.category === cat).map(p => p.year))].sort().reverse();
+        let filterHtml = `<button class="filter-btn active" onclick="setYearFilter('all', this)">TUTTI</button>`;
+        years.forEach(y => filterHtml += `<button class="filter-btn" onclick="setYearFilter('${y}', this)">${y}</button>`);
+        document.getElementById('year-filters').innerHTML = filterHtml;
+
+        renderProjects('all');
+        window.scrollTo({ top: document.getElementById('progetti').offsetTop - 80, behavior: 'smooth' });
+    };
+
+
+    window.setYearFilter = function(year, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderProjects(year);
+    };
+
+    // 3. RENDERING PROGETTI
+    window.renderProjects = function(yearFilter = 'all', stretch = false) {
+        const container = document.getElementById('project-list');
+        if(!container) return;
+        
+        container.style.opacity = '0';
         
         setTimeout(() => {
-            projectContainer.innerHTML = '';
-            const filtered = filter === 'all' ? projects : projects.filter(p => p.year === filter);
-            const toDisplay = (filtered.length <= 2 || stretch) ? filtered : filtered.slice(0, 2);
+            container.innerHTML = '';
+            let filtered = projects.filter(p => p.category === currentCategory);
+            if(yearFilter !== 'all') filtered = filtered.filter(p => p.year === yearFilter);
 
-            toDisplay.forEach((p, i) => {
+            const toDisplay = stretch ? filtered : filtered.slice(0, 4);
+
+            toDisplay.forEach((p, pIndex) => {
                 const card = document.createElement('div');
                 card.className = 'project-card animate-in';
-                card.style.animationDelay = `${i * 0.1}s`;
+                let imgsHtml = p.images.map((img, i) => `<img src="${img}" class="${i === 0 ? 'active' : ''}" style="opacity: ${i === 0 ? '1' : '0'}">`).join('');
+                
                 card.innerHTML = `
-                    <div class="p-image"><img src="${p.img}" alt="${p.title}"><div class="p-status">${p.status}</div></div>
+                    <div class="p-image" id="slider-${pIndex}">
+                        ${imgsHtml}
+                        ${p.images.length > 1 ? `
+                            <div class="slider-nav">
+                                <button class="nav-arrow nav-prev" onclick="prevImg(${pIndex})">‹</button>
+                                <button class="nav-arrow nav-next" onclick="nextImg(${pIndex})">›</button>
+                            </div>` : ''}
+                    </div>
                     <div class="p-content">
                         <div class="p-meta"><span class="p-year">${p.year}</span><span class="p-funding">${p.tag}</span></div>
                         <h3 class="p-title">${p.title}</h3>
@@ -47,17 +247,50 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div class="spec-item"><span>FINE</span><strong>${p.end}</strong></div>
                         </div>
                     </div>`;
-                projectContainer.appendChild(card);
+                container.appendChild(card);
             });
 
-            if (moreBtnContainer) {
-                moreBtnContainer.innerHTML = (filtered.length > 2 && !stretch) 
-                    ? `<button class="discover-more-btn animate-in" onclick="renderProjects('${filter}', true)"><span>MOSTRA DI PIÙ</span><span class="plus-icon">+</span></button>`
-                    : '';
+            const moreContainer = document.getElementById('more-btn-container');
+            if (moreContainer) {
+                moreContainer.innerHTML = (filtered.length > 2 && !stretch) 
+                    ? `<button class="discover-more-btn" onclick="renderProjects('${yearFilter}', true)">MOSTRA DI PIÙ +</button>` : '';
             }
-            projectContainer.style.opacity = '1';
-        }, 400);
+            container.style.opacity = '1';
+        }, 300);
     };
+
+    // 4. LOGICA SLIDER SINGOLI PROGETTI
+    window.nextImg = function(pIdx) {
+        const slider = document.getElementById(`slider-${pIdx}`);
+        const imgs = slider.querySelectorAll('img');
+        let idx = Array.from(imgs).findIndex(img => img.classList.contains('active'));
+        
+        imgs[idx].classList.remove('active');
+        imgs[idx].style.opacity = '0';
+        
+        let nextIdx = (idx + 1) % imgs.length;
+        imgs[nextIdx].classList.add('active');
+        imgs[nextIdx].style.opacity = '1';
+    };
+
+    window.prevImg = function(pIdx) {
+        const slider = document.getElementById(`slider-${pIdx}`);
+        const imgs = slider.querySelectorAll('img');
+        let idx = Array.from(imgs).findIndex(img => img.classList.contains('active'));
+        
+        imgs[idx].classList.remove('active');
+        imgs[idx].style.opacity = '0';
+        
+        let prevIdx = (idx - 1 + imgs.length) % imgs.length;
+        imgs[prevIdx].classList.add('active');
+        imgs[prevIdx].style.opacity = '1';
+    };
+
+    // INIZIO
+    document.addEventListener('DOMContentLoaded', () => {
+        initCategories();
+    });
+
 
     // --- GESTIONE NAVIGAZIONE & MENU ---
     const closeMenu = () => {

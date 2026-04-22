@@ -105,11 +105,11 @@
 .menu-links a.active::after { width: 98%; }
 
 /* Adattamenti Navigazione nella Pillola */
-.main-header.scrolled .menu-links a.active { font-weight: 800; }
+.main-header.scrolled .menu-links a.active { font-weight: 550; }
 .main-header.scrolled .menu-links a::after { background: #70a9afef; bottom: -6px; }
 
 /* Eccezione Tasto Contatti */
-.menu-links a.btn-nav { font-weight: 800; opacity: 1; }
+.menu-links a.btn-nav { font-weight: 550; opacity: 1; }
 .menu-links a.btn-nav::after { display: none; }
 
 /* =================================================
