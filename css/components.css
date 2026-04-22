@@ -107,7 +107,6 @@
     margin-bottom: 20px;
     /* Limitiamo la descrizione a 3 righe per non allungare la card */
     display: -webkit-box;
-    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
