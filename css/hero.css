@@ -60,67 +60,71 @@
     text-align: center;
     color: #ffffff;
     width: 100%;
-    /* Altezza fissa per prevenire scossoni verticali durante il typing */
-    min-height: 300px; 
+    min-height: 200px; 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transform: translateY(40px); /* Posizionamento ribassato */
+    transform: translateY(40px);
 }
 
 .hero-title {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     align-items: center;
-    line-height: 0.85;
-    margin-bottom: 30px;
+    justify-content: center;
+    margin-bottom: 15px;
+    gap: 5px; /* Spazio minimo tra le due parole */
+}
+
+.reveal-item {
+    display: inline-block;
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(30px);
+    transition: all 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+    will-change: transform, opacity, filter;
+}
+
+.reveal-item.visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
 }
 
 .hero-bold, .hero-thin {
     display: block;
-    text-transform: uppercase;
-    color: #ffffff;
-    min-height: 1.1em;
+    line-height: 1;
+    min-height: 1.1em; /* Evita che il contenitore collassi prima del testo */
 }
-
 .hero-bold {
-    font-size: 3.2rem;
+    font-size: 2.5rem; /* Un pelo più grande essendo il nome principale */
     font-weight: 800;
-    letter-spacing: 8px;
+    letter-spacing: 10px;
 }
 
 .hero-thin {
-    font-size: 3.2rem;
+    font-size: 2.5rem;
     font-weight: 100;
-    letter-spacing: 24px;
-    margin-right: -24px;
+    letter-spacing: 10px;
+    /* Rimuoviamo il margin-right negativo per centrarlo perfettamente */
 }
-
 /* --- LINEA ORIZZONTALE CENTRATA --- */
 .hero-line {
-    width: 0; /* Animata da JS a 60-80px */
+    width: 0; 
     height: 1px;
-    background-color: #ffffff;
-    margin: 0 auto 30px auto; 
-    opacity: 0.7;
-    transition: width 1s cubic-bezier(0.65, 0, 0.35, 1);
-    display: block;
-    position: relative;
+    background-color: rgba(255,255,255,0.6);
+    margin: 20px auto;
+    transition: width 1.2s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 /* --- SOTTOTITOLO CON CURSORE WORD-STYLE --- */
 .hero-subtitle {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     letter-spacing: 8px;
     text-transform: uppercase;
-    font-weight: 200;
-    color: #ffffff;
-    opacity: 0; /* Appare dopo il logo via JS */
-    transition: opacity 0.8s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-weight: 250;
+    min-height: 1.5em;
 }
 
 .morph-word {

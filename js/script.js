@@ -133,92 +133,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const boldStr = "SPAZIO";
-    const thinStr = "DODICI";
     const boldEl = document.getElementById('hero-bold');
     const thinEl = document.getElementById('hero-thin');
     const morphEl = document.querySelector('.morph-word');
     const lineEl = document.querySelector('.hero-line');
     const subtitleEl = document.querySelector('.hero-subtitle');
-    const scrollImages = document.querySelectorAll('.vision-image, .member-photo, .map-wrapper, .team-member-row');
 
-    const observerOptions = {
-        root: null, // usa il viewport del browser
-        rootMargin: '0px', // nessun margine extra
-        threshold: 0.30 // l'effetto parte quando il 20% dell'immagine è visibile
-    };
-
-    // Funzione che viene eseguita quando l'elemento entra/esce dal viewport
-    const observerCallback = (entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Quando l'immagine ENTRA nel campo visivo
-                entry.target.classList.add('is-visible');
-            } else {
-                // Quando l'immagine ESCE dal campo visivo (torna grigia)
-                entry.target.classList.remove('is-visible');
-            }
-        });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.8 // Regola questo per decidere quanto deve essere visibile prima di colorarsi
-    });
-    
-    scrollImages.forEach(image => {
-        observer.observe(image);
-    });
-
-    function typeEffect(element, text, speed, callback) {
-        let i = 0;
-        element.textContent = ""; 
-        const timer = setInterval(() => {
-            if (i < text.length) {
-                element.textContent += text.charAt(i);
-                i++;
-            } else {
-                clearInterval(timer);
-                if (callback) callback();
-            }
-        }, speed);
+    function triggerReveal(el, text, delay) {
+        el.innerHTML = `<span class="reveal-item">${text}</span>`;
+        setTimeout(() => {
+            const span = el.querySelector('.reveal-item');
+            if(span) span.classList.add('visible');
+        }, delay);
     }
 
-    const words = ["COLLETTIVO di PROGETTAZIONE"];
-    let wordIndex = 0;
-
-    async function typeAndErase() {
-        let currentWord = words[wordIndex];
-        // Scrittura
-        for (let i = 0; i <= currentWord.length; i++) {
-            morphEl.textContent = currentWord.substring(0, i);
-            await new Promise(res => setTimeout(res, 100));
-        }
-        // Pausa
-        //await new Promise(res => setTimeout(res, 2000));
-        // Cancellazione
-        //for (let i = currentWord.length; i >= 0; i--) {
-        //    morphEl.textContent = currentWord.substring(0, i);
-        //    await new Promise(res => setTimeout(res, 100));
-        //}
-        wordIndex = (wordIndex + 1) % words.length;
-        //setTimeout(typeAndErase, 400); 
-    }
-
-    // SEQUENZA: Logo -> Linea -> Payoff
+    // --- SEQUENZA VERTICALE ---
     setTimeout(() => {
-        typeEffect(boldEl, boldStr, 200, () => {
-            typeEffect(thinEl, thinStr, 200, () => {
-                // Finito il testo, allunghiamo la linea
-                lineEl.style.width = "70%";
-                
+        // 1. Appare SPAZIO (Sopra)
+        triggerReveal(boldEl, "SPAZIO", 200);
+
+        // 2. Dopo 600ms appare DODICI (Sotto)
+        setTimeout(() => {
+            triggerReveal(thinEl, "DODICI", 200);
+
+            // 3. Quando il logo a due righe è completo, appare la linea
+            setTimeout(() => {
+                lineEl.style.width = "80px"; // Linea pulita ed essenziale
+
+                // 4. Infine il Payoff
                 setTimeout(() => {
                     subtitleEl.style.opacity = "1";
-                    typeAndErase();
+                    triggerReveal(morphEl, "COLLETTIVO di PROGETTAZIONE", 200);
                 }, 800);
-            });
-        });
-    }, 500);
 
+            }, 800);
+
+        }, 600); 
+
+    }, 600);
 });
