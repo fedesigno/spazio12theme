@@ -124,26 +124,25 @@
 }
 
 .morph-word {
-    font-weight: 250;
-    color: #ffffff;
-    text-align: center;
     display: inline-block;
-    position: relative;
-    /* Larghezza minima generosa per non far muovere il blocco sopra */
-    min-width: 400px; 
+    overflow: hidden; /* Fondamentale per l'effetto reveal */
+    vertical-align: bottom;
 }
 
-/* CURSORE VERTICALE ADESIVO */
-.morph-word::after {
-    content: '';
+.word-reveal {
     display: inline-block;
-    vertical-align: middle;
-    width: 2px; /* Più visibile */
-    height: 1.1em;
-    background-color: #ffffff;
-    margin-left: 6px; /* Attaccato all'ultima lettera scritta */
-    animation: blinkVertical 1.2s infinite;
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(20px);
+    transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
+
+.word-reveal.visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+}
+
 
 @keyframes blinkVertical {
     0%, 100% { opacity: 1; }

@@ -193,8 +193,13 @@
         height: auto;
     }
 
+    .team-member-row.reverse .member-tag {
+        left: 10px;
+        right: auto;
+    }
+
     .menu-open::after {
-        content: 'INGEGNERIA | DESIGN | ARCHITETTURA';
+        content: 'COLLETTIVO DI PROGETTAZIONE';
         position: absolute;
         bottom: 40px;
         font-size: 0.6rem;

@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, speed);
     }
 
-    const words = ["Architettura", "Design", "Ingegneria"];
+    const words = ["COLLETTIVO di PROGETTAZIONE"];
     let wordIndex = 0;
 
     async function typeAndErase() {
@@ -193,17 +193,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Scrittura
         for (let i = 0; i <= currentWord.length; i++) {
             morphEl.textContent = currentWord.substring(0, i);
-            await new Promise(res => setTimeout(res, 150));
-        }
-        // Pausa
-        await new Promise(res => setTimeout(res, 2000));
-        // Cancellazione
-        for (let i = currentWord.length; i >= 0; i--) {
-            morphEl.textContent = currentWord.substring(0, i);
             await new Promise(res => setTimeout(res, 100));
         }
+        // Pausa
+        //await new Promise(res => setTimeout(res, 2000));
+        // Cancellazione
+        //for (let i = currentWord.length; i >= 0; i--) {
+        //    morphEl.textContent = currentWord.substring(0, i);
+        //    await new Promise(res => setTimeout(res, 100));
+        //}
         wordIndex = (wordIndex + 1) % words.length;
-        setTimeout(typeAndErase, 400); 
+        //setTimeout(typeAndErase, 400); 
     }
 
     // SEQUENZA: Logo -> Linea -> Payoff

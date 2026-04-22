@@ -4,7 +4,7 @@
 
 .section { 
     padding: 120px 8%; 
-    scroll-margin-top: 80px; /* Evita che l'header copra il titolo della sezione */
+    scroll-margin-top: 80px;
 }
 
 /* Sezione Bianca (Default) */
@@ -12,12 +12,13 @@
     background-color: #ffffff;
 }
 
-/* Sezione Grigino "Aria" (molto tenue e professionale) */
+/* Sezione Grigio "Aria" - Usala per il TEAM */
 .bg-light-soft {
-    background-color: #f8f9fa; /* Un grigio quasi impercettibile, molto elite */
-    border-top: 1px solid #f0f0f0;
-    border-bottom: 1px solid #f0f0f0;
+    background-color: #f5f5f5; /* Un tono neutro freddo molto professionale */
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
 }
+
 
 .container { max-width: 1400px; margin: 0 auto; }
 
@@ -294,18 +295,27 @@
 .member-tag {
     position: absolute; 
     top: 40px; 
-    right: -15px;
+    right: -15px; /* Rimane leggermente fuori dalla foto per stile */
     background: var(--accent); 
     color: white; 
-    padding: 10px 15px;
-    font-size: 0.6rem; 
+    padding: 15px 8px; /* Padding stretto ai lati e generoso sopra/sotto */
+    font-size: 0.65rem; 
     font-weight: 800; 
-    letter-spacing: 3px;
-    writing-mode: vertical-rl; 
-    text-transform: uppercase;
+    letter-spacing: 0; /* Riduciamo lo spacing per la lettura verticale */
     z-index: 2;
+    text-transform: uppercase;
+
+    /* IL TRUCCO PER LE LETTERE IMPILATE DRITTE */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 25px; /* Larghezza fissa molto stretta per forzare una lettera per riga */
+    word-break: break-all; /* Forza il testo ad andare a capo lettera per lettera */
+    line-height: 1.4; /* Spazio tra le lettere impilate */
+    text-align: center;
 }
 
+/* Speculare per il membro reverse */
 .team-member-row.reverse .member-tag {
     right: auto;
     left: -15px;
