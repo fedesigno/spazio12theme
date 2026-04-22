@@ -281,3 +281,31 @@
         padding-bottom: 10px;
     }
 }
+
+@media (max-width: 768px) {
+    .member-photo { padding: 20px; }
+    .member-photo img { height: 320px; max-width: 100%; }
+    
+    .member-photo::before,
+    .member-photo::after {
+        width: 80px; 
+        height: 80px;
+    }
+
+    /* Il Tag diventa orizzontale */
+    .member-tag {
+        width: auto;
+        display: inline-block;
+        writing-mode: horizontal-tb;
+        top: -5px;
+        right: 15px;
+        padding: 4px 10px;
+        font-size: 0.55rem;
+    }
+
+    .team-member-row.reverse .member-tag { left: 15px; right: auto; }
+
+    /* Animazione ridotta per mobile */
+    @keyframes cornerMove { to { top: 10px; left: 10px; opacity: 1; } }
+    @keyframes cornerMoveAfter { to { bottom: 10px; right: 10px; opacity: 1; } }
+}
