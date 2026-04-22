@@ -171,4 +171,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 600); 
 
     }, 600);
+
+    // --- 2. SISTEMA "COLORA IMMAGINI AL PASSAGGIO" (RECUPERATO) ---
+    const scrollImages = document.querySelectorAll('.vision-image, .member-photo, .map-wrapper, .team-member-row');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.70 // L'effetto parte quando il 70% dell'immagine è visibile
+    };
+
+    const observerCallback = (entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Quando l'immagine entra, aggiunge la classe che toglie il bianco e nero
+                entry.target.classList.add('is-visible');
+            } else {
+                // Quando esce, torna in bianco e nero (se lo desideri, altrimenti togli questo else)
+                entry.target.classList.remove('is-visible');
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    
+    scrollImages.forEach(image => {
+        observer.observe(image);
+    });
 });
