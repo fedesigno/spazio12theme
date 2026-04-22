@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.70 // L'effetto parte quando il 70% dell'immagine è visibile
+        threshold: 1 // L'effetto parte quando il 90% dell'immagine è visibile
     };
 
     const observerCallback = (entries) => {
