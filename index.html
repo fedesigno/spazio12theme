@@ -15,6 +15,10 @@
     <link rel="stylesheet" href="css/sections.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/team.css">
+    <link rel="stylesheet" href="css/projects.css">
+    <link rel="stylesheet" href="css/contacts.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
@@ -276,7 +280,23 @@
             </div>
         </div>
     </section>
+    
+        <script src="js/config.js"></script>
 
-        <script src="js/script.js"></script>
+        <script src="js/projects-engine.js"></script>
+        <script src="js/ui-core.js"></script>
+        <script src="js/animations.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Carica i progetti dal CMS
+                fetchProjectsFromCMS();
+                // Attiva menu e scroll
+                setupUI();
+                // Attiva scritte hero e observer immagini
+                initAnimations();
+            });
+        </script>
+
     </body>
     </html>
