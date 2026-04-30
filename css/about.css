@@ -1,48 +1,122 @@
 /* =================================================
-   COSA FACCIAMO (VERSIONE ELITE - REFINEMENT)
+   COSA FACCIAMO (SINCRONIZZAZIONE TOTALE)
 ================================================= */
 
 .vision-grid {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 80px;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 100px;
     align-items: center;
-    margin-bottom: 80px; /* Ridotto per maggiore compattezza e coesione */
+    margin-bottom: 100px;
 }
 
 .vision-image {
     position: relative;
-    overflow: hidden;
+    width: 100%;
+    max-width: 500px; 
+    height: 440px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    view-timeline: --vision-view block;
 }
 
+/* --- APPLICAZIONE RANGE UNIFICATO --- */
+
+/* Layer Azzurro Vetrate */
+.vision-image::before {
+    content: '';
+    position: absolute;
+    width: 100%; height: 100%;
+    /* --- GLASS ACCENT --- */
+    /* Usiamo l'accent con opacità (es. 0.4 per un effetto colorato ma trasparente) */
+    background-color: rgba(111, 161, 179, 0.7); 
+    
+    /* Effetto vetrato: sfoca quello che c'è dietro */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    /* Bordo sottile per dare l'effetto "spigolo del vetro" */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    z-index: 0;
+    border-radius: 40px 10px 40px 10px;
+    transform: translate(20px, 20px); 
+    
+    animation: revealLayer linear both;
+    animation-timeline: --vision-view;
+    /* RANGE SINCRONIZZATO CON LA FOTO */
+    animation-range: entry 50% exit 20%; 
+}
+
+/* Cornice Sottile */
+.vision-image::after {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    border: 1.5px solid #e2e2e2;
+    z-index: 1;
+    border-radius: 40px 12px 40px 12px;
+    pointer-events: none;
+    
+    animation: revealOpacity linear both;
+    animation-timeline: --vision-view;
+    /* RANGE SINCRONIZZATO CON LA FOTO */
+    animation-range: entry 50% exit 20%; 
+}
+
+/* La Foto */
 .vision-image img { 
-    width: 100%; 
-    height: 520px; 
+    width: 100%; height: 100%; 
     object-fit: cover; 
-    /* Stato iniziale: Bianco e Nero */
-    filter: grayscale(100%) contrast(1.1);
-    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1s ease;
-    will-change: filter, transform;
-    border-radius: 13px;
+    position: relative;
+    z-index: 2;
+    border-radius: 30px 8px 30px 8px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.08); 
+    filter: grayscale(100%); 
+
+    animation: revealColor linear both;
+    animation-timeline: --vision-view;
+    /* RANGE SINCRONIZZATO */
+    animation-range: entry 50% exit 20%; 
 }
 
-.vision-image.is-visible img { 
-    filter: grayscale(0%); 
+/* --- KEYFRAMES SINCRONIZZATI (STESSA LOGICA PER TUTTI) --- */
+
+@keyframes revealColor {
+    0% { filter: grayscale(100%); }
+    20%, 80% { filter: grayscale(0%); } 
+    100% { filter: grayscale(100%); }
 }
 
+@keyframes revealLayer {
+    0% { opacity: 0; transform: translate(0px, 0px) scale(0.95); }
+    /* Entra, si colora e si sposta nello stesso momento */
+    20%, 80% { opacity: 0.8; } 
+    100% { opacity: 0; transform: translate(0px, 0px) scale(0.95); }
+}
+
+@keyframes revealOpacity {
+    0% { opacity: 0; }
+    20%, 80% { opacity: 0.6; } 
+    100% { opacity: 0; }
+}
+
+/* --- TESTI VISION (PULITI E SENZA LINEA) --- */
 
 .vision-text { 
-    padding-left: 30px; 
-    border-left: 1px solid rgba(0,0,0,0.08); /* Linea sottile di separazione */
+    padding-left: 0; /* Rimossa la separazione forzata */
+    border-left: none; /* Rimossa la linea verticale */
 }
 
 .vision-text h3 { 
-    font-size: 2rem; 
-    margin-bottom: 25px; 
+    font-size: 2.2rem; /* Leggermente più grande per autorità */
+    margin-bottom: 30px; 
     font-weight: 800; 
     letter-spacing: -1px;
     line-height: 1.1;
     text-transform: uppercase;
+    color: var(--black);
 }
 
 .vision-text p { 
@@ -51,7 +125,27 @@
     line-height: 1.8; 
     font-weight: 300;
     margin-bottom: 25px; 
-    max-width: 480px;
+    max-width: 500px; /* Aumentato leggermente per distendere il testo */
+}
+
+/* --- KEYFRAMES SINCRONIZZATI --- */
+
+@keyframes revealColor {
+    0% { filter: grayscale(100%); }
+    20%, 80% { filter: grayscale(0%); } /* Sincronizzato al 20% */
+    100% { filter: grayscale(100%); }
+}
+
+@keyframes revealLayer {
+    0% { opacity: 0; }
+    20%, 80% { opacity: 0.7; } /* Sincronizzato al 20% */
+    100% { opacity: 0; }
+}
+
+@keyframes revealOpacity {
+    0% { opacity: 0; }
+    20%, 80% { opacity: 0.6; } /* Sincronizzato al 20% */
+    100% { opacity: 0; }
 }
 
 /* --- PILASTRI (VERSIONE PULITA ED ELEGANTE) --- */
@@ -170,3 +264,101 @@
     font-weight: 300;
 }
 
+
+/* =================================================
+   RESPONSIVE - TABLET & SMARTPHONE
+================================================= */
+
+/* --- TABLET (Sotto i 1024px) --- */
+@media (max-width: 1024px) {
+    .vision-grid {
+        gap: 50px; /* Ridotto per schermi medi */
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .vision-image {
+        max-width: 420px;
+        height: 380px;
+    }
+
+    .vision-text h3 {
+        font-size: 1.8rem;
+    }
+
+    .pillars-grid {
+        gap: 30px;
+    }
+}
+
+/* --- SMARTPHONE (Sotto i 768px) --- */
+@media (max-width: 768px) {
+    /* Griglia Vision: impilata verticalmente */
+    .vision-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .vision-image {
+        max-width: 340px; /* Più stretta per non toccare i bordi */
+        height: 380px;
+        margin: 0 auto; /* Centrata */
+    }
+
+    /* Regolazione Layer per Mobile (meno invasivi) */
+    .vision-image::before {
+        transform: translate(15px, 15px); /* Offset ridotto */
+        border-radius: 30px 10px 30px 10px;
+    }
+
+    .vision-image::after {
+        inset: -8px; /* Cornice più aderente */
+        border-radius: 30px 12px 30px 12px;
+    }
+
+    .vision-image img {
+        border-radius: 25px 8px 25px 8px;
+    }
+
+    /* Testi Vision */
+    .vision-text p {
+        margin: 0 auto 25px auto;
+        font-size: 1rem;
+    }
+
+    /* Griglia Pilastri: 1 colonna per leggibilità totale */
+    .pillars-grid {
+        grid-template-columns: 1fr;
+        gap: 80px; /* Spazio per far respirare i numeri background */
+        padding-top: 40px;
+    }
+
+    .pillar-item {
+        text-align: center;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .pillar-num {
+        left: 50%;
+        transform: translateX(-50%); /* Centra il numero 01, 02... */
+        top: -45px;
+    }
+
+    .abstract-icon {
+        margin: 0 auto 20px auto; /* Centra l'icona geometrica */
+    }
+}
+
+/* --- SMALL MOBILE (Sotto i 480px) --- */
+@media (max-width: 480px) {
+    .vision-image {
+        max-width: 280px;
+        height: 320px;
+    }
+    
+    .vision-text h3 {
+        font-size: 1.5rem;
+    }
+}
