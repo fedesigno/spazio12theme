@@ -33,7 +33,7 @@
 
 .member-photo { 
     position: relative; 
-    width: 320px;
+    width: 380px;
     height: 420px;
     margin: 0 auto;
     display: flex;
@@ -208,7 +208,7 @@
         gap: 40px;
         grid-template-columns: 1fr 1fr;
     }
-    .member-photo { width: 270px; height: 370px; }
+    .member-photo { width: 320px; height: 370px; }
 }
 
 /* --- MOBILE (Sotto i 768px) --- */
@@ -238,7 +238,7 @@
     /* --- FOTO E TAG (ACCANTO) --- */
     /* Se vuoi il nome di fianco alla foto su mobile, dobbiamo cambiare display qui */
     .member-photo {
-        width: 240px;
+        width: 280px;
         height: 330px;
         margin-bottom: 10px;
         animation-range: entry 20% exit 20%;
@@ -302,7 +302,7 @@
 /* --- OTTIMIZZAZIONE EXTRA PER SMARTPHONE STRETTI --- */
 @media (max-width: 480px) {
     .member-photo {
-        width: 210px;
+        width: 250px;
         height: 290px;
     }
     
