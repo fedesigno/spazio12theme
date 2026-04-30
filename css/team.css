@@ -54,7 +54,7 @@
     content: '';
     position: absolute;
     width: 100%; height: 100%;
-    background: radial-gradient(circle at 50% 50%, rgba(61, 90, 99, 0.3) 0%, transparent 80%), #233135;
+    background: radial-gradient(circle at 50% 50%, rgb(38, 75, 87, 0.8) 0%, transparent 80%), rgb(38, 75, 87);
     background-blend-mode: soft-light;
     border: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: inset 0 1px 1px rgba(255,255,255,0.1), 0 20px 40px rgba(0,0,0,0.4);
@@ -113,7 +113,7 @@
 
 @keyframes revealLayerMove {
     0% { opacity: 0.1; transform: translate(0, 0); }
-    40%, 90% { opacity: 0.5; transform: translate(27px, 15px); }
+    40%, 90% { opacity: 0.65; transform: translate(27px, 15px); }
     100% { opacity: 0.1; transform: translate(0, 0); }
 }
 
