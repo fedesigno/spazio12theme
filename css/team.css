@@ -1,17 +1,23 @@
 /* =================================================
-   TEAM SECTION (VERSIONE ELITE DEFINITIVA)
+   TEAM SECTION - SPAZIODODICI STATIC VISUAL REVEAL
 ================================================= */
+
+:root {
+    --accent: #54727d; 
+    --black: #1a1a1a;
+}
+
 .team-container { 
     display: flex; 
     flex-direction: column; 
-    gap: 120px; 
+    gap: 140px; 
     margin-top: 60px; 
 }
 
 .team-member-row { 
     display: grid; 
     grid-template-columns: 1fr 1.2fr; 
-    gap: 80px; 
+    gap: 100px; 
     align-items: center; 
 }
 
@@ -23,247 +29,284 @@
 .team-member-row.reverse .member-details { order: 1; text-align: right; }
 .team-member-row.reverse .member-bio { margin-left: auto; }
 
-/* --- Fotografia & Tag --- */
-/* --- STAFF: ARCHITECTURAL FRAME (SCROLL ANIMATION) --- */
+/* --- COMPOSIZIONE FOTOGRAFICA --- */
+
 .member-photo { 
     position: relative; 
-    padding: 30px; 
+    width: 320px;
+    height: 420px;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Monitoraggio dello scroll */
-    view-timeline-name: --photo-scroll;
-    view-timeline-axis: block;
+    /* Usiamo view-timeline abbreviato per maggiore compatibilità */
+    view-timeline: --photo-view block;
 }
 
-/* La Cornice Geometrica (Angoli) */
-.member-photo::before,
+/* Layer di profondità (azzurro) */
+.member-photo::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    
+    /* --- GLASS ACCENT --- */
+    /* Usiamo l'accent con opacità (es. 0.4 per un effetto colorato ma trasparente) */
+    background-color: rgba(111, 161, 179, 0.7); 
+    
+    /* Effetto vetrato: sfoca quello che c'è dietro */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    /* Bordo sottile per dare l'effetto "spigolo del vetro" */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    
+    z-index: 0;
+    border-radius: 40px 10px 40px 10px;
+    transform: translate(15px, 15px); 
+    
+    /* Manteniamo le tue animazioni */
+    animation: revealLayer linear both;
+    animation-timeline: --photo-view;
+    animation-range: entry 100% exit 0%;
+}
+
+/* Cornice Esterna */
 .member-photo::after {
     content: '';
     position: absolute;
-    width: 120px; 
-    height: 120px;
-    border: 1.5px solid var(--accent);
+    inset: -10px; 
+    border: 1.2px solid #bebebe;
     z-index: 1;
-    /* Animazione legata allo scroll */
-    animation: cornerMove linear forwards;
-    animation-timeline: --photo-scroll;
-    animation-range: entry 10% cover 40%;
-}
-
-/* Angolo Top-Left */
-.member-photo::before {
-    top: 0;
-    left: 0;
-    border-right: none;
-    border-bottom: none;
-}
-
-/* Angolo Bottom-Right */
-.member-photo::after {
-    bottom: 0;
-    right: 0;
-    border-left: none;
-    border-top: none;
+    border-radius: 40px 12px 40px 12px;
+    
+    animation: revealOpacity linear both;
+    animation-timeline: --photo-view;
+    animation-range: entry 100% exit 0%;
 }
 
 /* La Foto */
 .member-photo img { 
     width: 100%; 
-    max-width: 380px; 
-    height: 380px; 
+    height: 100%; 
     object-fit: cover; 
-    border-radius: 4px; 
     position: relative;
     z-index: 2;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+    border-radius: 30px 8px 30px 8px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.06); 
+    /* Stato iniziale forzato per evitare il "flash" a colori */
+    filter: grayscale(100%); 
 
-    /* FORZIAMO IL BIANCO E NERO */
-    filter: grayscale(100%);
-    transition: filter 0.8s cubic-bezier(0.19, 1, 0.22, 1), transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    animation: revealColor linear both;
+    animation-timeline: --photo-view;
+    animation-range: entry 100% exit 0%;
 }
 
-/* --- EFFETTO HOVER: TORNA IL COLORE --- */
-.team-member-row:hover .member-photo img { 
-    filter: grayscale(0%); /* Torna il colore al passaggio del mouse */
-    transform: scale(1.02); /* Piccolo zoom per dare vita */
+/* --- KEYFRAMES REVISIONATI (FLUIDITÀ TOTALE) --- */
+
+@keyframes revealColor {
+    /* 0% è l'istante in cui l'immagine è entrata TUTTA */
+    0% { filter: grayscale(100%); }
+    /* Diventa colorata subito dopo l'ingresso e resta tale nel mezzo */
+    15%, 85% { filter: grayscale(0%); } 
+    /* Torna grigia esattamente quando inizia a uscire (100% del range exit 0%) */
+    100% { filter: grayscale(100%); }
 }
 
-/* --- ANIMAZIONE SCROLL (Solo per i quadratini/angoli) --- */
-.member-photo::before,
-.member-photo::after {
-    content: '';
-    position: absolute;
-    width: 120px; 
-    height: 120px;
-    border: 1.5px solid var(--accent);
-    z-index: 1;
-    opacity: 0.3;
-    
-    /* I quadratini continuano a muoversi con lo scroll */
-    animation: cornerMove linear forwards;
-    animation-timeline: --photo-scroll;
-    animation-range: entry 10% cover 40%;
+@keyframes revealOpacity {
+    0% { opacity: 0.1; border-color: #bebebe; }
+    15%, 85% { opacity: 0.6; border-color:  #bebebe }
+    100% { opacity: 0.1; border-color: #bebebe; }
 }
 
-/* Forza l'animazione specifica per l'angolo dopo */
-.member-photo::after {
-    animation-name: cornerMoveAfter;
+@keyframes revealLayer {
+    0% { opacity: 0.1; }
+    15%, 85% { opacity: 0.5; }
+    100% { opacity: 0.1; }
 }
-
-/* --- KEYFRAMES PER SCROLL --- */
-@keyframes cornerMove {
-    from { opacity: 0.3; }
-    to { 
-        opacity: 1;
-        top: 15px; 
-        left: 15px; /* Per After diventeranno bottom/right via CSS */
-    }
-}
-
-/* Nota: Per l'angolo After dobbiamo specificare il movimento opposto */
-@keyframes cornerMoveAfter {
-    from { opacity: 0.3; }
-    to { 
-        opacity: 1;
-        bottom: 15px; 
-        right: 15px;
-    }
-}
-
-/* Sovrascriviamo l'animazione per l'elemento After */
-.member-photo::after {
-    animation-name: cornerMoveAfter;
-}
-
-@keyframes photoReveal {
-    from { filter: grayscale(100%); transform: scale(0.97); }
-    to { filter: grayscale(0%); transform: scale(1); }
-}
-
-.member-photo.is-visible img { 
-    filter: grayscale(0%); 
-    transition: filter 1.3s ease-in-out;
-}
-
-.member-photo:hover img { 
-    filter: grayscale(0%); 
-    transform: scale(1.02);
-}
+/* --- TIPOGRAFIA & DETTAGLI --- */
 
 .member-role { 
     display: block; 
     text-transform: uppercase; 
     letter-spacing: 5px; 
-    font-size: 0.8rem; 
-    color: #999; 
+    font-size: 0.75rem; 
+    color: var(--accent); 
     margin-bottom: 10px; 
+    font-weight: 700;
 }
 
-.member-tag {
-    position: absolute; 
-    top: 40px; 
-    right: -15px; /* Rimane leggermente fuori dalla foto per stile */
-    background: var(--accent); 
-    color: white; 
-    padding: 15px 8px; /* Padding stretto ai lati e generoso sopra/sotto */
-    font-size: 0.65rem; 
-    font-weight: 300; 
-    letter-spacing: 1px; /* Riduciamo lo spacing per la lettura verticale */
-    z-index: 2;
-    text-transform: uppercase;
-
-    /* IL TRUCCO PER LE LETTERE IMPILATE DRITTE */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 25px; /* Larghezza fissa molto stretta per forzare una lettera per riga */
-    word-break: break-all; /* Forza il testo ad andare a capo lettera per lettera */
-    line-height: 1.4; /* Spazio tra le lettere impilate */
-    text-align: center;
-}
-
-/* Speculare per il membro reverse */
-.team-member-row.reverse .member-tag {
-    right: auto;
-    left: -15px;
-}
-
-/* --- Tipografia & Gerarchia --- */
-
-/* 1. Qualifica Professionale (Elite & Tecnica) */
 .bio-intro { 
-    font-size: 1rem; /* Ridotto per non sovrastare il nome */
+    font-size: 1.1rem; 
     font-weight: 800; 
-    color: #444; /* Antracite profondo */
+    color: #333; 
     text-transform: uppercase;
-    letter-spacing: 3px; 
-    line-height: 1;
+    letter-spacing: 2px; 
+    line-height: 1.2;
     margin-bottom: 15px; 
     display: block;
 }
 
-/* 2. Nome e Cognome (Contrasto Moderno) */
 .member-name { 
-    font-size: clamp(2rem, 3.5vw, 2.8rem); 
-    font-weight: 300; 
+    font-size: clamp(2.2rem, 3.5vw, 3rem); 
+    font-weight: 200; 
     color: var(--black);
     margin-bottom: 25px; 
     line-height: 1.1; 
     text-transform: uppercase;
 }
 
-.member-name strong { 
-    font-weight: 800; /* Il cognome rimane l'ancora visiva */
-}
+.member-name strong { font-weight: 900; }
 
-/* 3. Bio Paragrafo (Piccolo, Leggero, Pulito) */
-.member-bio { 
-    max-width: 450px; 
-}
+.member-bio { max-width: 450px; }
 
 .member-bio p { 
-    font-size: 0.9rem; /* Dimensione ridotta per eleganza */
-    color: #777; /* Grigio più morbido */
+    font-size: 0.95rem; 
+    color: #666; 
     line-height: 1.8; 
     font-weight: 300;
     margin-bottom: 15px;
 }
 
-/* Linea decorativa minima */
 .member-details::before {
     content: '';
     display: block;
-    /* La linea parte da 0 per l'effetto apparizione */
-    width: 0px; 
+    width: 60px; 
     height: 2px;
     background: var(--accent);
     margin-bottom: 30px;
-    /* Transition MOLTO LENTA per eleganza (2 secondi) */
-    transition: width 2s cubic-bezier(0.165, 0.84, 0.44, 1);
-    opacity: 0.7; /* Sottile */
-    margin-left: 0; /* Forza a sinistra per default */
 }
 
-.team-member-row.is-visible .member-details::before {
-    width: 80px; /* Larghezza finale "Elite" */
-    opacity: 1;
+.team-member-row.reverse .member-details::before { margin-left: auto; }
+
+.member-tag {
+    position: absolute; 
+    top: 50px; 
+    right: -10px; 
+    background: var(--accent); 
+    color: white; 
+    padding: 12px 6px; 
+    font-size: 0.6rem; 
+    font-weight: 400; 
+    z-index: 3;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: 3px;
+    border-radius: 4px;
 }
 
-.team-member-row.reverse .member-details::before {
-    margin-left: auto;
-    margin-right: 0;
-}
+.team-member-row.reverse .member-tag { right: auto; left: -10px; }
 
-/* --- Responsive --- */
+/* =================================================
+   TEAM SECTION - AGGIORNAMENTO RESPONSIVE IBRIDO
+================================================= */
+
+/* --- TABLET (Sotto i 1024px) --- */
 @media (max-width: 1024px) {
-    .team-member-row, .team-member-row.reverse {
-        grid-template-columns: 1fr;
+    .team-member-row {
         gap: 40px;
+        grid-template-columns: 1fr 1fr;
     }
-    .member-photo img { height: 400px; }
-    .member-name { font-size: 2.2rem; }
-    .team-member-row.reverse .member-details { text-align: left; }
-    .team-member-row.reverse .member-details::before { margin-left: 0; }
-    .team-member-row.reverse .member-bio { margin-left: 0; }
+    .member-photo { width: 270px; height: 370px; }
+}
+
+/* --- MOBILE (Sotto i 768px) --- */
+@media (max-width: 768px) {
+    .team-container {
+        gap: 100px;
+        padding: 0 20px;
+    }
+
+    .team-member-row, 
+    .team-member-row.reverse {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centra tutto il blocco */
+        text-align: center !important;
+        gap: 20px;
+    }
+
+    /* Reset ordini per uniformità */
+    .team-member-row.reverse .member-photo { order: 1; }
+    .team-member-row.reverse .member-details { 
+        order: 2; 
+        text-align: center !important; /* Forza centratura anche per reverse */
+        width: 100%;
+    }
+
+    /* --- FOTO E TAG (ACCANTO) --- */
+    /* Se vuoi il nome di fianco alla foto su mobile, dobbiamo cambiare display qui */
+    .member-photo {
+        width: 240px;
+        height: 330px;
+        margin-bottom: 10px;
+        animation-range: entry 20% exit 20%;
+    }
+
+    /* --- DETTAGLI TESTO --- */
+    .member-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centra Ruolo, Nome e Bio */
+        justify-content: center;
+    }
+
+    .member-role {
+        margin-top: 0;
+        margin-bottom: 5px;
+        font-size: 0.7rem;
+        letter-spacing: 3px;
+    }
+
+    .member-name {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        line-height: 1.2;
+    }
+
+    /* Linea decorativa centrata per tutti */
+    .member-details::before {
+        margin: 0 auto 25px !important;
+        content: '';
+        display: block;
+    }
+
+    /* Biografia centrata */
+    .member-bio {
+        margin: 0 auto;
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .member-bio p {
+        text-align: center;
+    }
+
+    /* --- LAYER E CORNICE --- */
+    .member-photo::before {
+        transform: translate(15px, 15px);
+    }
+
+    .member-photo::after {
+        inset: -10px;
+    }
+
+    /* Rimuoviamo il tag verticale originale per non sovrapporsi al nuovo layout */
+    .member-tag {
+        display: none;
+    }
+}
+
+/* --- OTTIMIZZAZIONE EXTRA PER SMARTPHONE STRETTI --- */
+@media (max-width: 480px) {
+    .member-photo {
+        width: 210px;
+        height: 290px;
+    }
+    
+    .member-name {
+        font-size: 1.6rem;
+    }
 }
