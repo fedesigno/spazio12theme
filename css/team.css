@@ -29,7 +29,7 @@
 .team-member-row.reverse .member-details { order: 1; text-align: right; }
 .team-member-row.reverse .member-bio { margin-left: auto; }
 
-/* --- COMPOSIZIONE FOTOGRAFICA --- */
+/* --- COMPOSIZIONE FOTOGRAFICA (VERSIONE CINEMATIC SLOW) --- */
 
 .member-photo { 
     position: relative; 
@@ -39,91 +39,84 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Usiamo view-timeline abbreviato per maggiore compatibilità */
     view-timeline: --photo-view block;
 }
 
-/* Layer di profondità (azzurro) */
+.member-photo img,
+.member-photo::before,
+.member-photo::after {
+    /* Curva di decelerazione estrema: partenza lentissima */
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Layer di profondità */
 .member-photo::before {
     content: '';
     position: absolute;
-    width: 100%;
-    height: 100%;
-    
-    /* --- GLASS ACCENT --- */
-    /* Usiamo l'accent con opacità (es. 0.4 per un effetto colorato ma trasparente) */
-    background-color: rgba(111, 161, 179, 0.7); 
-    
-    /* Effetto vetrato: sfoca quello che c'è dietro */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    
-    /* Bordo sottile per dare l'effetto "spigolo del vetro" */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    
+    width: 100%; height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(61, 90, 99, 0.3) 0%, transparent 80%), #233135;
+    background-blend-mode: soft-light;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.1), 0 20px 40px rgba(0,0,0,0.4);
     z-index: 0;
     border-radius: 40px 10px 40px 10px;
-    transform: translate(15px, 15px); 
     
-    /* Manteniamo le tue animazioni */
-    animation: revealLayer linear both;
+    animation: revealLayerMove both;
     animation-timeline: --photo-view;
-    animation-range: entry 100% exit 0%;
+    /* TRICK: L'animazione avviene solo tra il 30% e l'80% della visibilità totale */
+    animation-range: entry 30% exit 80%;
 }
 
 /* Cornice Esterna */
 .member-photo::after {
     content: '';
     position: absolute;
-    inset: -10px; 
-    border: 1.2px solid #bebebe;
     z-index: 1;
+    border: 1.2px solid #bebebe;
     border-radius: 40px 12px 40px 12px;
     
-    animation: revealOpacity linear both;
+    animation: revealOpacityExpand both;
     animation-timeline: --photo-view;
-    animation-range: entry 100% exit 0%;
+    animation-range: entry 30% exit 80%;
 }
 
 /* La Foto */
 .member-photo img { 
-    width: 100%; 
-    height: 100%; 
+    width: 100%; height: 100%; 
     object-fit: cover; 
     position: relative;
     z-index: 2;
     border-radius: 30px 8px 30px 8px;
-    box-shadow: 0 15px 45px rgba(0,0,0,0.06); 
-    /* Stato iniziale forzato per evitare il "flash" a colori */
     filter: grayscale(100%); 
 
-    animation: revealColor linear both;
+    animation: revealColorJump both;
     animation-timeline: --photo-view;
-    animation-range: entry 100% exit 0%;
+    animation-range: entry 30% exit 80%;
 }
 
-/* --- KEYFRAMES REVISIONATI (FLUIDITÀ TOTALE) --- */
+/* --- KEYFRAMES DILATATI (EFFETTO PERSISTENTE) --- */
 
-@keyframes revealColor {
-    /* 0% è l'istante in cui l'immagine è entrata TUTTA */
-    0% { filter: grayscale(100%); }
-    /* Diventa colorata subito dopo l'ingresso e resta tale nel mezzo */
-    15%, 85% { filter: grayscale(0%); } 
-    /* Torna grigia esattamente quando inizia a uscire (100% del range exit 0%) */
-    100% { filter: grayscale(100%); }
+@keyframes revealColorJump {
+    /* Si apre gradualmente fino al 40% del range impostato sopra */
+    0% { filter: grayscale(100%); transform: translateY(0) scale(1); }
+    /* RIMANE FISSO (Sticky) dal 40% al 90% del range */
+    40%, 90% { filter: grayscale(0%); transform: translateY(-10px) scale(1.02); } 
+    /* Si chiude solo alla fine */
+    100% { filter: grayscale(100%); transform: translateY(0) scale(1); }
 }
 
-@keyframes revealOpacity {
-    0% { opacity: 0.1; border-color: #bebebe; }
-    15%, 85% { opacity: 0.6; border-color:  #bebebe }
-    100% { opacity: 0.1; border-color: #bebebe; }
+@keyframes revealOpacityExpand {
+    0% { opacity: 0; inset: -5px; }
+    40%, 90% { opacity: 0.6; inset: -18px; transform: translateY(-13px); }
+    100% { opacity: 0; inset: -5px; }
 }
 
-@keyframes revealLayer {
-    0% { opacity: 0.1; }
-    15%, 85% { opacity: 0.5; }
-    100% { opacity: 0.1; }
+@keyframes revealLayerMove {
+    0% { opacity: 0.1; transform: translate(0, 0); }
+    40%, 90% { opacity: 0.5; transform: translate(27px, 15px); }
+    100% { opacity: 0.1; transform: translate(0, 0); }
 }
+
 /* --- TIPOGRAFIA & DETTAGLI --- */
 
 .member-role { 
@@ -286,7 +279,7 @@
 
     /* --- LAYER E CORNICE --- */
     .member-photo::before {
-        transform: translate(15px, 15px);
+        transform: translate(10px, 10px);
     }
 
     .member-photo::after {

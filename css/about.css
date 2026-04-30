@@ -22,47 +22,52 @@
 }
 
 /* --- APPLICAZIONE RANGE UNIFICATO --- */
+/* --- COMPOSIZIONE VISION (VERSIONE CINEMATIC SLOW) --- */
 
-/* Layer Azzurro Vetrate */
+.vision-image {
+    position: relative;
+    view-timeline: --vision-view block;
+}
+
+/* Base comune per inerzia e fluidità */
+.vision-image img,
+.vision-image::before,
+.vision-image::after {
+    /* Curva "Lazy" per eliminare gli scatti */
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Layer Materico */
 .vision-image::before {
     content: '';
     position: absolute;
     width: 100%; height: 100%;
-    /* --- GLASS ACCENT --- */
-    /* Usiamo l'accent con opacità (es. 0.4 per un effetto colorato ma trasparente) */
-    background-color: rgba(101, 135, 147, 0.7); 
-    
-    /* Effetto vetrato: sfoca quello che c'è dietro */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    
-    /* Bordo sottile per dare l'effetto "spigolo del vetro" */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-
+    /* Stesso stile professionale del team */
+    background: radial-gradient(circle at 50% 50%, rgba(61, 90, 99, 0.3) 0%, transparent 80%), #233135;
+    background-blend-mode: soft-light;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.1), 0 20px 40px rgba(0,0,0,0.4);
     z-index: 0;
     border-radius: 40px 10px 40px 10px;
-    transform: translate(20px, 20px); 
     
-    animation: revealLayer linear both;
+    animation: revealLayerVision both;
     animation-timeline: --vision-view;
-    /* RANGE SINCRONIZZATO CON LA FOTO */
-    animation-range: entry 50% exit 20%; 
+    /* Inizia al 30% della visibilità e finisce all'85% */
+    animation-range: entry 30% exit 85%;
 }
 
 /* Cornice Sottile */
 .vision-image::after {
     content: '';
     position: absolute;
-    inset: -12px;
-    border: 1px solid #e2e2e2;
     z-index: 1;
+    border: 1.2px solid #bebebe;
     border-radius: 40px 12px 40px 12px;
     pointer-events: none;
     
-    animation: revealOpacity linear both;
+    animation: revealOpacityVision both;
     animation-timeline: --vision-view;
-    /* RANGE SINCRONIZZATO CON LA FOTO */
-    animation-range: entry 50% exit 20%; 
+    animation-range: entry 30% exit 85%;
 }
 
 /* La Foto */
@@ -75,31 +80,33 @@
     box-shadow: 0 20px 50px rgba(0,0,0,0.08); 
     filter: grayscale(100%); 
 
-    animation: revealColor linear both;
+    animation: revealColorVision both;
     animation-timeline: --vision-view;
-    /* RANGE SINCRONIZZATO */
-    animation-range: entry 50% exit 20%; 
+    animation-range: entry 30% exit 85%;
 }
 
-/* --- KEYFRAMES SINCRONIZZATI (STESSA LOGICA PER TUTTI) --- */
+/* --- KEYFRAMES VISION (LOGICA PERSISTENTE) --- */
 
-@keyframes revealColor {
-    0% { filter: grayscale(100%); }
-    20%, 80% { filter: grayscale(0%); } 
-    100% { filter: grayscale(100%); }
+@keyframes revealColorVision {
+    /* Apertura pigra fino al 45% del range */
+    0% { filter: grayscale(100%); transform: translateY(0) scale(1); }
+    45%, 92% { filter: grayscale(0%); transform: translateY(-12px) scale(1.02); } 
+    /* Chiusura ritardata alla fine dello scroll */
+    100% { filter: grayscale(100%); transform: translateY(0) scale(1); }
 }
 
-@keyframes revealLayer {
-    0% { opacity: 0; transform: translate(0px, 0px) scale(0.95); }
-    /* Entra, si colora e si sposta nello stesso momento */
-    20%, 80% { opacity: 0.8; } 
-    100% { opacity: 0; transform: translate(0px, 0px) scale(0.95); }
+@keyframes revealOpacityVision {
+    0% { opacity: 0; inset: -5px; }
+    /* Espansione coordinata: la cornice abbraccia la foto */
+    45%, 92% { opacity: 0.6; inset: -18px; transform: translateY(-13px); }
+    100% { opacity: 0; inset: -5px; }
 }
 
-@keyframes revealOpacity {
-    0% { opacity: 0; }
-    20%, 80% { opacity: 0.6; } 
-    100% { opacity: 0; }
+@keyframes revealLayerVision {
+    0% { opacity: 0.1; transform: translate(0, 0); }
+    /* Il layer materico si stacca creando profondità architettonica */
+    45%, 92% { opacity: 0.5; transform: translate(27px, 15px); }
+    100% { opacity: 0.1; transform: translate(0, 0); }
 }
 
 /* --- TESTI VISION (PULITI E SENZA LINEA) --- */
