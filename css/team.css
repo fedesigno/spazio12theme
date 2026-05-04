@@ -29,92 +29,108 @@
 .team-member-row.reverse .member-details { order: 1; text-align: right; }
 .team-member-row.reverse .member-bio { margin-left: auto; }
 
-/* --- COMPOSIZIONE FOTOGRAFICA (VERSIONE CINEMATIC SLOW) --- */
+/* --- COMPOSIZIONE: THE ARCHITECTURAL KINETIC (NO BLUR) --- */
 
 .member-photo { 
     position: relative; 
-    width: 380px;
-    height: 420px;
+    width: 300px;
+    height: 400px;
     margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    perspective: 1200px; /* Profondità per la rotazione 3D */
     view-timeline: --photo-view block;
 }
 
-.member-photo img,
-.member-photo::before,
-.member-photo::after {
-    /* Curva di decelerazione estrema: partenza lentissima */
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
-/* Layer di profondità */
+/* IL "VETRO ESTRUSO" (Sotto la foto - Ispirato a Tubi.jpg) */
 .member-photo::before {
     content: '';
     position: absolute;
-    width: 100%; height: 100%;
-    background: radial-gradient(circle at 50% 50%, rgb(38, 75, 87, 0.8) 0%, transparent 80%), rgb(38, 75, 87);
-    background-blend-mode: soft-light;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: inset 0 1px 1px rgba(255,255,255,0.1), 0 20px 40px rgba(0,0,0,0.4);
-    z-index: 0;
-    border-radius: 40px 10px 40px 10px;
+    inset: 0;
+    /* Colore del logo con un gradiente tecnico che simula il riflesso del metallo */
+    background: linear-gradient(135deg, #658793 0%, #1b2629 100%);
+    z-index: 1;
     
-    animation: revealLayerMove both;
+    /* Forma del logo: angoli smussati alternati come nelle tue immagini */
+    border-radius: 80px 15px 80px 15px;
+    opacity: 0.1; /* Molto sottile per non distrarre */
+    
+    animation: layerSlide both;
     animation-timeline: --photo-view;
-    /* TRICK: L'animazione avviene solo tra il 30% e l'80% della visibilità totale */
-    animation-range: entry 30% exit 80%;
+    animation-range: entry 15% exit 85%;
 }
 
-/* Cornice Esterna */
+/* LA FOTO: Massima nitidezza, sopra a tutto */
+.member-photo img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    position: relative;
+    z-index: 3; /* Sopra a ogni effetto di riflesso */
+    
+    /* Stessa forma del logo per coerenza totale */
+    border-radius: 70px 10px 70px 10px;
+    
+    /* Ombra solida e materica come i mattoni di Mattoni.jpg */
+    box-shadow: 20px 30px 60px rgba(0,0,0,0.25);
+    
+    /* Bianco e nero iniziale che "accende" il colore allo scroll */
+    filter: grayscale(100%) contrast(1.1);
+    
+    animation: kineticReveal both;
+    animation-timing-function: cubic-bezier(0.2, 0, 0.1, 1);
+    animation-timeline: --photo-view;
+    animation-range: entry 10% exit 90%;
+}
+
+/* L'ACCENTO GRAFICO (Mirino tecnico) */
 .member-photo::after {
     content: '';
     position: absolute;
-    z-index: 1;
-    border: 1.2px solid #bebebe;
-    border-radius: 40px 12px 40px 12px;
+    top: -15px;
+    right: -15px;
+    width: 60px;
+    height: 60px;
+    border-top: 2px solid #658793;
+    border-right: 2px solid #658793;
+    z-index: 4;
+    border-radius: 0 20px 0 0;
     
-    animation: revealOpacityExpand both;
+    animation: cornerLock both;
     animation-timeline: --photo-view;
-    animation-range: entry 30% exit 80%;
+    animation-range: entry 20% exit 80%;
 }
 
-/* La Foto */
-.member-photo img { 
-    width: 100%; height: 100%; 
-    object-fit: cover; 
-    position: relative;
-    z-index: 2;
-    border-radius: 30px 8px 30px 8px;
-    filter: grayscale(100%); 
+/* --- KEYFRAMES SINCRONIZZATI --- */
 
-    animation: revealColorJump both;
-    animation-timeline: --photo-view;
-    animation-range: entry 30% exit 80%;
+@keyframes kineticReveal {
+    0% { 
+        filter: grayscale(100%) brightness(0.6);
+        transform: rotateY(-15deg) scale(0.9) translateY(20px);
+        opacity: 0;
+    }
+    /* La foto è perfettamente nitida e a colori al centro dello scroll */
+    45%, 85% { 
+        filter: grayscale(0%) brightness(1);
+        transform: rotateY(0deg) scale(1) translateY(0);
+        opacity: 1;
+    } 
+    100% { 
+        filter: grayscale(100%) brightness(0.6);
+        transform: rotateY(15deg) scale(0.9) translateY(-20px);
+        opacity: 0;
+    }
 }
 
-/* --- KEYFRAMES DILATATI (EFFETTO PERSISTENTE) --- */
-
-@keyframes revealColorJump {
-    /* Si apre gradualmente fino al 40% del range impostato sopra */
-    0% { filter: grayscale(100%); transform: translateY(0) scale(1); }
-    /* RIMANE FISSO (Sticky) dal 40% al 90% del range */
-    40%, 90% { filter: grayscale(0%); transform: translateY(-10px) scale(1.02); } 
-    /* Si chiude solo alla fine */
-    100% { filter: grayscale(100%); transform: translateY(0) scale(1); }
+@keyframes layerSlide {
+    0% { transform: translate(0, 0); opacity: 0; }
+    /* Il layer sottostante scivola lateralmente creando l'effetto "estrusione" */
+    45%, 85% { transform: translate(25px, 20px); opacity: 0.4; }
+    100% { transform: translate(0, 0); opacity: 0; }
 }
 
-@keyframes revealOpacityExpand {
-    0% { opacity: 0; inset: -5px; }
-    40%, 90% { opacity: 0.6; inset: -18px; transform: translateY(-13px); }
-    100% { opacity: 0; inset: -5px; }
-}
-
-@keyframes revealLayerMove {
-    0% { opacity: 0.1; transform: translate(0, 0); }
-    40%, 90% { opacity: 0.65; transform: translate(27px, 15px); }
-    100% { opacity: 0.1; transform: translate(0, 0); }
+@keyframes cornerLock {
+    0% { transform: translate(-15px, 15px); opacity: 0; }
+    45%, 85% { transform: translate(0, 0); opacity: 1; }
+    100% { transform: translate(15px, -15px); opacity: 0; }
 }
 
 /* --- TIPOGRAFIA & DETTAGLI --- */
@@ -192,114 +208,118 @@
 .team-member-row.reverse .member-tag { right: auto; left: -10px; }
 
 /* =================================================
-   TEAM SECTION - AGGIORNAMENTO RESPONSIVE IBRIDO
+   TEAM SECTION - RESPONSIVE & ADAPTIVE DESIGN (TABLET SIDE-BY-SIDE)
 ================================================= */
 
-/* --- TABLET (Sotto i 1024px) --- */
-@media (max-width: 1024px) {
+/* --- TABLET (Dai 768px ai 1200px) --- */
+/* In questo range manteniamo l'immagine di lato */
+@media (min-width: 768px) and (max-width: 1200px) {
     .team-member-row {
-        gap: 40px;
+        grid-template-columns: 1fr 1fr; /* Rapporto 50/50 per gestire meglio lo spazio */
+        gap: 40px; /* Gap ridotto per schermi medi */
+        align-items: center;
+    }
+
+    .team-member-row.reverse {
         grid-template-columns: 1fr 1fr;
     }
-    .member-photo { width: 320px; height: 370px; }
+
+    .member-photo {
+        width: 260px; /* Leggermente più piccola per non soffocare il testo */
+        height: 350px;
+    }
+
+    .member-name {
+        font-size: 2.2rem; /* Font size ottimizzato per tablet */
+    }
+
+    .member-bio {
+        max-width: 100%; /* La bio occupa tutto lo spazio della sua colonna */
+    }
+
+    /* FIX COLORE PER TABLET: attivazione fluida */
+    .member-photo img {
+        animation-range: entry 10% exit 90% !important;
+    }
 }
 
 /* --- MOBILE (Sotto i 768px) --- */
-@media (max-width: 768px) {
+/* Solo qui passiamo alla modalità "Verticale" */
+@media (max-width: 767px) {
     .team-container {
-        gap: 100px;
-        padding: 0 20px;
+        gap: 80px;
+        padding: 0 15px;
     }
 
     .team-member-row, 
-    .team-member-row.reverse {
+    .team-member-row.reverse { 
         display: flex;
         flex-direction: column;
-        align-items: center; /* Centra tutto il blocco */
-        text-align: center !important;
-        gap: 20px;
+        text-align: center;
+        gap: 30px;
     }
 
-    /* Reset ordini per uniformità */
+    /* Reset ordini per smartphone: sempre foto sopra testo */
     .team-member-row.reverse .member-photo { order: 1; }
-    .team-member-row.reverse .member-details { 
-        order: 2; 
-        text-align: center !important; /* Forza centratura anche per reverse */
-        width: 100%;
-    }
+    .team-member-row.reverse .member-details { order: 2; text-align: center; }
 
-    /* --- FOTO E TAG (ACCANTO) --- */
-    /* Se vuoi il nome di fianco alla foto su mobile, dobbiamo cambiare display qui */
+    .member-details::before { margin: 0 auto 25px !important; }
+    .member-bio { margin: 0 auto; }
+
     .member-photo {
-        width: 280px;
-        height: 330px;
-        margin-bottom: 10px;
-        animation-range: entry 20% exit 20%;
+        width: 240px;
+        height: 320px;
+        perspective: 1000px;
     }
 
-    /* --- DETTAGLI TESTO --- */
-    .member-details {
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* Centra Ruolo, Nome e Bio */
-        justify-content: center;
-    }
-
-    .member-role {
-        margin-top: 0;
-        margin-bottom: 5px;
-        font-size: 0.7rem;
-        letter-spacing: 3px;
-    }
-
-    .member-name {
-        margin-top: 0;
-        margin-bottom: 20px;
-        font-size: 1.8rem;
-        line-height: 1.2;
-    }
-
-    /* Linea decorativa centrata per tutti */
-    .member-details::before {
-        margin: 0 auto 25px !important;
-        content: '';
-        display: block;
-    }
-
-    /* Biografia centrata */
-    .member-bio {
-        margin: 0 auto;
-        text-align: center;
-        max-width: 100%;
-    }
-
-    .member-bio p {
-        text-align: center;
-    }
-
-    /* --- LAYER E CORNICE --- */
-    .member-photo::before {
-        transform: translate(10px, 10px);
-    }
-
-    .member-photo::after {
-        inset: -10px;
-    }
-
-    /* Rimuoviamo il tag verticale originale per non sovrapporsi al nuovo layout */
+    /* Il Tag diventa orizzontale per risparmiare spazio laterale */
     .member-tag {
-        display: none;
+        writing-mode: horizontal-tb;
+        text-orientation: mixed;
+        top: auto;
+        bottom: -12px;
+        right: 15px;
+        padding: 5px 12px;
+        letter-spacing: 2px;
+    }
+    
+    .team-member-row.reverse .member-tag {
+        left: auto;
+        right: 15px;
+    }
+
+    /* Animazione molto rapida per attivare il colore subito su mobile */
+    @keyframes kineticReveal {
+        0% { filter: grayscale(100%); opacity: 0; transform: scale(0.9); }
+        15%, 90% { filter: grayscale(0%); opacity: 1; transform: scale(1); }
+        100% { filter: grayscale(100%); opacity: 0; transform: scale(0.9); }
     }
 }
 
-/* --- OTTIMIZZAZIONE EXTRA PER SMARTPHONE STRETTI --- */
+/* --- SMARTPHONE STRETTI (Sotto i 480px) --- */
 @media (max-width: 480px) {
     .member-photo {
-        width: 250px;
-        height: 290px;
+        width: 210px;
+        height: 280px;
     }
-    
     .member-name {
         font-size: 1.6rem;
+    }
+}
+
+/* --- SUPPORTO TOUCH (Fallback colore) --- */
+@media (hover: none) {
+    .member-photo img {
+        filter: grayscale(20%) brightness(1); /* Più vivido di base su touch */
+    }
+}
+
+/* --- PERFORMANCE --- */
+@media (prefers-reduced-motion: reduce) {
+    .member-photo img, .member-photo::before, .member-photo::after {
+        animation: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+        filter: grayscale(0%) !important;
     }
 }
