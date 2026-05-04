@@ -40,24 +40,53 @@
     view-timeline: --photo-view block;
 }
 
-/* IL "VETRO ESTRUSO" (Sotto la foto - Ispirato a Tubi.jpg) */
+/* --- L'OMBRA ESTRUSA (LOGICA LAYER) --- */
 .member-photo::before {
     content: '';
     position: absolute;
-    inset: 0;
-    /* Colore del logo con un gradiente tecnico che simula il riflesso del metallo */
-    background: linear-gradient(135deg, #658793 0%, #1b2629 100%);
-    z-index: 1;
+    /* Inizialmente sovrapposto alla foto */
+    inset: 0; 
     
-    /* Forma del logo: angoli smussati alternati come nelle tue immagini */
+    /* 1. CREAZIONE DELLA "LASTRA D'OMBRA" */
+    /* Usiamo un colore molto scuro ma trasparente per simulare l'ombra solida */
+    background: rgba(0, 0, 0, 0.2); 
+    
+    /* Forma del logo (stessa della foto) */
     border-radius: 80px 15px 80px 15px;
-    opacity: 0.1; /* Molto sottile per non distrarre */
     
-    animation: layerSlide both;
+    /* Sfocatura ai bordi per non renderla un pezzo di plastica nera */
+    filter: blur(15px);
+    
+    /* 2. LIVELLO DI PROFONDITÀ */
+    z-index: 1; /* Sotto la foto che ha z-index: 2 */
+    
+    /* 3. MOTORE DI ANIMAZIONE (Sincronizzato e Lento) */
+    animation: shadowLayerSlide both;
     animation-timeline: --photo-view;
-    animation-range: entry 15% exit 85%;
+    /* Range calibrato per un'apertura lenta */
+    animation-range: entry 20% exit 90%;
 }
 
+/* KEYFRAMES PER L'EFFETTO ESTRUSIONE */
+@keyframes shadowLayerSlide {
+    0% { 
+        /* Parte invisibile e perfettamente sotto la foto */
+        transform: translate(0, 0) scale(1); 
+        opacity: 0; 
+    }
+    /* Raggiunge la posizione di "stacco" e la mantiene */
+    45%, 92% { 
+        /* Si sposta in diagonale come faceva il layer prima */
+        /* Questo crea l'illusione che la foto sia sospesa a 3cm dal fondo */
+        transform: translate(30px, 30px) scale(1); 
+        opacity: 0.5; 
+    }
+    100% { 
+        /* Rientra quando la foto sparisce */
+        transform: translate(0, 0) scale(1); 
+        opacity: 0; 
+    }
+}
 /* LA FOTO: Massima nitidezza, sopra a tutto */
 .member-photo img { 
     width: 100%; 

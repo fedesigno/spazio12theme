@@ -25,22 +25,52 @@
 
 /* --- COMPOSIZIONE VISION: THE KINETIC ADAPTATION --- */
 
-/* 1. IL "VETRO ESTRUSO" (Layer Materico Sottostante) */
+/* --- L'OMBRA ESTRUSA VISION (EFFETTO LAYER GEOMETRICO) --- */
 .vision-image::before {
     content: '';
     position: absolute;
-    inset: 0;
-    /* Gradiente tecnico Spaziododici */
-    background: linear-gradient(135deg, #658793 0%, #1b2629 100%);
-    z-index: 1;
+    /* Inizialmente sovrapposto all'immagine */
+    inset: 0; 
     
-    /* Forma del logo Spaziododici */
+    /* 1. ESTETICA DELL'OMBRA SOLIDA */
+    /* Usiamo un nero profondo semitrasparente invece del gradiente azzurro */
+    background: rgba(0, 0, 0, 0.2); 
+    
+    /* Manteniamo la forma iconica Spaziododici */
     border-radius: 80px 15px 80px 15px;
-    opacity: 0.1;
     
-    animation: layerSlideVision both;
+    /* Sfocatura ai bordi per dare morbidezza alla "lastra" d'ombra */
+    filter: blur(18px);
+    
+    /* Deve stare sotto l'immagine (z-index: 1) */
+    z-index: 1; 
+    
+    /* 2. MOTORE DI ANIMAZIONE (Sincronizzato con lo Scroll) */
+    animation: shadowLayerVision both;
     animation-timeline: --vision-view;
-    animation-range: entry 15% exit 85%;
+    /* Range calibrato per l'apertura maestosa della Vision */
+    animation-range: entry 20% exit 90%;
+}
+
+/* KEYFRAMES PER L'ESTRUSIONE DELLA VISION */
+@keyframes shadowLayerVision {
+    0% { 
+        /* Parte invisibile e centrata */
+        transform: translate(0, 0) scale(1); 
+        opacity: 0; 
+    }
+    /* Punto di massima espansione: l'ombra si stacca */
+    45%, 92% { 
+        /* Spostamento diagonale verso il basso e destra */
+        /* Essendo la Vision spesso più grande, usiamo uno spostamento deciso */
+        transform: translate(35px, 35px) scale(1.02); 
+        opacity: 0.5; 
+    }
+    100% { 
+        /* Rientro fluido a fine sezione */
+        transform: translate(0, 0) scale(1); 
+        opacity: 0; 
+    }
 }
 
 /* 2. LA FOTO VISION (Massima Nitidezza) */
