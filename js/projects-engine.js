@@ -88,12 +88,27 @@ function initCategories() {
 
 window.openCategory = function(cat) {
     window.currentCategory = cat;
+
+    // 1. GESTIONE TITOLO DINAMICO (Aggiunto qui per evitare conflitti)
+    const titleElement = document.getElementById('current-category-title');
+    if (titleElement) {
+        if (cat === 'PA') {
+            titleElement.innerText = 'PUBBLICA AMMINISTRAZIONE';
+        } else if (cat === 'PRIVATI') {
+            titleElement.innerText = 'CLIENTI PRIVATI';
+        }
+    }
+
+    // 2. LOGICA ORIGINALE (Non toccarla, serve per i progetti)
     document.getElementById('category-selection').style.display = 'none';
     document.getElementById('projects-display').style.display = 'block';
+
     const years = [...new Set(window.projects.filter(p => p.category === cat).map(p => p.year))].sort().reverse();
     let filterHtml = `<button class="filter-btn active" onclick="setYearFilter('all', this)">TUTTI</button>`;
     years.forEach(y => filterHtml += `<button class="filter-btn" onclick="setYearFilter('${y}', this)">${y}</button>`);
+    
     document.getElementById('year-filters').innerHTML = filterHtml;
+    
     renderProjects('all');
     window.scrollTo({ top: document.getElementById('progetti').offsetTop - 80, behavior: 'smooth' });
 };

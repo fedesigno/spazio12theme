@@ -20,147 +20,252 @@
 .filter-btn.active, .filter-btn:hover { color: #303030; }
 .filter-btn.active::after { width: 100%; }
 
-/* --- MACRO CATEGORIE (ELITE CARDS) --- */
+/* --- MACRO CATEGORIE (SPAZIODODICI REFACTOR) --- */
+
 .category-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px; /* Spazio equilibrato */
+    gap: 40px;
     margin-top: 60px;
-    max-width: 1100px; /* Non troppo larghe */
+    max-width: 1100px;
     margin-left: auto;
     margin-right: auto;
+    overflow: visible; /* Per permettere l'ombra estrusa */
 }
+
 .cat-elite-card {
     position: relative;
-    height: 320px; /* Altezza ridotta (prima era 450px) */
-    overflow: hidden;
-    padding: 30px;
+    height: 380px; /* Un po' più alta per dare respiro ai testi */
+    padding: 40px;
     cursor: pointer;
     color: #fff;
-    border-radius: 13px; /* Smussatura più discreta */
-    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    
+    /* FORMA: Quadrata con smussatura discreta e tecnica */
+    border-radius: 15px; 
+    
+    /* BACKGROUND: Blu profondo del brand invece del nero piatto */
+    background: #1b2629; 
+    border: 1px solid rgba(101, 135, 147, 0.3);
+    
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Contenuto verso il basso */
-    background: #111;
-    border: 1px solid rgba(255,255,255,0.1); /* Bordo sottile invece di quello spesso sopra */
+    justify-content: flex-end;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 1;
 }
-/* --- FIX SLIDER BACKGROUND --- */
+
+/* OMBRA ESTRUSA (Stile Spaziododici) */
+.cat-elite-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 15px;
+    filter: blur(15px);
+    z-index: -1;
+    transform: translate(0, 0);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+}
+
+/* --- VISIBILITÀ TESTI (Garantita 100%) --- */
+
+.cat-header, .cat-main, .cat-footer { 
+    position: relative; 
+    z-index: 5; /* Sopra ogni overlay o immagine */
+}
+
+.cat-main h3 {
+    font-size: 1.9rem;
+    font-weight: 300;
+    line-height: 1.1;
+    margin: 0 0 20px 0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    /* Testo sempre bianco e nitido */
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3); 
+}
+
+.cat-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #658793; /* Il nostro Blu Accent */
+    margin-bottom: 12px;
+    display: block;
+    text-transform: uppercase;
+}
+
+.cat-footer p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8); /* Leggibile ma non "urlato" */
+    max-width: 90%;
+    margin: 0;
+    line-height: 1.5;
+    border-left: 2px solid #658793;
+    padding-left: 15px;
+}
+
+/* --- BACKGROUND E OVERLAY --- */
+
 .cat-bg-slider { 
     position: absolute; 
-    top: 0; left: 0; 
-    width: 100%; height: 100%; 
+    inset: 0; 
     z-index: 0; 
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 .cat-bg-slider img {
     position: absolute;
-    top: 0; left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0; /* Partono invisibili per la dissolvenza */
-    transition: opacity 1.5s ease-in-out;
-    z-index: 0;
+    opacity: 0;
+    /* Immagini molto scure di base per non "mangiare" il testo */
+    filter: brightness(0.2) grayscale(100%);
+    transition: all 1.5s ease-in-out, transform 3s ease;
 }
 
-/* Questa è la classe vitale: deve avere l'opacity a 1 */
 .cat-bg-slider img.active {
-    opacity: 1 !important;
+    opacity: 0.5; /* Equilibrio tra vedere l'immagine e leggere il testo */
 }
 
-/* Assicurati che l'overlay non sia sopra il testo ma sopra le immagini */
 .cat-overlay { 
     position: absolute; 
     inset: 0; 
-    z-index: 1; /* Sopra le immagini (0) */
-    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.2));
+    z-index: 1;
+    /* Gradiente scuro che protegge la leggibilità del testo in basso */
+    background: linear-gradient(to top, rgba(27, 38, 41, 0.95) 0%, rgba(27, 38, 41, 0.4) 100%);
     pointer-events: none;
+    border-radius: 15px;
 }
 
-.cat-header, .cat-main, .cat-footer { 
-    position: relative; 
-    z-index: 2; /* Sopra l'overlay (1) */
-}
-.cat-count {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    font-size: 0.8rem;
-    font-weight: 300;
-    letter-spacing: 2px;
-    opacity: 0.7;
+/* --- STATO HOVER --- */
+
+.cat-elite-card:hover {
+    transform: translateY(-8px);
+    border-color: #658793;
 }
 
-.cat-label {
-    font-size: 0.65rem;
-    letter-spacing: 3px;
-    color: var(--accent);
-    margin-bottom: 10px;
-    display: block;
-}
-.cat-main h3 {
-    font-size: 1.8rem; /* Font ridotto */
-    font-weight: 300; /* Più leggero */
-    line-height: 1.2;
-    margin: 0 0 15px 0;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-.cat-line { width: 0; height: 1px; background: #fff; transition: width 0.6s ease; }
-.cat-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    padding-top: 15px;
+.cat-elite-card:hover::before {
+    opacity: 1;
+    transform: translate(25px, 25px); /* Effetto estrusione */
 }
 
-.cat-footer p {
-    font-size: 0.75rem;
-    opacity: 0.6;
-    max-width: 60%;
-    margin: 0;
-    line-height: 1.4;
+.cat-elite-card:hover .cat-bg-slider img { 
+    filter: brightness(0.4) grayscale(0%);
+    transform: scale(1.08); 
 }
 
 .cat-explore {
     font-size: 0.7rem;
     font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #658793;
+    margin-top: 15px;
+    display: inline-block;
+}
+
+/* --- HEADER NAVIGAZIONE PROGETTI --- */
+.projects-nav-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important; /* Allineamento a sinistra più rigoroso */
+    gap: 30px;
+    margin-bottom: 80px;
+}
+
+.nav-top-line {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Bottone Indietro Moderno - FIXED */
+.back-btn-elite {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0;
+    cursor: pointer;
+    /* Rimosso 'group;' che causava l'errore */
+    outline: none;
+}
+
+/* Icona Linea Tecnica */
+.nav-icon {
+    width: 30px;
+    height: 1px;
+    background: #1b2629;
+    display: inline-block;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Effetto Hover: la linea si allunga e diventa blu */
+.back-btn-elite:hover .nav-icon {
+    width: 50px;
+    background: #658793;
+}
+
+/* Testo "PROGETTI" */
+.nav-text {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #1b2629;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.back-btn-elite:hover .nav-text {
+    color: #658793;
+}
+
+/* Separatore e Titolo Dinamico */
+.nav-separator {
+    color: #ddd;
+    font-weight: 200;
+    font-size: 1.5rem;
+}
+
+.category-indicator {
+    font-size: 1.2rem; /* Più grande e d'impatto */
+    font-weight: 300;
     letter-spacing: 1px;
+    color: #658793; /* Il Blu Spaziododici */
     text-transform: uppercase;
 }
 
-/* HOVER CATEGORIE */
-.cat-elite-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-}
-.cat-main h3 {
-    font-size: 1.8rem; /* Font ridotto */
-    font-weight: 300; /* Più leggero */
-    line-height: 1.2;
-    margin: 0 0 15px 0;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-.cat-elite-card:hover .cat-line { width: 100%; }
-.cat-elite-card:hover .cat-footer { opacity: 1; }
-.cat-elite-card:hover .cat-bg-slider img { filter: grayscale(50%) brightness(0.5); }
-
-.cat-bg-slider img {
-    filter: brightness(0.4) grayscale(20%); /* Leggero desaturo */
-    transition: all 1.5s ease-in-out, transform 3s ease;
+/* Filtri Anno più eleganti */
+.filter-controls-elite {
+    display: flex;
+    gap: 25px;
+    border-bottom: 1px solid #f0f0f0;
+    width: 100%;
+    padding-bottom: 10px;
+    justify-content: flex-end; /* 1. Spinge i contenuti tutto a destra */
 }
 
-.cat-elite-card:hover .cat-bg-slider img {
-    filter: brightness(0.5) grayscale(0%);
-    transform: scale(1.05); /* Zoom lentissimo e quasi impercettibile */
+.filter-btn {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #aaa;
+    letter-spacing: 2px;
+    transition: color 0.3s;
+    background: none; /* Assicurati che non abbiano sfondi di default */
+    border: none;
+    cursor: pointer;
 }
 
-.cat-overlay {
-    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 100%);
+.filter-btn.active {
+    color: #658793;
 }
 
 /* --- SLIDER PROGETTI (FRECCE LATERALI) --- */

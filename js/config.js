@@ -94,17 +94,6 @@ function initCategories() {
     });
 }
 
-window.openCategory = function(cat) {
-    window.currentCategory = cat;
-    document.getElementById('category-selection').style.display = 'none';
-    document.getElementById('projects-display').style.display = 'block';
-    const years = [...new Set(window.projects.filter(p => p.category === cat).map(p => p.year))].sort().reverse();
-    let filterHtml = `<button class="filter-btn active" onclick="setYearFilter('all', this)">TUTTI</button>`;
-    years.forEach(y => filterHtml += `<button class="filter-btn" onclick="setYearFilter('${y}', this)">${y}</button>`);
-    document.getElementById('year-filters').innerHTML = filterHtml;
-    renderProjects('all');
-    window.scrollTo({ top: document.getElementById('progetti').offsetTop - 80, behavior: 'smooth' });
-};
 
 window.renderProjects = function(yearFilter = 'all', stretch = false) {
     const container = document.getElementById('project-list');

@@ -183,46 +183,67 @@
         <h2 class="section-title">PROGETTI</h2>
 
         <div id="category-selection" class="category-grid">
+            
+            <!-- CATEGORIA: PA -->
             <div class="cat-elite-card" onclick="openCategory('PA')">
                 <div class="cat-bg-slider" id="bg-slider-pa"></div>
                 <div class="cat-overlay"></div>
+                
                 <div class="cat-header">
-                    <span class="cat-count">/ 00</span>
-                    <span class="cat-label"></span>
+                    <span class="cat-count">/ 01</span>
+                    <span class="cat-label">SETTORE ISTITUZIONALE</span>
                 </div>
+                
                 <div class="cat-main">
                     <h3>PUBBLICA<br>AMMINISTRAZIONE</h3>
                     <div class="cat-line"></div>
                 </div>
+                
                 <div class="cat-footer">
-                    <p>Architettura istituzionale e riqualificazione urbana.</p>
-                    <span class="cat-explore">ESPLORA →</span>
+                    <p>Architetture istituzionali e interventi di rigenerazione che ridefiniscono il dialogo tra spazio pubblico e comunità.</p>
+                    <span class="cat-explore">ESPLORA IL SETTORE →</span>
                 </div>
             </div>
 
+            <!-- CATEGORIA: PRIVATI -->
             <div class="cat-elite-card" onclick="openCategory('PRIVATI')">
                 <div class="cat-bg-slider" id="bg-slider-privati"></div>
                 <div class="cat-overlay"></div>
+                
                 <div class="cat-header">
-                    <span class="cat-count">/ 00</span>
-                    <span class="cat-label"></span>
+                    <span class="cat-count">/ 02</span>
+                    <span class="cat-label">SETTORE RESIDENZIALE</span>
                 </div>
+                
                 <div class="cat-main">
                     <h3>CLIENTI<br>PRIVATI</h3>
                     <div class="cat-line"></div>
                 </div>
+                
                 <div class="cat-footer">
-                    <p>Design e ristrutturazioni residenziali.</p>
-                    <span class="cat-explore">ESPLORA →</span>
+                    <p>Dall'abitare contemporaneo al design sartoriale: progetti plasmati sulla misura dei desideri e dell’identità individuale.</p>
+                    <span class="cat-explore">ESPLORA IL SETTORE →</span>
                 </div>
             </div>
         </div>
 
+        <!-- Area display Progetti -->
         <div id="projects-display" style="display: none;">
-            <div class="section-header">
-                <button class="back-btn" onclick="closeCategories()">← TUTTI I SETTORI</button>
-                <div id="year-filters" class="filter-controls">
+            <div class="section-header projects-nav-header">
+                <div class="breadcrumb-logic">
+                    <div class="nav-top-line">
+                        <button class="back-btn-elite" onclick="closeCategories()">
+                            <span class="nav-icon"></span> 
+                            <span class="nav-text">INDIETRO</span>
+                        </button>
+                        <span class="nav-separator">/</span>
+                        <span id="current-category-title" class="category-indicator">CARICAMENTO...</span>
                     </div>
+                </div>
+                
+                <div id="year-filters" class="filter-controls-elite">
+                    <!-- I filtri verranno iniettati qui -->
+                </div>
             </div>
             <div id="project-list" class="project-grid"></div>
             <div id="more-btn-container" style="text-align: center; margin-top: 60px;"></div>
@@ -297,6 +318,5 @@
                 initAnimations();
             });
         </script>
-
     </body>
     </html>
