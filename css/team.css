@@ -1,354 +1,262 @@
 /* =================================================
-   TEAM SECTION - SPAZIODODICI STATIC VISUAL REVEAL
+   TEAM SECTION - ARCHITECTURAL PRECISION (FIXED)
 ================================================= */
 
 :root {
-    --accent: #54727d; 
-    --black: #1a1a1a;
+    --p-blue: #658793;      /* Blu-Grigio Principale */
+    --p-blue-light: #a5b8bf; /* Accento chiaro */
+    --p-dark: #1a1a1a;       /* Titoli */
+    --p-text: #546e7a;       /* Testo bio */
+    --p-transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.team-container { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 140px; 
-    margin-top: 60px; 
+.team-container {
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
 }
 
-.team-member-row { 
-    display: grid; 
-    grid-template-columns: 1fr 1.2fr; 
-    gap: 100px; 
-    align-items: center; 
-}
-
-.team-member-row.reverse { 
-    grid-template-columns: 1.2fr 1fr; 
-}
-
-.team-member-row.reverse .member-photo { order: 2; }
-.team-member-row.reverse .member-details { order: 1; text-align: right; }
-.team-member-row.reverse .member-bio { margin-left: auto; }
-
-/* --- COMPOSIZIONE: THE ARCHITECTURAL KINETIC (NO BLUR) --- */
-
-.member-photo { 
-    position: relative; 
-    width: 300px;
-    height: 400px;
+/* --- LOGICA DELLA RIGA --- */
+.team-member-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 80px;
+    max-width: 1100px;
     margin: 0 auto;
-    perspective: 1200px; /* Profondità per la rotazione 3D */
-    view-timeline: --photo-view block;
+    position: relative;
 }
 
-/* --- L'OMBRA ESTRUSA (LOGICA LAYER) --- */
+/* REVERSE PERFETTO PER ALBERTO */
+.team-member-row.reverse {
+    flex-direction: row-reverse;
+}
+
+/* --- FOTOGRAFIA --- */
+.member-photo {
+    position: relative;
+    flex: 0 0 300px; /* Dimensione bloccata per evitare sfasamenti */
+    height: 420px;
+    z-index: 2;
+}
+
+.member-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(101, 135, 147, 0.15);
+    transition: var(--p-transition);
+}
+
+/* Cornice tecnica moderna */
 .member-photo::before {
     content: '';
     position: absolute;
-    /* Inizialmente sovrapposto alla foto */
-    inset: 0; 
-    
-    /* 1. CREAZIONE DELLA "LASTRA D'OMBRA" */
-    /* Usiamo un colore molto scuro ma trasparente per simulare l'ombra solida */
-    background: rgba(0, 0, 0, 0.2); 
-    
-    /* Forma del logo (stessa della foto) */
-    border-radius: 80px 15px 80px 15px;
-    
-    /* Sfocatura ai bordi per non renderla un pezzo di plastica nera */
-    filter: blur(15px);
-    
-    /* 2. LIVELLO DI PROFONDITÀ */
-    z-index: 1; /* Sotto la foto che ha z-index: 2 */
-    
-    /* 3. MOTORE DI ANIMAZIONE (Sincronizzato e Lento) */
-    animation: shadowLayerSlide both;
-    animation-timeline: --photo-view;
-    /* Range calibrato per un'apertura lenta */
-    animation-range: entry 20% exit 90%;
+    inset: -20px;
+    border: 1.5px solid var(--p-blue-light);
+    border-radius: 25px;
+    z-index: -1;
+    opacity: 0.3;
+    transition: var(--p-transition);
+    /* Spostamento asimmetrico */
+    transform: translate(-8px, 8px);
 }
 
-/* KEYFRAMES PER L'EFFETTO ESTRUSIONE */
-@keyframes shadowLayerSlide {
-    0% { 
-        /* Parte invisibile e perfettamente sotto la foto */
-        transform: translate(0, 0) scale(1); 
-        opacity: 0; 
-    }
-    /* Raggiunge la posizione di "stacco" e la mantiene */
-    45%, 92% { 
-        /* Si sposta in diagonale come faceva il layer prima */
-        /* Questo crea l'illusione che la foto sia sospesa a 3cm dal fondo */
-        transform: translate(30px, 30px) scale(1); 
-        opacity: 0.5; 
-    }
-    100% { 
-        /* Rientra quando la foto sparisce */
-        transform: translate(0, 0) scale(1); 
-        opacity: 0; 
-    }
-}
-/* LA FOTO: Massima nitidezza, sopra a tutto */
-.member-photo img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    position: relative;
-    z-index: 3; /* Sopra a ogni effetto di riflesso */
-    
-    /* Stessa forma del logo per coerenza totale */
-    border-radius: 70px 10px 70px 10px;
-    
-    /* Ombra solida e materica come i mattoni di Mattoni.jpg */
-    box-shadow: 20px 30px 60px rgba(0,0,0,0.25);
-    
-    /* Bianco e nero iniziale che "accende" il colore allo scroll */
-    filter: grayscale(100%) contrast(1.1);
-    
-    animation: kineticReveal both;
-    animation-timing-function: cubic-bezier(0.2, 0, 0.1, 1);
-    animation-timeline: --photo-view;
-    animation-range: entry 10% exit 90%;
+.team-member-row.reverse .member-photo::before {
+    transform: translate(8px, 8px);
 }
 
-/* L'ACCENTO GRAFICO (Mirino tecnico) */
-.member-photo::after {
-    content: '';
-    position: absolute;
-    top: -15px;
-    right: -15px;
-    width: 60px;
-    height: 60px;
-    border-top: 2px solid #658793;
-    border-right: 2px solid #658793;
-    z-index: 4;
-    border-radius: 0 20px 0 0;
-    
-    animation: cornerLock both;
-    animation-timeline: --photo-view;
-    animation-range: entry 20% exit 80%;
+/* --- DETTAGLI TESTUALI --- */
+.member-details {
+    flex: 1;
+    max-width: 580px;
 }
 
-/* --- KEYFRAMES SINCRONIZZATI --- */
-
-@keyframes kineticReveal {
-    0% { 
-        filter: grayscale(100%) brightness(0.6);
-        transform: rotateY(-15deg) scale(0.9) translateY(20px);
-        opacity: 0;
-    }
-    /* La foto è perfettamente nitida e a colori al centro dello scroll */
-    45%, 85% { 
-        filter: grayscale(0%) brightness(1);
-        transform: rotateY(0deg) scale(1) translateY(0);
-        opacity: 1;
-    } 
-    100% { 
-        filter: grayscale(100%) brightness(0.6);
-        transform: rotateY(15deg) scale(0.9) translateY(-20px);
-        opacity: 0;
-    }
+.team-member-row.reverse .member-details {
+    text-align: right;
 }
 
-@keyframes layerSlide {
-    0% { transform: translate(0, 0); opacity: 0; }
-    /* Il layer sottostante scivola lateralmente creando l'effetto "estrusione" */
-    45%, 85% { transform: translate(25px, 20px); opacity: 0.4; }
-    100% { transform: translate(0, 0); opacity: 0; }
-}
-
-@keyframes cornerLock {
-    0% { transform: translate(-15px, 15px); opacity: 0; }
-    45%, 85% { transform: translate(0, 0); opacity: 1; }
-    100% { transform: translate(15px, -15px); opacity: 0; }
-}
-
-/* --- TIPOGRAFIA & DETTAGLI --- */
-
-.member-role { 
-    display: block; 
-    text-transform: uppercase; 
-    letter-spacing: 5px; 
-    font-size: 0.75rem; 
-    color: var(--accent); 
-    margin-bottom: 10px; 
-    font-weight: 700;
-}
-
-.bio-intro { 
-    font-size: 1.1rem; 
-    font-weight: 800; 
-    color: #333; 
+.member-role {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    color: var(--p-blue);
     text-transform: uppercase;
-    letter-spacing: 2px; 
-    line-height: 1.2;
-    margin-bottom: 15px; 
-    display: block;
+    margin-bottom: 20px;
 }
 
-.member-name { 
-    font-size: clamp(2.2rem, 3.5vw, 3rem); 
-    font-weight: 200; 
-    color: var(--black);
-    margin-bottom: 25px; 
-    line-height: 1.1; 
-    text-transform: uppercase;
+.team-member-row.reverse .member-role {
+    flex-direction: row-reverse;
 }
 
-.member-name strong { font-weight: 900; }
-
-.member-bio { max-width: 450px; }
-
-.member-bio p { 
-    font-size: 0.95rem; 
-    color: #666; 
-    line-height: 1.8; 
-    font-weight: 300;
-    margin-bottom: 15px;
-}
-
-.member-details::before {
+/* Linea tecnica accanto al ruolo */
+.member-role::after {
     content: '';
-    display: block;
-    width: 60px; 
-    height: 2px;
-    background: var(--accent);
+    width: 40px;
+    height: 1px;
+    background: var(--p-blue);
+    opacity: 0.3;
+}
+
+.member-name {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    line-height: 1;
+    color: var(--p-dark);
     margin-bottom: 30px;
-}
-
-.team-member-row.reverse .member-details::before { margin-left: auto; }
-
-.member-tag {
-    position: absolute; 
-    top: 50px; 
-    right: -10px; 
-    background: var(--accent); 
-    color: white; 
-    padding: 12px 6px; 
-    font-size: 0.6rem; 
-    font-weight: 400; 
-    z-index: 3;
+    font-weight: 200;
     text-transform: uppercase;
-    writing-mode: vertical-rl;
-    text-orientation: upright;
-    letter-spacing: 3px;
-    border-radius: 4px;
 }
 
-.team-member-row.reverse .member-tag { right: auto; left: -10px; }
+.member-name strong {
+    font-weight: 800;
+    color: var(--p-blue);
+}
+
+/* --- LA BIO-INTRO CON LINEA VERTICALE --- */
+.bio-intro {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--p-blue);
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    display: block;
+    padding-left: 25px;
+    border-left: 2px solid var(--p-blue); /* Linea a sinistra */
+}
+
+/* Inversione linea per Alberto */
+.team-member-row.reverse .bio-intro {
+    padding-left: 0;
+    padding-right: 25px;
+    border-left: none;
+    border-right: 2px solid var(--p-blue); /* Linea a destra */
+}
+
+.member-bio p:not(.bio-intro) {
+    font-size: 1rem;
+    color: var(--p-text);
+    line-height: 1.8;
+    margin-bottom: 15px;
+    font-weight: 300;
+}
+
+/* Sostituisci la parte "ANIMAZIONE HOVER" con questa per lo scroll */
+
+/* Trigger per lo scroll */
+.team-member-row {
+    view-timeline-name: --scroll-row;
+    view-timeline-axis: block;
+}
+
+.member-photo::before {
+    /* Colleghiamo l'animazione allo scroll della riga */
+    animation: linear revealFrame forwards;
+    animation-timeline: --scroll-row;
+    animation-range: entry 15% contain 40%;
+}
+
+/* Animazione per Sara e Giulio (sinistra) */
+@keyframes revealFrame {
+    from { transform: translate(-8px, 8px); opacity: 0.3; }
+    to { transform: translate(0, 0) scale(1.05); opacity: 0.6; }
+}
+
+/* Animazione specifica per Alberto (reverse) */
+.team-member-row.reverse .member-photo::before {
+    animation-name: revealFrameReverse;
+}
+
+@keyframes revealFrameReverse {
+    from { transform: translate(8px, 8px); opacity: 0.3; }
+    to { transform: translate(0, 0) scale(1.05); opacity: 0.6; }
+}
 
 /* =================================================
-   TEAM SECTION - RESPONSIVE & ADAPTIVE DESIGN (TABLET SIDE-BY-SIDE)
+   TEAM SECTION - RESPONSIVE PRECISION & TRICKS
 ================================================= */
 
-/* --- TABLET (Dai 768px ai 1200px) --- */
-/* In questo range manteniamo l'immagine di lato */
-@media (min-width: 768px) and (max-width: 1200px) {
+/* 1. TRICK: Evitiamo che il testo "scappi" via sui tablet */
+@media (min-width: 769px) and (max-width: 1100px) {
     .team-member-row {
-        grid-template-columns: 1fr 1fr; /* Rapporto 50/50 per gestire meglio lo spazio */
-        gap: 40px; /* Gap ridotto per schermi medi */
-        align-items: center;
-    }
-
-    .team-member-row.reverse {
-        grid-template-columns: 1fr 1fr;
+        gap: 40px; /* Riduciamo lo spazio per farlo stare in una riga */
+        padding: 0 40px;
     }
 
     .member-photo {
-        width: 260px; /* Leggermente più piccola per non soffocare il testo */
-        height: 350px;
+        flex: 0 0 280px; /* Foto leggermente più piccola per il tablet */
+        height: 380px;
     }
 
     .member-name {
-        font-size: 2.2rem; /* Font size ottimizzato per tablet */
-    }
-
-    .member-bio {
-        max-width: 100%; /* La bio occupa tutto lo spazio della sua colonna */
-    }
-
-    /* FIX COLORE PER TABLET: attivazione fluida */
-    .member-photo img {
-        animation-range: entry 10% exit 90% !important;
+        font-size: 2.2rem; /* Titolo più compatto */
     }
 }
 
-/* --- MOBILE (Sotto i 768px) --- */
-/* Solo qui passiamo alla modalità "Verticale" */
-@media (max-width: 767px) {
+/* 2. RESPONSIVE MOBILE (Smartphone) */
+@media (max-width: 768px) {
     .team-container {
-        gap: 80px;
-        padding: 0 15px;
+        gap: 80px; /* Meno spazio tra i membri su mobile */
+        padding: 40px 0;
     }
 
     .team-member-row, 
-    .team-member-row.reverse { 
-        display: flex;
-        flex-direction: column;
+    .team-member-row.reverse {
+        flex-direction: column; /* Qui andiamo finalmente a capo */
+        gap: 60px;
         text-align: center;
-        gap: 30px;
     }
 
-    /* Reset ordini per smartphone: sempre foto sopra testo */
-    .team-member-row.reverse .member-photo { order: 1; }
-    .team-member-row.reverse .member-details { order: 2; text-align: center; }
-
-    .member-details::before { margin: 0 auto 25px !important; }
-    .member-bio { margin: 0 auto; }
-
+    /* TRICK: L'immagine su mobile deve essere un po' più piccola per non dominare tutto */
     .member-photo {
-        width: 240px;
+        flex: 0 0 auto;
+        width: 240px; 
         height: 320px;
-        perspective: 1000px;
+        margin-bottom: 10px;
+    }
+    .member-photo::before {
+        inset: -15px; /* Leggermente più stretta su mobile per pulizia */
+    }
+    .member-details {
+        text-align: center !important;
+        padding: 0 15px;
     }
 
-    /* Il Tag diventa orizzontale per risparmiare spazio laterale */
-    .member-tag {
-        writing-mode: horizontal-tb;
-        text-orientation: mixed;
-        top: auto;
-        bottom: -12px;
-        right: 15px;
-        padding: 5px 12px;
-        letter-spacing: 2px;
-    }
-    
-    .team-member-row.reverse .member-tag {
-        left: auto;
-        right: 15px;
+    .member-role {
+        justify-content: center; /* Centriamo il ruolo e la linea tecnica */
     }
 
-    /* Animazione molto rapida per attivare il colore subito su mobile */
-    @keyframes kineticReveal {
-        0% { filter: grayscale(100%); opacity: 0; transform: scale(0.9); }
-        15%, 90% { filter: grayscale(0%); opacity: 1; transform: scale(1); }
-        100% { filter: grayscale(100%); opacity: 0; transform: scale(0.9); }
-    }
-}
-
-/* --- SMARTPHONE STRETTI (Sotto i 480px) --- */
-@media (max-width: 480px) {
-    .member-photo {
-        width: 210px;
-        height: 280px;
-    }
     .member-name {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    /* TRICK: La linea della bio-intro la trasformiamo in una linea sotto al testo */
+    .bio-intro {
+        border-left: none !important;
+        border-right: none !important;
+        border-bottom: 1px solid var(--p-blue); /* Linea sotto invece che di lato */
+        padding: 0 0 15px 0 !important;
+        display: inline-block; /* Per far sì che la linea non sia lunga quanto tutto lo schermo */
+        margin-bottom: 20px;
+    }
+
+    .team-member-row.reverse .member-bio {
+        margin-right: auto; /* Centriamo la bio di Alberto */
     }
 }
 
-/* --- SUPPORTO TOUCH (Fallback colore) --- */
-@media (hover: none) {
-    .member-photo img {
-        filter: grayscale(20%) brightness(1); /* Più vivido di base su touch */
-    }
-}
-
-/* --- PERFORMANCE --- */
-@media (prefers-reduced-motion: reduce) {
-    .member-photo img, .member-photo::before, .member-photo::after {
-        animation: none !important;
-        transform: none !important;
-        opacity: 1 !important;
-        filter: grayscale(0%) !important;
+/* 3. TRICK PER I DISPLAY RETINA/HIGH-RES */
+/* Rende i testi ancora più definiti sui dispositivi moderni */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .member-name {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 }

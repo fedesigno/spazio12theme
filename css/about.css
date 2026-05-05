@@ -1,460 +1,232 @@
 /* =================================================
-   COSA FACCIAMO (SINCRONIZZAZIONE ARCHITECTURAL)
+   COSA FACCIAMO - STYLE SYNC (TEAM ENGINE)
 ================================================= */
 
+:root {
+    --p-blue: #658793;
+    --p-blue-light: #a5b8bf;
+    --p-dark: #3d3939;
+    --p-text: #546e7a;
+    --p-transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- HEADER SEZIONE --- */
+.services-header {
+    margin-bottom: 80px;
+    max-width: 800px;
+}
+
+.big-statement {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 200;
+    line-height: 1.2;
+    color: var(--p-dark);
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+.text-accent {
+    color: var(--p-blue);
+    font-weight: 800;
+}
+
+/* --- VISION GRID (STILE TEAM) --- */
 .vision-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 100px;
+    display: flex;
     align-items: center;
-    margin-bottom: 100px;
+    gap: 100px;
+    margin-bottom: 60px;
+    view-timeline-name: --vision-scroll;
+    view-timeline-axis: block;
 }
 
 .vision-image {
     position: relative;
-    width: 100%;
-    max-width: 500px; 
-    height: 440px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* Integrazione Prospettiva 3D coerente con Team */
-    perspective: 1200px; 
-    view-timeline: --vision-view block;
+    flex: 0 0 400px; /* Un po' più larga del team per autorità */
+    height: 480px;
+    z-index: 2;
 }
 
-/* --- COMPOSIZIONE VISION: THE KINETIC ADAPTATION --- */
+.vision-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(101, 135, 147, 0.15);
+}
 
-/* --- L'OMBRA ESTRUSA VISION (EFFETTO LAYER GEOMETRICO) --- */
+/* Cornice Tecnica con Scroll Animation (come Team) */
 .vision-image::before {
     content: '';
     position: absolute;
-    /* Inizialmente sovrapposto all'immagine */
-    inset: 0; 
+    inset: -20px;
+    border: 1.5px solid var(--p-blue-light);
+    border-radius: 25px;
+    z-index: -1;
+    opacity: 0.3;
+    transform: translate(-10px, 10px);
     
-    /* 1. ESTETICA DELL'OMBRA SOLIDA */
-    /* Usiamo un nero profondo semitrasparente invece del gradiente azzurro */
-    background: rgba(0, 0, 0, 0.2); 
-    
-    /* Manteniamo la forma iconica Spaziododici */
-    border-radius: 80px 15px 80px 15px;
-    
-    /* Sfocatura ai bordi per dare morbidezza alla "lastra" d'ombra */
-    filter: blur(18px);
-    
-    /* Deve stare sotto l'immagine (z-index: 1) */
-    z-index: 1; 
-    
-    /* 2. MOTORE DI ANIMAZIONE (Sincronizzato con lo Scroll) */
-    animation: shadowLayerVision both;
-    animation-timeline: --vision-view;
-    /* Range calibrato per l'apertura maestosa della Vision */
-    animation-range: entry 20% exit 90%;
+    animation: revealVisionFrame linear forwards;
+    animation-timeline: --vision-scroll;
+    animation-range: entry 10% contain 35%;
 }
 
-/* KEYFRAMES PER L'ESTRUSIONE DELLA VISION */
-@keyframes shadowLayerVision {
-    0% { 
-        /* Parte invisibile e centrata */
-        transform: translate(0, 0) scale(1); 
-        opacity: 0; 
-    }
-    /* Punto di massima espansione: l'ombra si stacca */
-    45%, 92% { 
-        /* Spostamento diagonale verso il basso e destra */
-        /* Essendo la Vision spesso più grande, usiamo uno spostamento deciso */
-        transform: translate(35px, 35px) scale(1.02); 
-        opacity: 0.5; 
-    }
-    100% { 
-        /* Rientro fluido a fine sezione */
-        transform: translate(0, 0) scale(1); 
-        opacity: 0; 
-    }
+@keyframes revealVisionFrame {
+    to { transform: translate(0, 0); opacity: 0.6; border-color: var(--p-blue); }
 }
 
-/* 2. LA FOTO VISION (Massima Nitidezza) */
-.vision-image img { 
-    width: 100%; height: 100%; 
-    object-fit: cover; 
-    position: relative;
-    z-index: 3;
-    
-    /* Forma coordinata al team */
-    border-radius: 70px 10px 70px 10px;
-    box-shadow: 20px 30px 60px rgba(0,0,0,0.25);
-    
-    /* Stato iniziale */
-    filter: grayscale(100%) contrast(1.1); 
+/* --- TESTI VISION --- */
+.vision-text { flex: 1; }
 
-    animation: kineticRevealVision both;
-    animation-timing-function: cubic-bezier(0.2, 0, 0.1, 1);
-    animation-timeline: --vision-view;
-    animation-range: entry 10% exit 90%;
-}
-
-/* 3. L'ACCENTO GRAFICO (Mirino Tecnico) */
-.vision-image::after {
-    content: '';
-    position: absolute;
-    top: -15px;
-    right: -15px;
-    width: 60px;
-    height: 60px;
-    border-top: 2px solid #658793;
-    border-right: 2px solid #658793;
-    z-index: 4;
-    border-radius: 0 20px 0 0;
-    
-    animation: cornerLockVision both;
-    animation-timeline: --vision-view;
-    animation-range: entry 20% exit 80%;
-}
-
-/* --- KEYFRAMES VISION (LOGICA KINETIC) --- */
-
-@keyframes kineticRevealVision {
-    0% { 
-        filter: grayscale(100%) brightness(0.6);
-        transform: rotateY(-15deg) scale(0.9) translateY(20px);
-        opacity: 0;
-    }
-    /* Peak visuale al centro dello scroll */
-    45%, 85% { 
-        filter: grayscale(0%) brightness(1);
-        transform: rotateY(0deg) scale(1) translateY(0);
-        opacity: 1;
-    } 
-    100% { 
-        filter: grayscale(100%) brightness(0.6);
-        transform: rotateY(15deg) scale(0.9) translateY(-20px);
-        opacity: 0;
-    }
-}
-
-@keyframes layerSlideVision {
-    0% { transform: translate(0, 0); opacity: 0; }
-    45%, 85% { transform: translate(25px, 20px); opacity: 0.4; }
-    100% { transform: translate(0, 0); opacity: 0; }
-}
-
-@keyframes cornerLockVision {
-    0% { transform: translate(-15px, 15px); opacity: 0; }
-    45%, 85% { transform: translate(0, 0); opacity: 1; }
-    100% { transform: translate(15px, -15px); opacity: 0; }
-}
-
-/* --- RESPONSIVE TABLET (Layout Affiancato) --- */
-@media (min-width: 768px) and (max-width: 1200px) {
-    .vision-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 50px;
-    }
-    .vision-image {
-        max-width: 420px;
-        height: 380px;
-    }
-}
-
-/* --- TESTI VISION (PULITI E SENZA LINEA) --- */
-
-.vision-text { 
-    padding-left: 0; /* Rimossa la separazione forzata */
-    border-left: none; /* Rimossa la linea verticale */
-}
-
-.vision-text h3 { 
-    font-size: 2.2rem; /* Leggermente più grande per autorità */
-    margin-bottom: 30px; 
-    font-weight: 800; 
-    letter-spacing: -1px;
-    line-height: 1.1;
+/* --- VISION TITLE: PURE ARCHITECT STYLE --- */
+.vision-text h3 {
+    font-size: clamp(2rem, 5vw, 3rem); /* Dimensione imponente */
+    font-weight: 200; /* Super leggero */
+    line-height: 1;
     text-transform: uppercase;
-    color: var(--black);
+    letter-spacing: -1.5px; /* Lettere leggermente accostate per un look premium */
+    color: var(--p-dark);
+    margin-bottom: 40px;
+    
+    /* Effetto asimmetrico sottile */
+    max-width: 90%; 
+    position: relative;
 }
 
-.vision-text p { 
-    font-size: 1.05rem; 
-    color: #555; 
-    line-height: 1.8; 
+/* Una sottile linea di accento sotto il titolo invece del grassetto */
+.vision-text h3::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: var(--p-blue);
+    margin-top: 25px;
+    opacity: 0.6;
+}
+
+/* Eyebrow coordinata per contrasto */
+.eyebrow {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 6px; /* Molta aria */
+    color: var(--p-blue);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.vision-text p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--p-text);
     font-weight: 300;
-    margin-bottom: 25px; 
-    max-width: 500px; /* Aumentato leggermente per distendere il testo */
+    margin-bottom: 20px;
 }
 
-/* --- KEYFRAMES SINCRONIZZATI --- */
-
-@keyframes revealColor {
-    0% { filter: grayscale(100%); }
-    20%, 80% { filter: grayscale(0%); } /* Sincronizzato al 20% */
-    100% { filter: grayscale(100%); }
-}
-
-@keyframes revealLayer {
-    0% { opacity: 0; }
-    20%, 80% { opacity: 0.7; } /* Sincronizzato al 20% */
-    100% { opacity: 0; }
-}
-
-@keyframes revealOpacity {
-    0% { opacity: 0; }
-    20%, 80% { opacity: 0.6; } /* Sincronizzato al 20% */
-    100% { opacity: 0; }
-}
-
-/* --- PILASTRI (VERSIONE PULITA ED ELEGANTE) --- */
+/* --- PILLARS GRID (MODERNA & STILOSA) --- */
 .pillars-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 50px;
-    border-top: 1px solid #eee;
-    padding-top: 10px; /* Ridotto lo spazio superiore per "attaccarlo" alla Vision */
+    gap: 60px;
+    border-top: 1px solid rgba(165, 184, 191, 0.3);
+    padding-top: 60px;
 }
 
-.pillar-item { 
-    position: relative; 
-    padding-top: 15px;
-    transition: transform 0.3s ease;
+.pillar-item {
+    transition: var(--p-transition);
 }
 
-/* Numerazione Sottile Background */
-.pillar-num { 
-    font-size: 4rem; 
-    font-weight: 900; 
-    position: absolute; 
-    top: -55px; 
-    left: 0; 
-    letter-spacing: -3px;
-    line-height: 1;
-    pointer-events: none;
-    display: flex;
-}
-
-.num-zero { color: #f5f5f5; }
-.num-active { 
-    color: var(--accent); 
-    opacity: 0.3; 
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.pillar-item:hover .num-active { 
-    opacity: 0.8; 
-    transform: translateY(-5px); 
-}
-
-/* --- ICONE GEOMETRICHE (Ripristinate e Perfezionate) --- */
-.abstract-icon {
-    width: 60px; height: 60px;
-    margin-bottom: 25px;
-    position: relative;
-    display: flex; align-items: center; justify-content: center;
-}
-
-.abstract-icon div, 
-.abstract-icon div::before, 
-.abstract-icon div::after {
-    content: ''; 
-    position: absolute; 
-    box-sizing: border-box;
-    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-}
-
-/* Icona 01: Efficienza */
-.geom-efficiency { 
-    width: 20px; height: 35px; 
-    border: 2px solid var(--black); 
-}
-.geom-efficiency::before { 
-    width: 40px; height: 45px; 
-    border-left: 2px solid #7bb7c5; 
-    left: -15px; top: -5px; 
-}
-
-/* Icona 02: Management */
-.geom-management { 
-    width: 35px; height: 35px; 
-    border-left: 2px solid var(--black); 
-    border-bottom: 2px solid var(--black); 
-}
-.geom-management::before { 
-    width: 2px; height: 12px; 
-    background: #7bb7c5; 
-    bottom: 6px; left: 6px; 
-    box-shadow: 10px -5px 0 #7bb7c5, 20px -10px 0 #7bb7c5; 
-}
-
-/* Icona 03: Design */
-.geom-design { 
-    width: 30px; height: 30px; 
-    border: 2px solid var(--black); 
-}
-.geom-design::before { 
-    width: 30px; height: 30px; 
-    border: 2px solid #7bb7c5; 
-    top: -12px; right: -12px; 
-}
-
-/* Animazione Hover Icone */
-.pillar-item:hover .abstract-icon div { 
-    transform: scale(1.2); 
-    border-color: #406871;
-}
-
-/* Testo Pilastri */
-.pillar-item h4 { 
-    font-size: 0.9rem; 
-    letter-spacing: 3px; 
-    margin-top: 10px; 
-    text-transform: uppercase; 
+.pillar-item h4 {
+    font-size: 1rem;
     font-weight: 800;
-    color: var(--black);
+    letter-spacing: 2px;
+    color: #514d4d;
+    margin-bottom: 15px;
+    height: 40px; /* Allineamento titoli */
+    display: flex;
+    align-items: center;
 }
 
 .pillar-item p {
     font-size: 0.9rem;
-    line-height: 1.7;
-    color: #666;
-    margin-top: 12px;
+    line-height: 1.6;
+    color: var(--p-text);
     font-weight: 300;
 }
 
-
-/* =================================================
-   RESPONSIVE - ABOUT SECTION (VISION & PILLARS)
-================================================= */
-
-/* --- TABLET (Dai 768px ai 1200px) --- */
-/* Mantiene il layout affiancato come richiesto */
-@media (min-width: 768px) and (max-width: 1200px) {
-    .vision-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 50px;
-        align-items: center;
-    }
-
-    .vision-image {
-        max-width: 400px;
-        height: 360px;
-    }
-
-    .vision-text h3 {
-        font-size: 1.8rem;
-    }
-
-    .pillars-grid {
-        grid-template-columns: repeat(3, 1fr); /* Mantiene le 3 colonne */
-        gap: 25px;
-    }
-
-    .pillar-item h4 {
-        font-size: 0.8rem;
-        letter-spacing: 2px;
-    }
+/* --- ICONE GEOMETRICHE (RIFINITE) --- */
+.abstract-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 25px;
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
-/* --- SMARTPHONE (Sotto i 768px) --- */
-/* Passaggio a stack verticale per leggibilità su piccoli schermi */
-@media (max-width: 767px) {
+.abstract-icon div {
+    position: relative;
+    transition: var(--p-transition);
+}
+
+/* Colore scuro per la base, blu per l'accento */
+.geom-efficiency { width: 18px; height: 30px; border: 2px solid var(--p-dark); }
+.geom-efficiency::after { 
+    content: ''; position: absolute; inset: -6px; 
+    border-left: 2px solid var(--p-blue); top: 5px; left: -10px; height: 35px;
+}
+
+.geom-management { width: 30px; height: 30px; border-left: 2px solid var(--p-dark); border-bottom: 2px solid var(--p-dark); }
+.geom-management::after {
+    content: ''; position: absolute; width: 6px; height: 6px; 
+    background: var(--p-blue); bottom: 4px; left: 4px;
+    box-shadow: 10px -8px 0 var(--p-blue), 20px -16px 0 var(--p-blue);
+}
+
+.geom-design { width: 25px; height: 25px; border: 2px solid var(--p-dark); }
+.geom-design::after {
+    content: ''; position: absolute; width: 25px; height: 25px;
+    border: 2px solid var(--p-blue); top: -8px; right: -8px;
+}
+
+.pillar-item:hover .abstract-icon div {
+    transform: translateY(-5px);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
     .vision-grid {
-        grid-template-columns: 1fr;
-        gap: 50px;
+        flex-direction: column;
+        gap: 60px;
         text-align: center;
-        margin-bottom: 80px;
     }
 
     .vision-image {
-        order: -1; /* Assicura che l'immagine sia sopra il testo */
-        max-width: 300px;
-        height: 340px;
-        margin: 0 auto;
+        flex: 0 0 auto;
+        width: 300px;
+        height: 380px;
     }
 
-    /* Ottimizzazione Animazioni Touch: Colore più rapido */
-    .vision-image img {
-        animation-range: entry 5% exit 95% !important;
-        border-radius: 50px 10px 50px 10px;
-    }
-
-    .vision-image::before {
-        border-radius: 60px 12px 60px 12px;
-    }
-
-    @keyframes kineticRevealVision {
-        0% { filter: grayscale(100%); transform: scale(0.9); opacity: 0; }
-        20%, 90% { filter: grayscale(0%); transform: scale(1); opacity: 1; }
-        100% { filter: grayscale(100%); transform: scale(0.9); opacity: 0; }
-    }
-
-    /* Testi Vision */
-    .vision-text h3 {
-        font-size: 1.6rem;
-    }
-
-    .vision-text p {
-        margin: 0 auto 20px;
-        padding: 0 10px;
-    }
-
-    /* Griglia Pilastri: Stack Verticale */
     .pillars-grid {
         grid-template-columns: 1fr;
-        gap: 70px; /* Spazio per i numeri giganti in background */
-        padding-top: 50px;
+        gap: 50px;
     }
 
     .pillar-item {
         text-align: center;
-        max-width: 100%;
-    }
-
-    .pillar-num {
-        left: 50%;
-        transform: translateX(-50%);
-        top: -40px;
-        font-size: 3.5rem;
-    }
-
-    .abstract-icon {
-        margin: 0 auto 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
 
-/* --- SMARTPHONE STRETTI (Sotto i 480px) --- */
-@media (max-width: 480px) {
-    .vision-image {
-        max-width: 260px;
-        height: 300px;
-    }
-
+@media (max-width: 768px) {
     .vision-text h3 {
-        font-size: 1.4rem;
+        font-size: 2rem;
+        letter-spacing: -0.5px;
+        text-align: center;
     }
-
-    .pillar-item p {
-        font-size: 0.85rem;
-    }
-}
-
-/* --- OTTIMIZZAZIONE TOUCH --- */
-@media (hover: none) {
-    /* Fallback colore per dispositivi touch (evita il grigio fisso) */
-    .vision-image img {
-        filter: grayscale(20%) brightness(1);
-    }
-    
-    .num-active {
-        opacity: 0.6; /* Numeri leggermente più visibili su mobile */
-    }
-}
-
-/* --- PERFORMANCE --- */
-@media (prefers-reduced-motion: reduce) {
-    .vision-image img, 
-    .vision-image::before, 
-    .vision-image::after {
-        animation: none !important;
-        transform: none !important;
-        opacity: 1 !important;
-        filter: grayscale(0%) !important;
+    .vision-text h3::after {
+        margin: 20px auto 0; /* Centra la linea su mobile */
     }
 }

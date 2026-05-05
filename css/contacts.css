@@ -1,134 +1,161 @@
 /* =================================================
-   CONTATTI & MAPPA - DISTRIBUZIONE OTTIMIZZATA
+   CONTATTI & MAPPE - ARCHITECTURAL PRECISION
 ================================================= */
 
-.subtitle-tech { 
-    font-size: 0.8rem; 
-    color: #7a7a7a; 
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 10px;
-    display: block;
+:root {
+    --p-blue: #658793;
+    --p-dark: #444242;
+    --p-text: #546e7a;
+    --p-transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* --- HEADER SEZIONE --- */
+.subtitle-tech { 
+    font-size: 0.75rem; 
+    color: var(--p-blue); 
+    letter-spacing: 5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.subtitle-tech::after {
+    content: '';
+    flex-grow: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--p-blue);
+    opacity: 0.3;
+}
+
+/* --- GRID E BLOCCHI --- */
 .contact-grid { 
     display: flex; 
     justify-content: center; 
-    align-items: stretch; /* Fa sì che tutte le box abbiano la stessa altezza */
+    align-items: stretch; 
     gap: 30px; 
-    margin: 60px auto; 
-    width: 100%;
-    max-width: 1200px; /* Evita che le box si allontanino troppo su schermi enormi */
-    padding: 0 20px;
+    margin: 40px auto 80px; 
+    max-width: 1200px;
 }
 
 .contact-block {
     flex: 1; 
-    /* Rimosso il max-width fisso per permettere una distribuzione più fluida */
     background: #fff; 
-    border: 1px solid #eee; 
-    border-radius: 24px; /* Angoli più moderni */
-    overflow: hidden; 
+    border: 1px solid rgba(101, 135, 147, 0.15); 
+    border-radius: 20px; 
+    overflow: hidden; /* Fondamentale per allineare la mappa ai bordi arrotondati */
     display: flex; 
     flex-direction: column;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: var(--p-transition);
 }
 
 .contact-block:hover { 
-    transform: translateY(-10px); 
-    box-shadow: 0 25px 50px rgba(0,0,0,0.1); 
+    transform: translateY(-8px); 
+    border-color: var(--p-blue);
+    box-shadow: 0 20px 40px rgba(101, 135, 147, 0.1);
 }
 
-/* --- MAPPA: PIÙ SPAZIO VISIVO --- */
+/* --- MAPPA (FILO BORDO) --- */
 .map-wrapper {
     width: 100%; 
-    height: 320px; 
-    /* Stato iniziale: Bianco e Nero */
-    filter: grayscale(100%) contrast(1.2) opacity(0.8);
-    transition: all 1s ease; /* Transizione colore */
-    border-bottom: 1px solid #f0f0f0;
-    will-change: filter;
+    height: 250px; 
+    margin: 0; /* Rimuove ogni spazio */
+    padding: 0;
+    filter: grayscale(100%) contrast(1.1);
+    opacity: 0.7;
+    transition: all 0.8s ease;
+    border-bottom: 1px solid rgba(101, 135, 147, 0.1);
 }
 
 .map-wrapper iframe {
     width: 100%;
     height: 100%;
-    border: none;
-    display: block;
+    border: 0;
+    display: block; /* Toglie spazi bianchi sotto l'iframe */
 }
 
-.map-wrapper.is-visible { 
-    filter: grayscale(0%) contrast(1) opacity(1); 
+.contact-block:hover .map-wrapper { 
+    filter: grayscale(0%);
+    opacity: 1;
 }
 
-
-/* --- DETTAGLI: SPAZIATURA PULITA --- */
+/* --- DETTAGLI TESTUALI --- */
 .contact-details { 
-    padding: 45px 40px; /* Aumentato leggermente il padding verticale */
+    padding: 40px; /* Spazio interno uniforme per il testo */
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Spinge il contenuto a riempire la box */
+    flex-grow: 1;
 }
 
 .contact-details h3 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 300; 
     letter-spacing: 1px;
-    margin-bottom: 5px;
-}
-/* --- STILE SPECIFICO PER LA & --- */
-.contact-details h3 .ampersand {
-    /* Ancora più sottile e piccolo */
-    font-weight: 100;          
-    font-size: 0.9rem;           
-    opacity: 0.5;
-    margin: 0 12px;
-    vertical-align: baseline;  /* Appoggiata sulla linea di base del testo */
-}
-.role-text { 
-    font-size: 0.75rem; 
-    color: #aaa; 
-    letter-spacing: 3px; 
-    text-transform: uppercase; 
-    margin-bottom: 35px; /* Più respiro prima dei link */
+    color: var(--p-dark);
+    text-transform: uppercase;
+    margin-bottom: 6px;
 }
 
-.contact-links { list-style: none; padding: 0; }
+.role-text { 
+    font-size: 0.65rem; 
+    color: var(--p-blue); 
+    letter-spacing: 3px; 
+    font-weight: 800;
+    text-transform: uppercase; 
+    margin-bottom: 30px;
+}
+
+/* --- LINK (UNIFORMATI) --- */
+.contact-links { 
+    list-style: none; 
+    padding: 0; 
+    margin: 0;
+}
+
 .contact-links li { 
-    margin-bottom: 22px; 
+    margin-bottom: 18px; 
     display: flex; 
     align-items: center; 
     gap: 15px; 
 }
 
 .contact-links i { 
-    color: #7bb7c5; 
-    width: 25px; 
-    text-align: center; 
-    font-size: 1.2rem; 
+    color: var(--p-blue); 
+    font-size: 1rem; 
+    width: 20px;
+    text-align: center;
 }
 
 .contact-links a { 
-    color: #555; 
+    color: var(--p-text) !important; /* Forza il colore per tutti i link, vie incluse */
     text-decoration: none; 
-    font-size: 0.95rem;
-    transition: all 0.3s ease; 
+    font-size: 0.9rem;
+    font-weight: 300;
+    transition: color 0.3s ease;
 }
 
 .contact-links a:hover { 
-    color: #000; 
-    padding-left: 5px; /* Effetto slittamento elegante */
+    color: var(--p-blue) !important;
 }
 
-/* --- RESPONSIVE MAPPE --- */
 @media (max-width: 992px) {
     .contact-grid { 
         flex-direction: column; 
         align-items: center; 
+        gap: 40px; 
+        padding: 0 15px;
     }
+
     .contact-block { 
         width: 100%; 
-        max-width: 600px; 
+        max-width: 100%; /* Forza l'adattamento totale */
+        flex: none; /* Disattiva le regole flex della grid */
     }
-    .map-wrapper { height: 280px; }
+    
+    .contact-details {
+        padding: 30px 20px; /* Ridotto per schermi piccoli */
+    }
 }

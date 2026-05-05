@@ -22,42 +22,75 @@
 
 .container { max-width: 1400px; margin: 0 auto; }
 
+/* =================================================
+   SECTION TITLE - ARCHITECTURAL SIGNATURE
+================================================= */
+
 .section-title { 
-    font-size: 1.5rem; 
-    letter-spacing: 5px; 
-    font-weight: 800; 
-    margin-bottom: 60px; 
-    position: relative; 
+    font-size: 1.1rem;          /* Più grande rispetto alla prima versione, ma non enorme */
+    letter-spacing: 7px;       /* Spaziatura molto larga per un look "Luxury Technical" */
+    font-weight: 900; 
+    margin-bottom: 50px; 
     text-transform: uppercase;
+    color: var(--p-blue);      /* Colore Blu-Grigio per coerenza totale */
+    
+    display: flex;
+    align-items: center;
+    gap: 25px;                 /* Spazio generoso tra testo e linea */
 }
 
 .section-title::after { 
     content: ''; 
-    display: block; 
-    width: 80px; 
-    height: 3px; 
-    background: var(--accent); 
-    margin-top: 10px; 
+    flex-grow: 1;              /* La linea occupa tutto lo spazio rimanente */
+    max-width: 100px;          /* Ma non oltre i 100px per non essere invadente */
+    height: 1.5px;             /* Sottile e precisa come un tratto di matita H */
+    background-color: var(--p-blue); 
+    opacity: 0.5;              /* Leggera trasparenza per eleganza */
+}
+
+/* --- BIG STATEMENT (MODERNO E INTEGRATO) --- */
+.big-statement {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    line-height: 1.1;
+    font-weight: 200;          /* Rimane leggero per contrastare con il titolo bold */
+    text-transform: uppercase;
+    letter-spacing: -1.5px;
+    margin-bottom: 70px;
+    max-width: 950px;
+    color: var(--p-dark);
+}
+
+.text-accent { 
+    color: var(--p-blue); 
+    font-weight: 400;          /* Un accento discreto ma chiaro */
+}
+
+/* --- MOBILE OPTIMIZATION --- */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 0.9rem;
+        letter-spacing: 5px;
+        gap: 15px;
+    }
+    
+    .section-title::after {
+        max-width: 50px;       /* Più corta su mobile per equilibrio */
+    }
+
+    .big-statement {
+        font-size: 2.2rem;
+        margin-bottom: 50px;
+    }
 }
 
 /* --- Elementi Tipografici Ricorrenti --- */
 .eyebrow { 
     display: block; 
     text-transform: uppercase; 
-    letter-spacing: 4px; 
-    font-size: 0.8rem; 
-    color: #999; 
-    margin-bottom: 15px;
-}
-
-.big-statement {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    line-height: 1.2;
+    letter-spacing: 5px; 
+    font-size: 0.65rem; 
+    color: var(--p-blue); 
     font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-    margin-bottom: 60px;
-    max-width: 900px; /* Bilanciamento: evita righe troppo lunghe */
+    margin-bottom: 20px;
 }
 
-.text-accent { color: #7bb7c5; }
