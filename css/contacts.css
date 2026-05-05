@@ -76,7 +76,15 @@
     letter-spacing: 1px;
     margin-bottom: 5px;
 }
-
+/* --- STILE SPECIFICO PER LA & --- */
+.contact-details h3 .ampersand {
+    /* Ancora più sottile e piccolo */
+    font-weight: 100;          
+    font-size: 0.9rem;           
+    opacity: 0.5;
+    margin: 0 12px;
+    vertical-align: baseline;  /* Appoggiata sulla linea di base del testo */
+}
 .role-text { 
     font-size: 0.75rem; 
     color: #aaa; 
