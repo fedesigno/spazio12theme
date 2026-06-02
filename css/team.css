@@ -1,262 +1,207 @@
 /* =================================================
-   TEAM SECTION - ARCHITECTURAL PRECISION (FIXED)
+   THE ARCHITECTURAL GRID - PROFESSIONAL TEAM
 ================================================= */
 
 :root {
-    --p-blue: #658793;      /* Blu-Grigio Principale */
-    --p-blue-light: #a5b8bf; /* Accento chiaro */
-    --p-dark: #1a1a1a;       /* Titoli */
-    --p-text: #546e7a;       /* Testo bio */
-    --p-transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    --p-blue: #658793;
+    --p-blue-alpha: rgba(101, 135, 147, 0.04);
+    --p-border: rgba(101, 135, 147, 0.15);
+    --p-dark: #1a1a1a;
+    --p-text: #4b6572;
+    --p-transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.team-container {
-    padding: 50px 0;
+/* Griglia a matrice geometrica continua */
+.team-grid-modern {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0; /* Rimuoviamo il gap per unire le celle tramite i bordi */
+    border-top: 1px solid var(--p-border);
+    border-left: 1px solid var(--p-border);
+    max-width: 1200px;
+    margin: 40px auto 80px;
+    background: #ffffff;
+}
+
+/* La singola cella della matrice */
+.team-item {
+    padding: 40px;
+    border-right: 1px solid var(--p-border);
+    border-bottom: 1px solid var(--p-border);
     display: flex;
     flex-direction: column;
-    gap: 120px;
+    gap: 30px;
+    transition: var(--p-transition);
+    position: relative;
+    background: #ffffff;
 }
 
-/* --- LOGICA DELLA RIGA --- */
-.team-member-row {
+/* Effetto Hover sofisticato sulla cella */
+.team-item:hover {
+    background: var(--p-blue-alpha);
+}
+
+/* --- UPPER BLOCK: FOTO + IDENTITÀ --- */
+.item-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 80px;
-    max-width: 1100px;
-    margin: 0 auto;
-    position: relative;
+    gap: 25px;
 }
 
-/* REVERSE PERFETTO PER ALBERTO */
-.team-member-row.reverse {
-    flex-direction: row-reverse;
+.photo-wrapper {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%; /* Foto circolare minimale tipo passaporto tecnico */
+    overflow: hidden;
+    flex-shrink: 0;
+    filter: grayscale(100%);
+    border: 1px solid var(--p-border);
+    transition: var(--p-transition);
 }
 
-/* --- FOTOGRAFIA --- */
-.member-photo {
-    position: relative;
-    flex: 0 0 300px; /* Dimensione bloccata per evitare sfasamenti */
-    height: 420px;
-    z-index: 2;
-}
-
-.member-photo img {
+.photo-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 30px 60px rgba(101, 135, 147, 0.15);
-    transition: var(--p-transition);
 }
 
-/* Cornice tecnica moderna */
-.member-photo::before {
-    content: '';
-    position: absolute;
-    inset: -20px;
-    border: 1.5px solid var(--p-blue-light);
-    border-radius: 25px;
-    z-index: -1;
-    opacity: 0.3;
-    transition: var(--p-transition);
-    /* Spostamento asimmetrico */
-    transform: translate(-8px, 8px);
+.team-item:hover .photo-wrapper {
+    filter: grayscale(0%);
+    border-color: var(--p-blue);
+    transform: scale(1.05);
 }
 
-.team-member-row.reverse .member-photo::before {
-    transform: translate(8px, 8px);
-}
-
-/* --- DETTAGLI TESTUALI --- */
-.member-details {
-    flex: 1;
-    max-width: 580px;
-}
-
-.team-member-row.reverse .member-details {
-    text-align: right;
-}
-
-.member-role {
+/* Tipografia Identità */
+.identity {
     display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 0.7rem;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.role-badge {
+    align-self: flex-start;
+    font-size: 0.6rem;
     font-weight: 800;
-    letter-spacing: 4px;
-    color: var(--p-blue);
     text-transform: uppercase;
-    margin-bottom: 20px;
+    letter-spacing: 2px;
+    color: var(--p-blue);
+    background: rgba(101, 135, 147, 0.1);
+    padding: 3px 8px;
+    border-radius: 4px;
 }
 
-.team-member-row.reverse .member-role {
-    flex-direction: row-reverse;
-}
-
-/* Linea tecnica accanto al ruolo */
-.member-role::after {
-    content: '';
-    width: 40px;
-    height: 1px;
-    background: var(--p-blue);
-    opacity: 0.3;
-}
-
-.member-name {
-    font-size: clamp(2.2rem, 4vw, 3rem);
-    line-height: 1;
+.name-tech {
+    font-size: 1.5rem;
+    font-weight: 300;
     color: var(--p-dark);
-    margin-bottom: 30px;
-    font-weight: 200;
     text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin: 4px 0 0 0;
 }
 
-.member-name strong {
-    font-weight: 800;
-    color: var(--p-blue);
+.name-tech span {
+    font-weight: 700;
 }
 
-/* --- LA BIO-INTRO CON LINEA VERTICALE --- */
-.bio-intro {
-    font-size: 0.85rem;
-    font-weight: 300;
-    color: var(--p-blue);
-    text-transform: uppercase;
-    letter-spacing: 1.8px;
-    line-height: 1.7;
-    margin-bottom: 25px;
-    display: block;
-    padding-left: 25px;
-    border-left: 2px solid var(--p-blue); /* Linea a sinistra */
-}
-
-/* Inversione linea per Alberto */
-.team-member-row.reverse .bio-intro {
-    padding-left: 0;
-    padding-right: 25px;
-    border-left: none;
-    border-right: 2px solid var(--p-blue); /* Linea a destra */
-}
-
-.member-bio p:not(.bio-intro) {
-    font-size: 1rem;
+.role-extended {
+    font-size: 0.8rem;
     color: var(--p-text);
-    line-height: 1.8;
-    margin-bottom: 15px;
+    margin: 0;
+    font-weight: 400;
+}
+
+/* --- LOWER BLOCK: PRESTAZIONI --- */
+.item-body {
+    flex-grow: 1;
+}
+
+.prestazioni-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 6px;
+}
+
+/* I singoli tasselli delle prestazioni, moderni e compatti */
+.prestazioni-list li {
+    font-size: 0.8rem;
     font-weight: 300;
+    color: var(--p-text);
+    background: #f7f9fa;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(101, 135, 147, 0.08);
+    transition: var(--p-transition);
 }
 
-/* Sostituisci la parte "ANIMAZIONE HOVER" con questa per lo scroll */
-
-/* Trigger per lo scroll */
-.team-member-row {
-    view-timeline-name: --scroll-row;
-    view-timeline-axis: block;
-}
-
-.member-photo::before {
-    /* Colleghiamo l'animazione allo scroll della riga */
-    animation: linear revealFrame forwards;
-    animation-timeline: --scroll-row;
-    animation-range: entry 15% contain 40%;
-}
-
-/* Animazione per Sara e Giulio (sinistra) */
-@keyframes revealFrame {
-    from { transform: translate(-8px, 8px); opacity: 0.3; }
-    to { transform: translate(0, 0) scale(1.05); opacity: 0.6; }
-}
-
-/* Animazione specifica per Alberto (reverse) */
-.team-member-row.reverse .member-photo::before {
-    animation-name: revealFrameReverse;
-}
-
-@keyframes revealFrameReverse {
-    from { transform: translate(8px, 8px); opacity: 0.3; }
-    to { transform: translate(0, 0) scale(1.05); opacity: 0.6; }
+.team-item:hover .prestazioni-list li {
+    background: #ffffff;
+    color: var(--p-dark);
+    border-color: rgba(101, 135, 147, 0.25);
 }
 
 /* =================================================
-   TEAM SECTION - RESPONSIVE PRECISION & TRICKS
+   RESPONSIVE DESIGN AUTOMATICO (PERFETTO)
 ================================================= */
 
-/* 1. TRICK: Evitiamo che il testo "scappi" via sui tablet */
-@media (min-width: 769px) and (max-width: 1100px) {
-    .team-member-row {
-        gap: 40px; /* Riduciamo lo spazio per farlo stare in una riga */
-        padding: 0 40px;
+/* --- TABLET (Sotto i 1024px) --- */
+@media (max-width: 1024px) {
+    .team-item {
+        padding: 30px;
+        gap: 20px;
     }
-
-    .member-photo {
-        flex: 0 0 280px; /* Foto leggermente più piccola per il tablet */
-        height: 380px;
+    
+    .name-tech {
+        font-size: 1.3rem;
     }
-
-    .member-name {
-        font-size: 2.2rem; /* Titolo più compatto */
+    
+    .photo-wrapper {
+        width: 80px;
+        height: 80px;
     }
 }
 
-/* 2. RESPONSIVE MOBILE (Smartphone) */
+/* --- SMARTPHONE (Sotto i 768px) --- */
 @media (max-width: 768px) {
-    .team-container {
-        gap: 80px; /* Meno spazio tra i membri su mobile */
-        padding: 40px 0;
+    .team-grid-modern {
+        grid-template-columns: 1fr; /* Una colonna secca */
+        border-left: none;
+        border-right: none;
+        background: transparent;
     }
 
-    .team-member-row, 
-    .team-member-row.reverse {
-        flex-direction: column; /* Qui andiamo finalmente a capo */
-        gap: 60px;
+    .team-item {
+        padding: 30px 15px;
+        border-left: none;
+        border-right: none;
+        background: #ffffff;
+        margin-bottom: 15px; /* Crea delle card distinte solo su mobile */
+        border: 1px solid var(--p-border);
+        border-radius: 16px;
+    }
+    
+    .item-header {
+        flex-direction: column; /* Foto sopra, testo sotto al centro */
         text-align: center;
+        gap: 15px;
     }
-
-    /* TRICK: L'immagine su mobile deve essere un po' più piccola per non dominare tutto */
-    .member-photo {
-        flex: 0 0 auto;
-        width: 240px; 
-        height: 320px;
-        margin-bottom: 10px;
+    
+    .identity {
+        align-items: center;
     }
-    .member-photo::before {
-        inset: -15px; /* Leggermente più stretta su mobile per pulizia */
+    
+    .role-badge {
+        align-self: center;
     }
-    .member-details {
-        text-align: center !important;
-        padding: 0 15px;
+    
+    .prestazioni-list {
+        justify-content: center; /* Centra i tag delle prestazioni */
     }
-
-    .member-role {
-        justify-content: center; /* Centriamo il ruolo e la linea tecnica */
-    }
-
-    .member-name {
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-    }
-
-    /* TRICK: La linea della bio-intro la trasformiamo in una linea sotto al testo */
-    .bio-intro {
-        border-left: none !important;
-        border-right: none !important;
-        border-bottom: 1px solid var(--p-blue); /* Linea sotto invece che di lato */
-        padding: 0 0 15px 0 !important;
-        display: inline-block; /* Per far sì che la linea non sia lunga quanto tutto lo schermo */
-        margin-bottom: 20px;
-    }
-
-    .team-member-row.reverse .member-bio {
-        margin-right: auto; /* Centriamo la bio di Alberto */
-    }
-}
-
-/* 3. TRICK PER I DISPLAY RETINA/HIGH-RES */
-/* Rende i testi ancora più definiti sui dispositivi moderni */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .member-name {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
+    
+    .prestazioni-list li {
+        font-size: 0.75rem;
+        padding: 5px 10px;
     }
 }
