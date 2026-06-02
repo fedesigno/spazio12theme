@@ -26,60 +26,78 @@
    SECTION TITLE - ARCHITECTURAL SIGNATURE
 ================================================= */
 
+.section-header-group {
+    margin-bottom: 60px;
+    text-align: left;
+}
+
 .section-title { 
-    font-size: 1.1rem;          /* Più grande rispetto alla prima versione, ma non enorme */
-    letter-spacing: 7px;       /* Spaziatura molto larga per un look "Luxury Technical" */
-    font-weight: 900; 
-    margin-bottom: 50px; 
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem); /* Ingrandito per dare vero carattere e autorità */
+    letter-spacing: 3px;       /* Leggermente ridotto rispetto a prima per non disperdere la forza del bold */
+    font-weight: 100;          /* Base leggera per la prima parola */
     text-transform: uppercase;
-    color: var(--p-blue);      /* Colore Blu-Grigio per coerenza totale */
+    color: var(--p-dark);      /* La prima parola parte con il vostro grigio scuro */
+    margin-bottom: 35px; 
     
     display: flex;
     align-items: center;
-    gap: 25px;                 /* Spazio generoso tra testo e linea */
+    gap: 25px;                 
+    width: 100%;
 }
 
+/* La seconda parola: si accende in blu-grigio e diventa bella massiccia */
+.section-title .title-bold-accent {
+    color: var(--p-blue);
+    font-weight: 800;          /* Grassetto marcato per un contrasto eccellente */
+    letter-spacing: 4px;       /* Un filo di respiro extra sul brand color */
+}
+
+/* La linea geometrica: ora si adatta perfettamente al nuovo carattere del titolo */
 .section-title::after { 
     content: ''; 
-    flex-grow: 1;              /* La linea occupa tutto lo spazio rimanente */
-    max-width: 100px;          /* Ma non oltre i 100px per non essere invadente */
-    height: 1.5px;             /* Sottile e precisa come un tratto di matita H */
-    background-color: var(--p-blue); 
-    opacity: 0.5;              /* Leggera trasparenza per eleganza */
+    flex-grow: 1;              
+    max-width: 120px;          /* Un filo più lunga per bilanciare il titolo più grande */
+    height: 0.8px;               /* Leggermente più visibile, netta come un tratto CAD */
+    background-color: #302e2e; 
+    opacity: 0.8;              
 }
 
-/* --- BIG STATEMENT (MODERNO E INTEGRATO) --- */
+/* --- BIG STATEMENT (RESTILIZZATO PER COESIONE) --- */
 .big-statement {
     font-size: clamp(2.4rem, 5vw, 4rem);
     line-height: 1.1;
-    font-weight: 200;          /* Rimane leggero per contrastare con il titolo bold */
+    font-weight: 200;          
     text-transform: uppercase;
     letter-spacing: -1.5px;
-    margin-bottom: 70px;
+    margin-top: 0;
+    margin-bottom: 0;
     max-width: 950px;
     color: var(--p-dark);
 }
 
 .text-accent { 
     color: var(--p-blue); 
-    font-weight: 400;          /* Un accento discreto ma chiaro */
+    font-weight: 400;          
 }
 
 /* --- MOBILE OPTIMIZATION --- */
 @media (max-width: 768px) {
     .section-title {
-        font-size: 0.9rem;
-        letter-spacing: 5px;
+        font-size: 1.2rem;     /* Mantiene il carattere anche su smartphone */
+        letter-spacing: 3px;
         gap: 15px;
     }
     
+    .section-title .title-bold-accent {
+        letter-spacing: 3px;
+    }
+    
     .section-title::after {
-        max-width: 50px;       /* Più corta su mobile per equilibrio */
+        max-width: 50px;       
     }
 
     .big-statement {
-        font-size: 2.2rem;
-        margin-bottom: 50px;
+        font-size: clamp(1.8rem, 6vw, 2.4rem);
     }
 }
 
