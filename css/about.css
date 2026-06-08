@@ -90,14 +90,15 @@
 /* --- TITOLO MINIMAL CONTEMPORANEO (SOLIDO CON ACCENTO HOVER) --- */
 .about-inner-title {
     font-size: clamp(2rem, 3.5vw, 2.6rem); /* Dimensione imponente ma calibrata per il sito */
-    font-weight: 700;                      /* Grassetto deciso e solido (Bold nativo) */
-    line-height: 1.15;                     /* Interlinea pulita ed editoriale */
+    font-weight: 100;                      /* Grassetto deciso e solido (Bold nativo) */
+    line-height: 1.1.5;                     /* Interlinea pulita ed editoriale */
     letter-spacing: -1px;                  /* Kerning leggermente accostato, stile moderno */
     text-transform: uppercase;
     margin: 0 0 35px 0;
     
     /* Stato Iniziale: Grigio scuro antracite, pieno e leggibile */
     color: var(--p-dark);
+    opacity: 0.9;
     
     position: relative;
     /* Transizione fluida e morbida quando si passa il mouse */
@@ -116,17 +117,12 @@
     bottom: -10px;
     left: 0;
     width: 80px;
-    height: 2px;
+    height: 1px;
     background-color: var(--p-blue);
     opacity: 0.5;
     transition: var(--p-transition);
 }
 
-/* Opzionale: la linea si allunga leggermente all'hover per dare un tocco interattivo in più */
-.about-editorial-matrix:hover .about-inner-title::after {
-    width: 120px;
-    opacity: 1;
-}
 /* Paragrafi interni al blocco testo */
 .about-paragraphs {
     display: flex;
@@ -146,16 +142,16 @@
 
 /* Paragrafo Lead con linea di sezione minimal */
 .about-paragraphs p.about-lead-paragraph {
-    font-size: 1.15rem;
+    font-size: 1rem;
     line-height: 1.75;
     color: var(--p-dark);
-    padding-left: 20px;
-    border-left: 2px solid var(--p-blue);
+    padding-left: 25px;
     margin-bottom: 5px;
+    font-weight: 300;
 }
 
 .about-brand-highlight {
-    font-weight: 800;
+    font-weight: 600;
     text-transform: uppercase;
     color: var(--p-blue);
 }

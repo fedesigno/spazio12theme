@@ -31,35 +31,86 @@
     text-align: left;
 }
 
+/* =================================================
+   SECTION TITLE - ARCHITECTURAL SIGNATURE (STABLE VERSION)
+================================================= */
+
 .section-title { 
-    font-size: clamp(1.4rem, 2.5vw, 1.8rem); /* Ingrandito per dare vero carattere e autorità */
-    letter-spacing: 3px;       /* Leggermente ridotto rispetto a prima per non disperdere la forza del bold */
-    font-weight: 100;          /* Base leggera per la prima parola */
-    text-transform: uppercase;
-    color: var(--p-dark);      /* La prima parola parte con il vostro grigio scuro */
-    margin-bottom: 35px; 
+    font-size: clamp(1.6rem, 3vw, 2.4rem); 
+    font-weight: 200;          
+    text-transform: uppercase !important; /* Forza sempre maiuscolo */
+    color: var(--p-dark);      
+    margin-bottom: 50px; 
+    letter-spacing: 1px;       
     
     display: flex;
     align-items: center;
-    gap: 25px;                 
     width: 100%;
+    overflow: hidden; 
 }
 
-/* La seconda parola: si accende in blu-grigio e diventa bella massiccia */
+/* Base comune per le linee */
+.section-title::before, .section-title::after {
+    content: '';
+    height: 1px;
+    background-color: var(--p-blue);
+    opacity: 0.3;
+    flex-shrink: 0 !important; /* Forza la linea a non schiacciarsi mai */
+}
+
+/* --- VERSIONE SINISTRA (Default) --- */
+.section-title.align-left::before {
+    width: 80px !important;              
+    margin-right: 20px !important;
+}
+.section-title.align-left::after {
+    flex-grow: 1 !important;
+    margin-left: 20px !important;
+    min-width: 80px !important;          
+}
+
+/* --- VERSIONE DESTRA (Alternata) --- */
+.section-title.align-right {
+    justify-content: flex-end !important; 
+}
+.section-title.align-right::before {
+    flex-grow: 1 !important;             
+    margin-right: 20px !important;
+    min-width: 80px !important;          
+}
+.section-title.align-right::after {
+    width: 80px !important;              
+    margin-left: 20px !important;
+}
+
+/* La seconda parola */
 .section-title .title-bold-accent {
     color: var(--p-blue);
-    font-weight: 800;          /* Grassetto marcato per un contrasto eccellente */
-    letter-spacing: 4px;       /* Un filo di respiro extra sul brand color */
+    font-weight: 900 !important;
+    margin: 0 15px !important;           
+    flex-shrink: 0 !important;           
+    display: inline-block;               
 }
 
-/* La linea geometrica: ora si adatta perfettamente al nuovo carattere del titolo */
-.section-title::after { 
-    content: ''; 
-    flex-grow: 1;              
-    max-width: 120px;          /* Un filo più lunga per bilanciare il titolo più grande */
-    height: 0.8px;               /* Leggermente più visibile, netta come un tratto CAD */
-    background-color: #302e2e; 
-    opacity: 0.8;              
+/* --- MOBILE & TABLET OPTIMIZATION --- */
+@media (max-width: 992px) {
+    .section-title {
+        font-size: 1.4rem !important;
+    }
+    
+    /* Le linee corte devono rimanere sempre visibili e staccate */
+    .section-title.align-left::before,
+    .section-title.align-right::after {
+        width: 30px !important; 
+        flex-grow: 0 !important;
+    }
+
+    /* Le linee lunghe devono espandersi anche su mobile per coprire lo spazio */
+    .section-title.align-left::after,
+    .section-title.align-right::before {
+        flex-grow: 1 !important;
+        margin: 0 15px !important;
+    }
 }
 
 /* --- BIG STATEMENT (RESTILIZZATO PER COESIONE) --- */
@@ -80,26 +131,6 @@
     font-weight: 400;          
 }
 
-/* --- MOBILE OPTIMIZATION --- */
-@media (max-width: 768px) {
-    .section-title {
-        font-size: 1.2rem;     /* Mantiene il carattere anche su smartphone */
-        letter-spacing: 3px;
-        gap: 15px;
-    }
-    
-    .section-title .title-bold-accent {
-        letter-spacing: 3px;
-    }
-    
-    .section-title::after {
-        max-width: 50px;       
-    }
-
-    .big-statement {
-        font-size: clamp(1.8rem, 6vw, 2.4rem);
-    }
-}
 
 /* --- Elementi Tipografici Ricorrenti --- */
 .eyebrow { 
