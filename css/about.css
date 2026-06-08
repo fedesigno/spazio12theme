@@ -1,232 +1,307 @@
-/* =================================================
-   COSA FACCIAMO - STYLE SYNC (TEAM ENGINE)
-================================================= */
+/* ==========================================================================
+   ABOUT.CSS - COORDINATED ARCHITECTURAL GRID (PERFECT ALIGNMENT SYSTEM)
+   ========================================================================== */
 
+/* Eredità e sincronizzazione delle variabili native del sito */
 :root {
     --p-blue: #658793;
-    --p-blue-light: #a5b8bf;
-    --p-dark: #3d3939;
-    --p-text: #546e7a;
-    --p-transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    --p-blue-alpha: rgba(101, 135, 147, 0.04);
+    --p-border: rgba(101, 135, 147, 0.15);
+    --p-dark: #1a1a1a;
+    --p-text: #4b6572;
+    --p-transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* --- HEADER SEZIONE --- */
-.services-header {
+/* Compensazione barra fluttuante */
+#about.section {
+    padding-top: 110px !important; 
+    padding-bottom: 80px !important;
+    background-color: #ffffff;
+    width: 100%;
+}
+
+/* La Griglia Madre bloccata a 1200px */
+.about-grid-container {
+    width: 100%;
+    max-width: 1200px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 20px;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+/* Spaziatura titolo di testa della sezione */
+.about-grid-container .services-header {
+    margin-bottom: 50px;
+    width: 100%;
+}
+
+/* --- GRIGLIA EDITORIALE FLUIDA (Allineamento inizio-fine perfetto) --- */
+.about-editorial-matrix {
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr; /* Rapporto asimmetrico geometrico */
+    gap: 60px; 
+    align-items: stretch; /* Forza le due colonne ad avere matematicamente la stessa altezza */                 
     margin-bottom: 80px;
-    max-width: 800px;
+    width: 100%;
 }
 
-.big-statement {
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
-    font-weight: 200;
-    line-height: 1.2;
-    color: var(--p-dark);
-    text-transform: uppercase;
-    margin-top: 20px;
+/* --- BLOCCO FOTO CON CORNICE DISASSATA (SINISTRA) --- */
+.about-media-frame {
+    width: 100%;
+    height: 100%; /* Copre l'esatta altezza del blocco testo di destra */
+    position: relative; /* Necessario per ancorare la cornice sullo sfondo */
 }
 
-.text-accent {
-    color: var(--p-blue);
-    font-weight: 800;
-}
-
-/* --- VISION GRID (STILE TEAM) --- */
-.vision-grid {
-    display: flex;
-    align-items: center;
-    gap: 100px;
-    margin-bottom: 60px;
-    view-timeline-name: --vision-scroll;
-    view-timeline-axis: block;
-}
-
-.vision-image {
+.about-image-wrapper {
+    width: 100%;
+    height: 100%; /* Sincronizzato al 100% con l'altezza del testo */
+    min-height: 400px; /* Evita il collasso visivo in presenza di testi troppo corti */
+    overflow: hidden;
     position: relative;
-    flex: 0 0 400px; /* Un po' più larga del team per autorità */
-    height: 480px;
-    z-index: 2;
+    z-index: 2; /* Sopra la cornice di sfondo */
+    border: 1px solid var(--p-border);
+    border-radius: 5px; /* Angoli smussati puliti, senza elementi di disturbo */
+    background-color: #ffffff;
 }
 
-.vision-image img {
+.about-image-wrapper img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 30px 60px rgba(101, 135, 147, 0.15);
+    object-fit: cover; /* Ritaglia e adatta la foto millimetricamente all'altezza del testo */
+    transition: var(--p-transition);
 }
 
-/* Cornice Tecnica con Scroll Animation (come Team) */
-.vision-image::before {
+.about-editorial-matrix:hover .about-image-wrapper img {
+    transform: scale(1.02);
+}
+
+
+
+/* --- BLOCCO TIPOGRAFICO AUTOREVOLE (DESTRA) --- */
+.about-text-frame {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Spinge il titolo in cima e i paragrafi in fondo per combaciare con la foto */
+    height: 100%;
+}
+
+/* --- TITOLO MINIMAL CONTEMPORANEO (SOLIDO CON ACCENTO HOVER) --- */
+.about-inner-title {
+    font-size: clamp(2rem, 3.5vw, 2.6rem); /* Dimensione imponente ma calibrata per il sito */
+    font-weight: 700;                      /* Grassetto deciso e solido (Bold nativo) */
+    line-height: 1.15;                     /* Interlinea pulita ed editoriale */
+    letter-spacing: -1px;                  /* Kerning leggermente accostato, stile moderno */
+    text-transform: uppercase;
+    margin: 0 0 35px 0;
+    
+    /* Stato Iniziale: Grigio scuro antracite, pieno e leggibile */
+    color: var(--p-dark);
+    
+    position: relative;
+    /* Transizione fluida e morbida quando si passa il mouse */
+    transition: color 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Quando l'utente passa il mouse sulla griglia, il titolo vira elegantemente al blu-grigio */
+.about-editorial-matrix:hover .about-inner-title {
+    color: --p-dark;
+}
+
+/* Sottile asse di allineamento minimal sotto al titolo */
+.about-inner-title::after {
     content: '';
     position: absolute;
-    inset: -20px;
-    border: 1.5px solid var(--p-blue-light);
-    border-radius: 25px;
-    z-index: -1;
-    opacity: 0.3;
-    transform: translate(-10px, 10px);
-    
-    animation: revealVisionFrame linear forwards;
-    animation-timeline: --vision-scroll;
-    animation-range: entry 10% contain 35%;
+    bottom: -10px;
+    left: 0;
+    width: 80px;
+    height: 2px;
+    background-color: var(--p-blue);
+    opacity: 0.5;
+    transition: var(--p-transition);
 }
 
-@keyframes revealVisionFrame {
-    to { transform: translate(0, 0); opacity: 0.6; border-color: var(--p-blue); }
+/* Opzionale: la linea si allunga leggermente all'hover per dare un tocco interattivo in più */
+.about-editorial-matrix:hover .about-inner-title::after {
+    width: 120px;
+    opacity: 1;
+}
+/* Paragrafi interni al blocco testo */
+.about-paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* --- TESTI VISION --- */
-.vision-text { flex: 1; }
-
-/* --- VISION TITLE: PURE ARCHITECT STYLE --- */
-.vision-text h3 {
-    font-size: clamp(2rem, 5vw, 3rem); /* Dimensione imponente */
-    font-weight: 200; /* Super leggero */
-    line-height: 1;
-    text-transform: uppercase;
-    letter-spacing: -1.5px; /* Lettere leggermente accostate per un look premium */
-    color: var(--p-dark);
-    margin-bottom: 40px;
-    
-    /* Effetto asimmetrico sottile */
-    max-width: 90%; 
-    position: relative;
-}
-
-/* Una sottile linea di accento sotto il titolo invece del grassetto */
-.vision-text h3::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 1px;
-    background: var(--p-blue);
-    margin-top: 25px;
-    opacity: 0.6;
-}
-
-/* Eyebrow coordinata per contrasto */
-.eyebrow {
-    font-size: 0.65rem;
-    font-weight: 800;
-    letter-spacing: 6px; /* Molta aria */
-    color: var(--p-blue);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 20px;
-}
-
-.vision-text p {
-    font-size: 1rem;
-    line-height: 1.8;
+.about-paragraphs p {
+    font-size: 0.95rem;                   
+    line-height: 1.85; 
+    letter-spacing: 0.1px;
     color: var(--p-text);
     font-weight: 300;
-    margin-bottom: 20px;
+    margin: 0;
+    text-align: left;
 }
 
-/* --- PILLARS GRID (MODERNA & STILOSA) --- */
-.pillars-grid {
+/* Paragrafo Lead con linea di sezione minimal */
+.about-paragraphs p.about-lead-paragraph {
+    font-size: 1.15rem;
+    line-height: 1.75;
+    color: var(--p-dark);
+    padding-left: 20px;
+    border-left: 2px solid var(--p-blue);
+    margin-bottom: 5px;
+}
+
+.about-brand-highlight {
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--p-blue);
+}
+
+.about-paragraphs p strong {
+    font-weight: 600;                     
+    color: var(--p-dark);                 
+}
+
+/* --- GRIGLIA PILASTRI INFERIORI --- */
+.about-pillars-matrix {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 60px;
-    border-top: 1px solid rgba(165, 184, 191, 0.3);
-    padding-top: 60px;
+    gap: 40px; 
+    border-top: 1px solid var(--p-border); 
+    padding-top: 50px;
+    width: 100%;
 }
 
-.pillar-item {
-    transition: var(--p-transition);
+.about-pillar-card {
+    display: flex;
+    flex-direction: column;
 }
 
-.pillar-item h4 {
-    font-size: 1rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    color: #514d4d;
-    margin-bottom: 15px;
-    height: 40px; /* Allineamento titoli */
+.about-pillar-head {
     display: flex;
     align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(101, 135, 147, 0.08);
+    padding-bottom: 12px;
 }
 
-.pillar-item p {
-    font-size: 0.9rem;
-    line-height: 1.6;
+.about-pillar-card h4 {
+    font-size: 0.85rem; 
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--p-dark);
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.about-tech-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.about-tech-list li {
+    font-size: 0.84rem;
+    line-height: 1.5;
     color: var(--p-text);
     font-weight: 300;
-}
-
-/* --- ICONE GEOMETRICHE (RIFINITE) --- */
-.abstract-icon {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 25px;
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.abstract-icon div {
-    position: relative;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(101, 135, 147, 0.04);
     transition: var(--p-transition);
 }
 
-/* Colore scuro per la base, blu per l'accento */
-.geom-efficiency { width: 18px; height: 30px; border: 2px solid var(--p-dark); }
-.geom-efficiency::after { 
-    content: ''; position: absolute; inset: -6px; 
-    border-left: 2px solid var(--p-blue); top: 5px; left: -10px; height: 35px;
+.about-tech-list li:last-child {
+    border-bottom: none;
 }
 
-.geom-management { width: 30px; height: 30px; border-left: 2px solid var(--p-dark); border-bottom: 2px solid var(--p-dark); }
-.geom-management::after {
-    content: ''; position: absolute; width: 6px; height: 6px; 
-    background: var(--p-blue); bottom: 4px; left: 4px;
-    box-shadow: 10px -8px 0 var(--p-blue), 20px -16px 0 var(--p-blue);
+.about-tech-list li:hover {
+    color: var(--p-blue);
+    padding-left: 6px;
 }
 
-.geom-design { width: 25px; height: 25px; border: 2px solid var(--p-dark); }
-.geom-design::after {
-    content: ''; position: absolute; width: 25px; height: 25px;
-    border: 2px solid var(--p-blue); top: -8px; right: -8px;
+/* --- ICONOGRAFIA GEOMETRICA NATIVE --- */
+.about-geo-icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.pillar-item:hover .abstract-icon div {
-    transform: translateY(-5px);
+.about-geo-icon div { position: relative; transition: var(--p-transition); }
+
+.geom-efficiency { width: 14px; height: 24px; border: 1.5px solid var(--p-dark); }
+.geom-efficiency::after { content: ''; position: absolute; border-left: 1.5px solid var(--p-blue); inset: -4px; top: 3px; left: -7px; height: 26px; }
+
+.geom-management { width: 22px; height: 22px; border-left: 1.5px solid var(--p-dark); border-bottom: 1.5px solid var(--p-dark); }
+.geom-management::after { content: ''; position: absolute; width: 4px; height: 4px; background: var(--p-blue); bottom: 3px; left: 3px; box-shadow: 7px -6px 0 var(--p-blue), 14px -12px 0 var(--p-blue); }
+
+.geom-design { width: 18px; height: 18px; border: 1.5px solid var(--p-dark); }
+.geom-design::after { content: ''; position: absolute; width: 18px; height: 18px; border: 1.5px solid var(--p-blue); top: -6px; right: -6px; }
+
+.about-pillar-card:hover .about-geo-icon div {
+    transform: translate(2px, -2px);
 }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 992px) {
-    .vision-grid {
-        flex-direction: column;
-        gap: 60px;
-        text-align: center;
+/* ==========================================================================
+   RESPONSIVE DESIGN ADATTIVO
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    #about.section { padding-top: 90px !important; }
+    .about-editorial-matrix {
+        grid-template-columns: 1fr; /* Sgancia il vincolo di altezza sui tablet disposti in verticale */
+        gap: 45px;
+    }
+    
+    /* Controllo Cornice su Tablet: riduciamo lo sbalzo per non toccare i bordi dello schermo */
+    .about-media-frame::before {
+        top: -8px;
+        left: -8px;
+    }
+    .about-editorial-matrix:hover .about-media-frame::before {
+        top: -4px;
+        left: -4px;
     }
 
-    .vision-image {
-        flex: 0 0 auto;
-        width: 300px;
+    .about-image-wrapper {
         height: 380px;
+        min-height: auto;
     }
-
-    .pillars-grid {
-        grid-template-columns: 1fr;
-        gap: 50px;
-    }
-
-    .pillar-item {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .about-inner-title {
+        font-size: 2rem;
     }
 }
 
 @media (max-width: 768px) {
-    .vision-text h3 {
-        font-size: 2rem;
-        letter-spacing: -0.5px;
-        text-align: center;
+    .about-grid-container {
+        padding-right: 15px;
+        padding-left: 15px;
     }
-    .vision-text h3::after {
-        margin: 20px auto 0; /* Centra la linea su mobile */
+    
+    /* Controllo Cornice su Smartphone: sbalzo minimo millimetrico di sicurezza */
+    .about-media-frame::before {
+        top: -6px;
+        left: -6px;
+    }
+    .about-editorial-matrix:hover .about-media-frame::before {
+        top: -3px;
+        left: -3px;
+    }
+
+    .about-inner-title {
+        font-size: 1.8rem; /* Riduzione proporzionale per schermi mobile */
+        letter-spacing: 1px;
+    }
+    .about-pillars-matrix {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    .about-image-wrapper {
+        height: 280px;
     }
 }
