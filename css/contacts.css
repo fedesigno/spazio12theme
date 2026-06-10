@@ -7,155 +7,137 @@
     --p-dark: #444242;
     --p-text: #546e7a;
     --p-transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    --p-border: rgba(101, 135, 147, 0.15);
 }
 
-/* --- HEADER SEZIONE --- */
-.subtitle-tech { 
-    font-size: 0.75rem; 
-    color: var(--p-blue); 
-    letter-spacing: 5px;
-    font-weight: 800;
-    text-transform: uppercase;
+/* --- GRIGLIA E BLOCCO --- */
+.location-grid {
     display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 40px;
+    justify-content: center;
+    margin: 40px auto 80px;
 }
 
-.subtitle-tech::after {
-    content: '';
-    flex-grow: 1;
-    max-width: 60px;
-    height: 1px;
-    background: var(--p-blue);
-    opacity: 0.3;
-}
-
-/* --- GRID E BLOCCHI --- */
-.contact-grid { 
-    display: flex; 
-    justify-content: center; 
-    align-items: stretch; 
-    gap: 30px; 
-    margin: 40px auto 80px; 
-    max-width: 1200px;
-}
-
-.contact-block {
-    flex: 1; 
-    background: #fff; 
-    border: 1px solid rgba(101, 135, 147, 0.15); 
-    border-radius: 20px; 
-    overflow: hidden; /* Fondamentale per allineare la mappa ai bordi arrotondati */
-    display: flex; 
-    flex-direction: column;
+.location-block-wide {
+    width: 100%;
+    max-width: 800px;
+    background: #fff;
+    border: 1px solid var(--p-border);
+    border-radius: 12px; /* Leggermente meno arrotondato per un look più 'architettonico' */
+    overflow: hidden;
     transition: var(--p-transition);
 }
 
-.contact-block:hover { 
-    transform: translateY(-8px); 
+.location-block-wide:hover {
     border-color: var(--p-blue);
-    box-shadow: 0 20px 40px rgba(101, 135, 147, 0.1);
+    box-shadow: 0 10px 30px rgba(101, 135, 147, 0.08);
 }
 
-/* --- MAPPA (FILO BORDO) --- */
-.map-wrapper {
-    width: 100%; 
-    height: 250px; 
-    margin: 0; /* Rimuove ogni spazio */
-    padding: 0;
-    filter: grayscale(100%) contrast(1.1);
-    opacity: 0.7;
-    transition: all 0.8s ease;
-    border-bottom: 1px solid rgba(101, 135, 147, 0.1);
+/* --- DUAL VIEW (MAPPA + STREET VIEW) --- */
+.map-dual-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    height: 300px;
+    border-bottom: 1px solid var(--p-border);
 }
 
-.map-wrapper iframe {
+.map-view, .street-view {
     width: 100%;
     height: 100%;
     border: 0;
-    display: block; /* Toglie spazi bianchi sotto l'iframe */
+    display: block;
+    filter: grayscale(100%) contrast(1.05);
+    transition: var(--p-transition);
 }
 
-.contact-block:hover .map-wrapper { 
-    filter: grayscale(0%);
-    opacity: 1;
+.location-block-wide:hover .map-view, 
+.location-block-wide:hover .street-view { 
+    filter: grayscale(0%) contrast(1);
 }
 
-/* --- DETTAGLI TESTUALI --- */
-.contact-details { 
-    padding: 40px; /* Spazio interno uniforme per il testo */
+/* --- DETTAGLI TESTUALI (ELEGANZA MINIMALE) --- */
+.location-details { 
+    padding: 40px; 
+    text-align: center; 
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    align-items: center;
 }
 
-.contact-details h3 {
-    font-size: 1.2rem;
-    font-weight: 300; 
-    letter-spacing: 1px;
+/* Sede di Pinerolo */
+.location-tag {
+    font-size: 0.60rem;
+    color: #fff;
+    letter-spacing: 5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+}
+
+/* Titolo: Spazio Dodici */
+.location-details h3 {
+    font-size: 1.8rem; /* Leggermente più grande per dare importanza */
+    font-weight: 200;  /* Grassetto per il nome */
+    letter-spacing: -0.5px;
     color: var(--p-dark);
     text-transform: uppercase;
-    margin-bottom: 6px;
+    margin-bottom: 2px;
 }
 
+/* Sottotitolo: Collettivo di Progettazione */
+.location-subtitle {
+    font-size: 0.65rem;
+    font-weight: 100;
+    color: var(--p-blue);
+    text-transform: uppercase;
+    letter-spacing: 4px; /* Molto spaziato per eleganza */
+    display: block;
+    margin-bottom: 20px;
+    border-top: 1px solid rgba(101, 135, 147, 0.2);
+    padding-top: 8px;
+    width: 60%; /* Linea sottile che incornicia il sottotitolo */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Ruolo: Architetti */
 .role-text { 
-    font-size: 0.65rem; 
-    color: var(--p-blue); 
-    letter-spacing: 3px; 
+    font-size: 0.7rem; 
+    color: var(--p-text); 
+    letter-spacing: 4px; 
     font-weight: 800;
     text-transform: uppercase; 
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
-/* --- LINK (UNIFORMATI) --- */
-.contact-links { 
+/* Indirizzo */
+.location-links { 
     list-style: none; 
     padding: 0; 
     margin: 0;
 }
 
-.contact-links li { 
-    margin-bottom: 18px; 
+.location-links li { 
     display: flex; 
     align-items: center; 
-    gap: 15px; 
-}
-
-.contact-links i { 
-    color: var(--p-blue); 
-    font-size: 1rem; 
-    width: 20px;
-    text-align: center;
-}
-
-.contact-links a { 
-    color: var(--p-text) !important; /* Forza il colore per tutti i link, vie incluse */
-    text-decoration: none; 
-    font-size: 0.9rem;
+    justify-content: center;
+    gap: 10px; 
+    font-size: 0.85rem;
+    color: var(--p-text);
     font-weight: 300;
-    transition: color 0.3s ease;
 }
 
-.contact-links a:hover { 
-    color: var(--p-blue) !important;
+.location-links i { 
+    color: var(--p-blue); 
+    font-size: 0.9rem;
 }
 
-@media (max-width: 992px) {
-    .contact-grid { 
-        flex-direction: column; 
-        align-items: center; 
-        gap: 40px; 
-        padding: 0 15px;
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .map-dual-wrapper {
+        grid-template-columns: 1fr;
+        height: 400px;
     }
-
-    .contact-block { 
-        width: 100%; 
-        max-width: 100%; /* Forza l'adattamento totale */
-        flex: none; /* Disattiva le regole flex della grid */
-    }
-    
-    .contact-details {
-        padding: 30px 20px; /* Ridotto per schermi piccoli */
-    }
+    .map-view { border-bottom: 1px solid var(--p-border); }
 }
