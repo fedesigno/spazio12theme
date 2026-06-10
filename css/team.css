@@ -11,11 +11,10 @@
     --p-transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Griglia a matrice geometrica continua */
 .team-grid-modern {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0; /* Rimuoviamo il gap per unire le celle tramite i bordi */
+    gap: 0;
     border-top: 1px solid var(--p-border);
     border-left: 1px solid var(--p-border);
     max-width: 1200px;
@@ -23,20 +22,18 @@
     background: #ffffff;
 }
 
-/* La singola cella della matrice */
 .team-item {
     padding: 40px;
     border-right: 1px solid var(--p-border);
     border-bottom: 1px solid var(--p-border);
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 25px;
     transition: var(--p-transition);
     position: relative;
     background: #ffffff;
 }
 
-/* Effetto Hover sofisticato sulla cella */
 .team-item:hover {
     background: var(--p-blue-alpha);
 }
@@ -51,11 +48,11 @@
 .photo-wrapper {
     width: 90px;
     height: 90px;
-    border-radius: 50%; /* Foto circolare minimale tipo passaporto tecnico */
+    border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
     filter: grayscale(100%);
-    border: 1px solid var(--p-border);
+    border: 4px solid var(--p-border);
     transition: var(--p-transition);
 }
 
@@ -71,7 +68,6 @@
     transform: scale(1.05);
 }
 
-/* Tipografia Identità */
 .identity {
     display: flex;
     flex-direction: column;
@@ -123,8 +119,18 @@
     flex-wrap: wrap;
     gap: 8px 6px;
 }
+/* L'effetto al passaggio del mouse (HOVER) */
+.prestazioni-list li:hover { 
+    /* Effetto 'vieni in avanti' più marcato */
+    transform: translateY(-3px) scale(1.02); /* Si alza di più e si ingrandisce leggermente */
+    
+    /* Aggiungiamo un'ombra per staccarla dal fondo e dare profondità */
+    box-shadow: 0 8px 15px rgba(101, 135, 147, 0.3);
+    
+    /* Assicura che la transizione sia fluida anche quando il mouse esce */
+    transition: var(--p-transition);
+}
 
-/* I singoli tasselli delle prestazioni, moderni e compatti */
 .prestazioni-list li {
     font-size: 0.8rem;
     font-weight: 300;
@@ -133,75 +139,80 @@
     padding: 6px 12px;
     border-radius: 6px;
     border: 1px solid rgba(101, 135, 147, 0.08);
+}
+
+/* --- FOOTER CONTATTI (STILE CARTIGLIO) --- */
+/* --- FOOTER CONTATTI (STILE TECNICO UNIFORME) --- */
+.item-contacts {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px dashed var(--p-border);
+}
+
+.contact-links { 
+    list-style: none; 
+    padding: 0; 
+    margin: 0;
+}
+
+.contact-links li { 
+    margin-bottom: 8px; 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    font-size: 0.8rem; /* Dimensione fissa */
+    color: var(--p-text);
+    font-weight: 300;   /* Forza il peso leggero */
+}
+
+/* Uniformiamo icone e testo */
+.contact-links i { 
+    color: var(--p-blue); 
+    width: 16px; 
+    text-align: center;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+/* Forza tutti i link (e i testi semplici) allo stesso stile */
+.contact-links a, 
+.contact-links li { 
+    color: var(--p-text) !important;
+    text-decoration: none; 
+    font-size: 0.8rem !important;
+    font-weight: 300 !important; /* Nessun bold */
     transition: var(--p-transition);
 }
 
-.team-item:hover .prestazioni-list li {
-    background: #ffffff;
-    color: var(--p-dark);
-    border-color: rgba(101, 135, 147, 0.25);
+.contact-links a:hover { 
+    color: var(--p-blue) !important;
 }
 
-/* =================================================
-   RESPONSIVE DESIGN AUTOMATICO (PERFETTO)
-================================================= */
+/* Se avevi scritto 'P.IVA:' o 'Tel:' in grassetto nell'HTML, 
+   rimuovi il tag <span> o la classe bold da lì */
 
-/* --- TABLET (Sotto i 1024px) --- */
+.contact-links a:hover { color: var(--p-blue); }
+
+/* --- RESPONSIVE --- */
 @media (max-width: 1024px) {
-    .team-item {
-        padding: 30px;
-        gap: 20px;
-    }
-    
-    .name-tech {
-        font-size: 1.3rem;
-    }
-    
-    .photo-wrapper {
-        width: 80px;
-        height: 80px;
-    }
+    .team-item { padding: 30px; gap: 20px; }
+    .name-tech { font-size: 1.3rem; }
 }
 
-/* --- SMARTPHONE (Sotto i 768px) --- */
 @media (max-width: 768px) {
     .team-grid-modern {
-        grid-template-columns: 1fr; /* Una colonna secca */
+        grid-template-columns: 1fr;
         border-left: none;
         border-right: none;
         background: transparent;
     }
-
     .team-item {
-        padding: 30px 15px;
-        border-left: none;
-        border-right: none;
-        background: #ffffff;
-        margin-bottom: 15px; /* Crea delle card distinte solo su mobile */
+        padding: 30px 20px;
         border: 1px solid var(--p-border);
         border-radius: 16px;
+        margin-bottom: 20px;
     }
-    
-    .item-header {
-        flex-direction: column; /* Foto sopra, testo sotto al centro */
-        text-align: center;
-        gap: 15px;
-    }
-    
-    .identity {
-        align-items: center;
-    }
-    
-    .role-badge {
-        align-self: center;
-    }
-    
-    .prestazioni-list {
-        justify-content: center; /* Centra i tag delle prestazioni */
-    }
-    
-    .prestazioni-list li {
-        font-size: 0.75rem;
-        padding: 5px 10px;
-    }
+    .item-header { flex-direction: column; text-align: center; }
+    .identity, .role-badge { align-items: center; align-self: center; }
+    .prestazioni-list { justify-content: center; }
 }
