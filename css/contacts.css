@@ -86,9 +86,9 @@
 }
 
 /* Sottotitolo: Collettivo di Progettazione */
-.location-subtitle {
+.collettivo-subtitle {
     font-size: 0.65rem;
-    font-weight: 100;
+    font-weight: 300;
     color: var(--p-blue);
     text-transform: uppercase;
     letter-spacing: 4px; /* Molto spaziato per eleganza */
