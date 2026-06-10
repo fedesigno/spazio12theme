@@ -49,3 +49,12 @@ function initAnimations() {
     
     document.querySelectorAll('.vision-image, .member-photo, .map-wrapper, .team-member-row').forEach(img => imgObserver.observe(img));
 }
+
+
+
+function toggleBio(el) {
+    // Trova il contenitore principale partendo dal bottone cliccato
+    const parent = el.closest('.team-item');
+    const overlay = parent.querySelector('.bio-overlay');
+    overlay.classList.toggle('is-active');
+}

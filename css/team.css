@@ -193,6 +193,109 @@
 
 .contact-links a:hover { color: var(--p-blue); }
 
+
+/* --- OVERLAY BIO (STATO CHIUSO - RIPOSO) --- */
+.bio-overlay {
+    position: absolute;
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    background: rgba(26, 26, 26, 0.98);
+    color: #fff;
+    padding: 40px;
+    
+    /* Stato iniziale: invisibile e leggermente rimpicciolito */
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95); 
+    pointer-events: none;
+    
+    /* Transizione con effetto 'ease-out' per la morbidezza */
+    transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 20;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- OVERLAY BIO (STATO APERTO - ATTIVO) --- */
+.bio-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1); /* Ritorna alla dimensione reale in modo fluido */
+    pointer-events: all;
+}
+
+/* --- BOTTONE BIO (DENTRO LA CARD) --- */
+.bio-btn {
+    margin-top: auto; 
+    background: transparent;
+    border: 1px solid var(--p-blue);
+    color: var(--p-blue);
+    padding: 6px 16px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: var(--p-transition);
+
+    align-self: center; /* Forza il bottone a centrarsi orizzontalmente nella colonna */
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 5; /* Deve stare sotto l'overlay */
+}
+
+.bio-btn:hover { background: var(--p-blue); color: #fff; }
+
+/* --- CONTENUTO DELLA BIO --- */
+.bio-content {
+    text-align: center;
+    width: 100%;
+}
+
+.bio-name {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.bio-name span { font-weight: 700; }
+
+.bio-role {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--p-blue);
+}
+
+.bio-divider {
+    width: 40px; height: 2px;
+    background: var(--p-blue);
+    margin: 20px auto;
+}
+
+.bio-text {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #ccc;
+    font-weight: 300;
+    font-style: italic;
+}
+
+/* --- TASTO CHIUDI --- */
+.close-btn {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: none; border: none;
+    color: var(--p-blue); font-size: 1.5rem;
+    cursor: pointer;
+    padding: 10px;
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 1024px) {
     .team-item { padding: 30px; gap: 20px; }
