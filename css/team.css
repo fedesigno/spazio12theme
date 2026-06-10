@@ -141,7 +141,6 @@
     border: 1px solid rgba(101, 135, 147, 0.08);
 }
 
-/* --- FOOTER CONTATTI (STILE CARTIGLIO) --- */
 /* --- FOOTER CONTATTI (STILE TECNICO UNIFORME) --- */
 .item-contacts {
     margin-top: auto;
@@ -203,20 +202,28 @@
     color: #fff;
     padding: 40px;
     
-    /* Stato iniziale: invisibile e leggermente rimpicciolito */
+    /* SU DESKTOP: ANGOLI QUADRATI (Default) */
+    border-radius: 0; 
+    overflow: hidden;
+    
     opacity: 0;
     visibility: hidden;
     transform: scale(0.95); 
     pointer-events: none;
-    
-    /* Transizione con effetto 'ease-out' per la morbidezza */
-    transition: all 2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 20;
     
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+/* --- LOGICA RESPONSIVE: SOLO SU MOBILE ARROTONDA --- */
+@media (max-width: 768px) {
+    .bio-overlay {
+        border-radius: 16px; /* Uguale al border-radius delle tue card mobile */
+    }
 }
 
 /* --- OVERLAY BIO (STATO APERTO - ATTIVO) --- */
