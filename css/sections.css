@@ -32,87 +32,79 @@
 }
 
 /* =================================================
-   SECTION TITLE - ARCHITECTURAL SIGNATURE (STABLE VERSION)
+   SIGNATURE ARCHITECTURAL TITLE (PURE REGISTRATION)
+   Design: Minimalismo tecnico, rigore editoriale
 ================================================= */
 
-.section-title { 
-    font-size: clamp(1.6rem, 3vw, 2.4rem); 
-    font-weight: 200;          
-    text-transform: uppercase !important; /* Forza sempre maiuscolo */
-    color: var(--p-dark);      
-    margin-bottom: 50px; 
-    letter-spacing: 1px;       
-    
+.section-title {
     display: flex;
     align-items: center;
     width: 100%;
-    overflow: hidden; 
+    margin-bottom: 80px;
+    padding-top: 40px;
 }
 
-/* Base comune per le linee */
-.section-title::before, .section-title::after {
+/* 1. IL SEGNO DI REGISTRO CON BASE (Angolo + Base Grigia) */
+.section-title::before {
     content: '';
-    height: 1px;
-    background-color: var(--p-blue);
-    opacity: 0.3;
-    flex-shrink: 0 !important; /* Forza la linea a non schiacciarsi mai */
-}
-
-/* --- VERSIONE SINISTRA (Default) --- */
-.section-title.align-left::before {
-    width: 80px !important;              
-    margin-right: 20px !important;
-}
-.section-title.align-left::after {
-    flex-grow: 1 !important;
-    margin-left: 20px !important;
-    min-width: 80px !important;          
-}
-
-/* --- VERSIONE DESTRA (Alternata) --- */
-.section-title.align-right {
-    justify-content: flex-end !important; 
-}
-.section-title.align-right::before {
-    flex-grow: 1 !important;             
-    margin-right: 20px !important;
-    min-width: 80px !important;          
-}
-.section-title.align-right::after {
-    width: 80px !important;              
-    margin-left: 20px !important;
-}
-
-/* La seconda parola */
-.section-title .title-bold-accent {
-    color: var(--p-blue);
-    font-weight: 900 !important;
-    margin: 0 15px !important;           
-    flex-shrink: 0 !important;           
-    display: inline-block;               
-}
-
-/* --- MOBILE & TABLET OPTIMIZATION --- */
-@media (max-width: 992px) {
-    .section-title {
-        font-size: 1.4rem !important;
-    }
+    width: 16px;
+    height: 16px;
+    margin-right: 25px;
+    flex-shrink: 0;
     
-    /* Le linee corte devono rimanere sempre visibili e staccate */
-    .section-title.align-left::before,
-    .section-title.align-right::after {
-        width: 30px !important; 
-        flex-grow: 0 !important;
-    }
+    /* L'angolo (L) in blu */
+    border-top: 1.5px solid var(--p-blue);
+    border-left: 1.5px solid var(--p-blue);
+    border-bottom: 1.5px solid var(--p-blue);
+    border-right: 1.5px solid var(--p-blue);
+    
+    /* La base grigia (linea sotto) */
+    /* Usiamo una box-shadow per aggiungere la base senza rompere la rotazione */
+    box-shadow: 2px 2px 0px 0px var(--p-dark); 
+    
+    /* Rotazione a 45 gradi */
+    transform: rotate(45deg);
 
-    /* Le linee lunghe devono espandersi anche su mobile per coprire lo spazio */
-    .section-title.align-left::after,
-    .section-title.align-right::before {
-        flex-grow: 1 !important;
-        margin: 0 15px !important;
-    }
+    margin-bottom: 4px; /* Piccolo offset per compensare la base */
+
 }
 
+/* 2. Il Testo */
+.section-title h2 {
+    margin: 0;
+    font-size: clamp(1rem, 5vw, 1.5rem);
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 0.08em; /* Spaziatura ancora più ampia per eleganza */
+    color: var(--p-dark);
+}
+
+.section-title .title-bold-accent {
+    font-weight: 600;
+    color: var(--p-blue);
+    margin-left: 15px;
+}
+
+/* 3. La Linea "Profilo" (Tratteggio tecnico) */
+.section-title::after {
+    content: '';
+    flex-grow: 1;
+    height: 1px;
+    background-color: var(--p-dark);
+    opacity: 0.12; /* Molto discreta */
+    margin-left: 30px;
+    /* Tratteggio tipo "linea di proiezione" */
+    background-image: linear-gradient(90deg, var(--p-dark) 70%, transparent 70%);
+    background-size: 30px 1px;
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 992px) {
+    .section-title { margin-bottom: 50px; }
+    .section-title h2 { font-size: 1.4rem; }
+    .section-title::before { width: 16px; height: 16px; margin-right: 15px; }
+    .section-title::after { margin-left: 15px; }
+}
 /* --- BIG STATEMENT (RESTILIZZATO PER COESIONE) --- */
 .big-statement {
     font-size: clamp(2.4rem, 5vw, 4rem);
