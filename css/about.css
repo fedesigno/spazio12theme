@@ -40,7 +40,7 @@
 /* --- GRIGLIA EDITORIALE FLUIDA (Allineamento inizio-fine perfetto) --- */
 .about-editorial-matrix {
     display: grid;
-    grid-template-columns: 0.7fr 1.3fr; /* Rapporto asimmetrico geometrico */
+    grid-template-columns: 0.9fr 1.1fr; /* Rapporto asimmetrico geometrico */
     gap: 60px; 
     align-items: stretch; /* Forza le due colonne ad avere matematicamente la stessa altezza */                 
     margin-bottom: 80px;

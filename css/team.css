@@ -144,7 +144,7 @@
 /* --- FOOTER CONTATTI (STILE TECNICO UNIFORME) --- */
 .item-contacts {
     margin-top: auto;
-    padding-top: 20px;
+    padding-top: 25px; /* Più spazio sopra la linea tratteggiata */
     border-top: 1px dashed var(--p-border);
 }
 
@@ -155,21 +155,21 @@
 }
 
 .contact-links li { 
-    margin-bottom: 8px; 
+    margin-bottom: 14px; /* Più spazio verticale tra un contatto e l'altro */
     display: flex; 
     align-items: center; 
-    gap: 12px; 
-    font-size: 0.8rem; /* Dimensione fissa */
+    gap: 15px; /* Più spazio tra icona e testo */
+    font-size: 0.85rem; /* Testo più grande e leggibile */
     color: var(--p-text);
-    font-weight: 300;   /* Forza il peso leggero */
+    font-weight: 300;   
 }
 
 /* Uniformiamo icone e testo */
 .contact-links i { 
     color: var(--p-blue); 
-    width: 16px; 
+    width: 20px; /* Icona leggermente più grande */
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     flex-shrink: 0;
 }
 
@@ -178,19 +178,14 @@
 .contact-links li { 
     color: var(--p-text) !important;
     text-decoration: none; 
-    font-size: 0.8rem !important;
-    font-weight: 300 !important; /* Nessun bold */
+    font-size: 0.85rem !important; /* Testo ingrandito */
+    font-weight: 300 !important; 
     transition: var(--p-transition);
 }
 
 .contact-links a:hover { 
     color: var(--p-blue) !important;
 }
-
-/* Se avevi scritto 'P.IVA:' o 'Tel:' in grassetto nell'HTML, 
-   rimuovi il tag <span> o la classe bold da lì */
-
-.contact-links a:hover { color: var(--p-blue); }
 
 
 /* --- OVERLAY BIO (STATO CHIUSO - RIPOSO) --- */
@@ -315,6 +310,7 @@
         border-left: none;
         border-right: none;
         background: transparent;
+        border-top: none;
     }
     .team-item {
         padding: 30px 20px;

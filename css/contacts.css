@@ -15,14 +15,16 @@
     display: flex;
     justify-content: center;
     margin: 40px auto 80px;
+    width: 100%;       /* Aggiunto: occupa tutta la larghezza disponibile */
+    padding: 0 15px;   /* Aggiunto: mantiene i margini laterali per non attaccarsi ai bordi */
 }
 
 .location-block-wide {
     width: 100%;
-    max-width: 800px;
+    max-width: 1200px; /* MODIFICA: Porta il limite a 1200px (o quello che usi per il resto del sito) */
     background: #fff;
     border: 1px solid var(--p-border);
-    border-radius: 12px; /* Leggermente meno arrotondato per un look più 'architettonico' */
+    border-radius: 12px;
     overflow: hidden;
     transition: var(--p-transition);
 }
