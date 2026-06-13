@@ -3,56 +3,71 @@
 ================================================= */
 
 .footer {
-    background-color: #2c3e44; /* Una versione più scura e profonda del tuo blu-grigio */
-    padding: 100px 0 40px;
+    background-color: #2c3e44;
+    padding: 80px 0 40px;
     color: #ffffff;
-    font-family: inherit;
+    width: 100%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
 }
 
 .footer-grid {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    gap: 80px;
-    margin-bottom: 80px;
+    gap: 60px;
+    margin-bottom: 60px;
 }
 
-/* --- LOGO & BRAND --- */
-.footer-logo-container {
+/* --- NUOVO LOGO & LAYOUT --- */
+.footer-brand-wrapper {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    margin-left: 100px;
+    gap: 20px;
 }
 
 .footer-brand-logo {
-    height: 40px; /* Regola in base al tuo logo */
+    height: 60px; /* Logo più grande per l'effetto architettonico */
     width: auto;
-    filter: brightness(0) invert(1); /* Forza il logo a diventare bianco se è nero */
+    filter: brightness(0) invert(1);
+}
+
+.footer-brand-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .footer-logo-text {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 200;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    color: #ffffff;
+    letter-spacing: 4px;
+    line-height: 1;
 }
 
-.footer-logo-text span {
-    font-weight: 800;
-    color: #a5b8bf; /* Un azzurro polvere chiarissimo per il contrasto */
+.footer-logo-text span { font-weight: 800; color: #a5b8bf; }
+
+.footer-divider {
+    width: 50px;
+    height: 1px;
+    background: #a5b8bf;
+    margin: 10px 0;
 }
 
 .footer-tagline {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.6);
-    max-width: 300px;
-    margin-left: 140px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
 }
 
-/* --- ETICHETTE TECNICHE --- */
+/* --- ETICHETTE --- */
 .footer-label {
     display: block;
     font-size: 0.7rem;
@@ -60,60 +75,97 @@
     text-transform: uppercase;
     letter-spacing: 4px;
     color: #a5b8bf;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
-/* --- LINK LEGALI --- */
-.footer-links ul { list-style: none; padding: 0; }
-.footer-links li { margin-bottom: 15px; }
+/* --- LINK & FIRMA --- */
+.footer-links ul { list-style: none; padding: 0; margin: 0; }
+.footer-links li { margin-bottom: 12px; }
+.footer-links a { font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); text-decoration: none; transition: 0.3s; }
+.footer-links a:hover { color: #fff; }
 
-.footer-links a {
-    font-size: 0.85rem;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: #ffffff;
-    padding-left: 5px;
-}
-
-/* --- FIRMA (IL TUO TOCCO) --- */
-.footer-credits p {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 8px;
-}
+.footer-credits p { font-size: 0.8rem; color: rgba(255, 255, 255, 0.4); margin-bottom: 5px; }
 
 .my-signature {
+    display: inline-block;
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: #a5b8bf;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(165, 184, 191, 0.3);
+    transition: 0.3s;
 }
+.my-signature:hover { color: #fff; border-bottom-color: #fff; }
 
-
-/* --- BOTTOM BAR --- */
-.footer-bottom {
-    padding-top: 40px;
+/* --- PARTNER ROW --- */
+.footer-partners-row {
+    padding: 40px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 40px;
     text-align: center;
 }
 
-.footer-bottom p {
-    font-size: 0.7rem;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.4);
-    letter-spacing: 1px;
+.partner-row-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.partner-row-grid img {
+    height: 30px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.4;
+    transition: 0.3s;
+}
+
+.partner-row-grid a:hover img { opacity: 1; transform: scale(1.05); }
+
+/* --- BOTTOM --- */
+.footer-bottom { text-align: center; font-size: 0.75rem; color: rgba(255, 255, 255, 0.3); }
+
+/* --- FIRMA MODERNA --- */
+.footer-credits p { 
+    font-size: 0.8rem; 
+    color: rgba(255, 255, 255, 0.4); 
+    margin-bottom: 8px; 
+}
+
+.signature-modern {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #a5b8bf;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 6px 12px;
+    border: 1px solid rgba(165, 184, 191, 0.2);
+    border-radius: 20px; /* Forma a "pillola" moderna */
+}
+
+.signature-modern:hover {
+    color: #fff;
+    background: rgba(165, 184, 191, 0.1);
+    border-color: rgba(165, 184, 191, 0.4);
+    transform: translateY(-2px);
+}
+
+.signature-icon {
+    font-size: 0.6rem;
+    transition: transform 0.5s ease;
+}
+
+.signature-modern:hover .signature-icon {
+    transform: rotate(180deg); /* L'icona gira al passaggio del mouse */
 }
 
 /* --- RESPONSIVE --- */
 @media (max-width: 992px) {
-    .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 50px;
-        text-align: center;
-    }
-    .footer-logo-container { justify-content: center; }
-    .footer-tagline { margin: 10px auto; }
+    .container { padding: 0 20px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .footer-brand-wrapper { justify-content: center; flex-direction: column; }
+    .footer-divider { margin: 10px auto;}
 }
