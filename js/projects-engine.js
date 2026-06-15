@@ -133,7 +133,7 @@ window.renderProjects = function(yearFilter = 'all', stretch = false) {
                 <div class="p-content">
                     <div class="p-meta"><span class="p-year">${p.year}</span><span class="p-funding">${p.tag}</span></div>
                     <h3 class="p-title">${p.title}</h3>
-                    <p class="p-location">📍 ${p.location}</p>
+                    <p class="p-location"><i class="fas fa-map-marker-alt"></i> ${p.location}</p>
                     <p class="p-desc">${p.desc}</p>
                     <div class="p-spec-grid">
                         <div class="spec-item"><span>INIZIO</span><strong>${p.start}</strong></div>
