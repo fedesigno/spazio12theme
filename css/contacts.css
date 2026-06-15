@@ -1,5 +1,6 @@
 /* =================================================
    CONTATTI & MAPPE - ARCHITECTURAL PRECISION
+   Versione ottimizzata con focus sulle informazioni
 ================================================= */
 
 :root {
@@ -34,12 +35,12 @@
     box-shadow: 0 10px 30px rgba(101, 135, 147, 0.1);
 }
 
-/* --- MAPPE (DUAL VIEW) --- */
+/* --- MAPPE (Ridotte per dare spazio ai testi) --- */
 .map-dual-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 100%;
-    height: 300px;
+    height: 220px; 
     border-bottom: 1px solid var(--p-border);
 }
 
@@ -50,35 +51,35 @@
     display: block;
 }
 
-/* --- LAYOUT DETTAGLI (LOGO A SINISTRA FISSO) --- */
+/* --- AREA TESTI (Ampia e leggibile) --- */
 .location-details { 
-    padding: 40px; 
+    padding: 60px 50px; 
     display: flex;
     align-items: center; 
     justify-content: center;
-    gap: 30px;
+    gap: 45px; 
     text-align: left;
 }
 
 /* Logo (Sempre a colori) */
 .location-logo {
-    height: 65px;
+    height: 80px; 
     width: auto;
     flex-shrink: 0;
     display: block;
 }
 
-/* Blocco testo */
+/* Blocco testo a destra del logo */
 .text-side {
     display: flex;
     flex-direction: column;
     justify-content: center;
     border-left: 1px solid var(--p-border);
-    padding-left: 30px;
+    padding-left: 45px;
 }
 
 .location-details h3 {
-    font-size: 1.4rem;
+    font-size: 1.8rem; 
     font-weight: 600;
     letter-spacing: 0.5px;
     color: var(--p-dark);
@@ -88,13 +89,13 @@
 }
 
 .collettivo-subtitle {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     font-weight: 400;
     color: var(--p-blue);
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 15px;
 }
 
 .location-links { 
@@ -107,7 +108,7 @@
     display: flex; 
     align-items: center; 
     gap: 10px; 
-    font-size: 0.8rem;
+    font-size: 0.95rem; /* Testo più leggibile */
     color: var(--p-text);
     font-weight: 300;
 }
@@ -117,33 +118,29 @@
     font-size: 0.9rem;
 }
 
-/* --- RESPONSIVE (Mantiene logo a sinistra anche su mobile) --- */
+/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
     .location-grid { padding: 0 15px; }
     
     .location-details {
-        padding: 30px 20px;
-        gap: 15px;
+        flex-direction: row; /* Mantiene la riga anche su mobile */
+        padding: 40px 20px;
+        gap: 20px;
     }
     
     .location-logo {
-        height: 45px; /* Logo leggermente ridotto su mobile */
+        height: 55px;
     }
     
     .text-side {
-        padding-left: 15px;
+        padding-left: 20px;
     }
     
     .location-details h3 {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
     
-    .collettivo-subtitle {
-        letter-spacing: 1px;
-    }
-
     .map-dual-wrapper {
-        grid-template-columns: 1fr;
-        height: 400px;
+        height: 200px;
     }
 }

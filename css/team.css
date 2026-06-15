@@ -51,7 +51,6 @@
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
-    filter: grayscale(100%);
     border: 4px solid var(--p-border);
     transition: var(--p-transition);
 }
@@ -63,7 +62,6 @@
 }
 
 .team-item:hover .photo-wrapper {
-    filter: grayscale(0%);
     border-color: var(--p-blue);
     transform: scale(1.05);
 }
