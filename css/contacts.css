@@ -123,6 +123,7 @@
     font-size: 0.95rem;
     color: var(--c-muted);
     line-height: 1.5;
+    font-weight: 300;
 }
 
 .location-links i { 
@@ -140,7 +141,7 @@
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: 600;
+    font-weight: 550;
 }
 
 /* ==========================================================================
