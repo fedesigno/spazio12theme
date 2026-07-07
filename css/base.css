@@ -17,3 +17,28 @@ body {
 html {
     scroll-behavior: smooth;
 }
+
+
+/* ==========================================================================
+   SISTEMA DI ANIMAZIONE PREMIUM ED ELEGANTE (INFINITO UP/DOWN)
+   ========================================================================== */
+
+/* Stato iniziale: l'elemento è semi-invisibile, leggermente rimpicciolito */
+.reveal-premium {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+    transition: opacity 1.2s cubic-bezier(0.215, 0.610, 0.355, 1),
+                transform 1.2s cubic-bezier(0.215, 0.610, 0.355, 1);
+    will-change: opacity, transform;
+}
+
+/* Stato attivo: l'elemento si distende e diventa visibile */
+.reveal-premium.is-visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* Effetto cascata (Delay) elegante per gli elementi interni alle griglie */
+.delay-100 { transition-delay: 150ms; }
+.delay-200 { transition-delay: 300ms; }
+.delay-300 { transition-delay: 450ms; }

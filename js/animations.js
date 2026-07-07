@@ -58,3 +58,31 @@ function toggleBio(el) {
     const overlay = parent.querySelector('.bio-overlay');
     overlay.classList.toggle('is-active');
 }
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const itemsToReveal = document.querySelectorAll(".reveal-premium");
+
+    const observerOptions = {
+        root: null,
+        rootMargin: "-40px 0px", // Evita attivazioni improvvise sui bordi estremi
+        threshold: 0.1           // Parte quando il 10% dell'elemento è visibile
+    };
+
+    const revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Entra nel viewport: si attiva l'animazione elegante
+                entry.target.classList.add("is-visible");
+            } else {
+                // Esce dal viewport: si resetta dolcemente per lo scroll successivo
+                entry.target.classList.remove("is-visible");
+            }
+        });
+    }, observerOptions);
+
+    itemsToReveal.forEach(item => {
+        revealObserver.observe(item);
+    });
+});
