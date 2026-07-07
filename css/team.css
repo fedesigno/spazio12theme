@@ -17,6 +17,10 @@
     gap: 0;
     border-top: 1px solid var(--p-border);
     border-left: 1px solid var(--p-border);
+
+    border-radius: 12px; /* Angoli smussati */
+    overflow: hidden;    /* Fondamentale: impedisce alle mappe di uscire dagli angoli curvi */
+
     max-width: 1200px;
     margin: 40px auto 80px;
     background: #ffffff;
@@ -215,7 +219,7 @@
 /* --- LOGICA RESPONSIVE: SOLO SU MOBILE ARROTONDA --- */
 @media (max-width: 768px) {
     .bio-overlay {
-        border-radius: 16px; /* Uguale al border-radius delle tue card mobile */
+        border-radius: 12px; /* Uguale al border-radius delle tue card mobile */
     }
 }
 
@@ -313,7 +317,7 @@
     .team-item {
         padding: 30px 20px;
         border: 1px solid var(--p-border);
-        border-radius: 16px;
+        border-radius: 12px;
         margin-bottom: 20px;
     }
     .item-header { flex-direction: column; text-align: center; }

@@ -145,7 +145,7 @@
     font-size: 1rem;
     line-height: 1.75;
     color: var(--p-dark);
-    padding-left: 25px;
+    padding-left: 0px;
     margin-bottom: 5px;
     font-weight: 300;
 }

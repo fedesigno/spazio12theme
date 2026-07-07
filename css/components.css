@@ -117,7 +117,7 @@
     line-height: 1.6;
     color: #666;
     margin-bottom: 25px;
-    font-style: italic; /* Corsivo per dare profondità */
+    /*font-style: italic;  Corsivo per dare profondità */
     font-weight: 300;
     letter-spacing: 0.2px;
 }
