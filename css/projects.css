@@ -44,8 +44,8 @@
     border-radius: 12px; 
     
     /* BACKGROUND: Blu profondo del brand invece del nero piatto */
-    background: #1b2629; 
-    border: 1px solid rgba(101, 135, 147, 0.3);
+    background: #778083; 
+    /*border: 0.1px solid rgba(101, 135, 147, 0.3);*/
     
     display: flex;
     flex-direction: column;
@@ -125,12 +125,12 @@
     object-fit: cover;
     opacity: 0;
     /* Immagini molto scure di base per non "mangiare" il testo */
-    filter: brightness(0.2) grayscale(100%);
+    filter: brightness(0.65) grayscale(10%);
     transition: all 1.5s ease-in-out, transform 3s ease;
 }
 
 .cat-bg-slider img.active {
-    opacity: 0.5; /* Equilibrio tra vedere l'immagine e leggere il testo */
+    opacity: 0.85; /* Equilibrio tra vedere l'immagine e leggere il testo */
 }
 
 .cat-overlay { 
