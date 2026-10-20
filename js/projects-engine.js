@@ -18,6 +18,7 @@ async function fetchProjectsFromCMS() {
         desc
         start
         end
+        amount  
         images { url }
       }
     }`;
@@ -35,14 +36,14 @@ async function fetchProjectsFromCMS() {
         
         if (json.data && json.data.allProjects12s) {
             window.projects = json.data.allProjects12s.map(p => ({
-                ...p,
-                // Assicuriamoci che start ed end esistano per non mostrare "undefined"
-                start: p.start || "Da definire", 
-                end: p.end || "In corso",
-                images: (p.images && p.images.length > 0) ? p.images.map(img => img.url) : ['img/placeholder.jpg'] 
+            ...p,
+            start: p.start || "Da definire", 
+            end: p.end || "In corso",
+            amount: (p.amount && p.amount.trim() !== "") ? p.amount : null, // Mantiene null se non c'è importo
+            images: (p.images && p.images.length > 0) ? p.images.map(img => img.url) : ['img/placeholder.jpg']
             }));
             
-            console.log("Progetti caricati:", window.projects.length); // Verifica in console
+            console.log("Progetti caricati:", window.projects.length);
             initCategories();
         }
     } catch (e) { 
@@ -123,6 +124,10 @@ window.renderProjects = function(yearFilter = 'all', stretch = false) {
         if(yearFilter !== 'all') filtered = filtered.filter(p => p.year === yearFilter);
         const toDisplay = stretch ? filtered : filtered.slice(0, 4);
         toDisplay.forEach((p, pIndex) => {
+            
+            // Genera l'HTML per l'importo solo se presente
+            const amountHtml = p.amount ? `<div class="spec-item"><span>IMPORTO</span><strong>${p.amount}</strong></div>` : '';
+
             const card = document.createElement('div');
             card.className = 'project-card animate-in';
             card.innerHTML = `
@@ -138,6 +143,7 @@ window.renderProjects = function(yearFilter = 'all', stretch = false) {
                     <div class="p-spec-grid">
                         <div class="spec-item"><span>INIZIO</span><strong>${p.start}</strong></div>
                         <div class="spec-item"><span>FINE</span><strong>${p.end}</strong></div>
+                        ${amountHtml}
                     </div>
                 </div>`;
             container.appendChild(card);

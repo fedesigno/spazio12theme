@@ -122,12 +122,10 @@
     letter-spacing: 0.2px;
 }
 
-/* Griglia Specifiche: Compatta e tecnica */
+/* Griglia Specifiche: si adatta automaticamente se sono 2 o 3 elementi */
 .p-spec-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-top: 1px solid #f0f0f0;
-    padding-top: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
     gap: 15px;
 }
 
