@@ -3,7 +3,8 @@
 ================================================= */
 
 .section { 
-    padding: 120px 8%; 
+    /* Ridotto da 120px a 60px: ora le sezioni sono molto più vicine */
+    padding: 60px 8%; 
     scroll-margin-top: 80px;
 }
 
@@ -19,7 +20,6 @@
     border-bottom: 1px solid #eeeeee;
 }
 
-
 .container { max-width: 1400px; margin: 0 auto; }
 
 /* =================================================
@@ -27,7 +27,8 @@
 ================================================= */
 
 .section-header-group {
-    margin-bottom: 60px;
+    /* Ridotto da 60px a 30px per avvicinare la testata ai contenuti */
+    margin-bottom: 30px;
     text-align: left;
 }
 
@@ -40,8 +41,9 @@
     display: flex;
     align-items: center;
     width: 100%;
-    margin-bottom: 80px;
-    padding-top: 40px;
+    /* Ridotto margin-bottom da 80px a 35px e padding-top da 40px a 10px */
+    margin-bottom: 35px;
+    padding-top: 10px;
 }
 
 /* 1. IL SEGNO DI REGISTRO CON BASE (Angolo + Base Grigia) */
@@ -59,14 +61,12 @@
     border-right: 1.5px solid var(--p-blue);
     
     /* La base grigia (linea sotto) */
-    /* Usiamo una box-shadow per aggiungere la base senza rompere la rotazione */
     box-shadow: 2px 2px 0px 0px var(--p-dark); 
     
     /* Rotazione a 45 gradi */
     transform: rotate(45deg);
 
     margin-bottom: 4px; /* Piccolo offset per compensare la base */
-
 }
 
 /* 2. Il Testo */
@@ -100,11 +100,14 @@
 
 /* --- MOBILE RESPONSIVE --- */
 @media (max-width: 992px) {
-    .section-title { margin-bottom: 50px; }
+    /* Ridotto padding e margini anche su mobile per evitare scroll infiniti */
+    .section { padding: 40px 6%; }
+    .section-title { margin-bottom: 25px; padding-top: 0; }
     .section-title h2 { font-size: 1.4rem; }
     .section-title::before { width: 16px; height: 16px; margin-right: 15px; }
     .section-title::after { margin-left: 15px; }
 }
+
 /* --- BIG STATEMENT (RESTILIZZATO PER COESIONE) --- */
 .big-statement {
     font-size: clamp(2.4rem, 5vw, 4rem);
@@ -123,7 +126,6 @@
     font-weight: 400;          
 }
 
-
 /* --- Elementi Tipografici Ricorrenti --- */
 .eyebrow { 
     display: block; 
@@ -132,6 +134,5 @@
     font-size: 0.65rem; 
     color: var(--p-blue); 
     font-weight: 800;
-    margin-bottom: 20px;
+    margin-bottom: 12px; /* Ridotto da 20px a 12px */
 }
-
