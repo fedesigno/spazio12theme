@@ -3,7 +3,7 @@
 ================================================= */
 
 .section { 
-    /* Ridotto da 120px a 60px: ora le sezioni sono molto più vicine */
+    /* Margini ridotti solo qui: 60px sopra/sotto e 8% ai lati */
     padding: 60px 8%; 
     scroll-margin-top: 80px;
 }
@@ -15,7 +15,7 @@
 
 /* Sezione Grigio "Aria" - Usala per il TEAM */
 .bg-light-soft {
-    background-color: #f5f5f5; /* Un tono neutro freddo molto professionale */
+    background-color: #f5f5f5; 
     border-top: 1px solid #eeeeee;
     border-bottom: 1px solid #eeeeee;
 }
@@ -27,23 +27,20 @@
 ================================================= */
 
 .section-header-group {
-    /* Ridotto da 60px a 30px per avvicinare la testata ai contenuti */
-    margin-bottom: 30px;
+    margin-bottom: 30px; /* Ridotto per compattare */
     text-align: left;
 }
 
 /* =================================================
    SIGNATURE ARCHITECTURAL TITLE (PURE REGISTRATION)
-   Design: Minimalismo tecnico, rigore editoriale
 ================================================= */
 
 .section-title {
     display: flex;
     align-items: center;
     width: 100%;
-    /* Ridotto margin-bottom da 80px a 35px e padding-top da 40px a 10px */
-    margin-bottom: 35px;
-    padding-top: 10px;
+    margin-bottom: 35px; /* Ridotto per avvicinare i contenuti */
+    padding-top: 10px;   /* Ridotto per evitare spazi vuoti in cima alla sezione */
 }
 
 /* 1. IL SEGNO DI REGISTRO CON BASE (Angolo + Base Grigia) */
@@ -54,19 +51,14 @@
     margin-right: 25px;
     flex-shrink: 0;
     
-    /* L'angolo (L) in blu */
     border-top: 1.5px solid var(--p-blue);
     border-left: 1.5px solid var(--p-blue);
     border-bottom: 1.5px solid var(--p-blue);
     border-right: 1.5px solid var(--p-blue);
     
-    /* La base grigia (linea sotto) */
     box-shadow: 2px 2px 0px 0px var(--p-dark); 
-    
-    /* Rotazione a 45 gradi */
     transform: rotate(45deg);
-
-    margin-bottom: 4px; /* Piccolo offset per compensare la base */
+    margin-bottom: 4px;
 }
 
 /* 2. Il Testo */
@@ -75,7 +67,7 @@
     font-size: clamp(1rem, 5vw, 1.5rem);
     font-weight: 100;
     text-transform: uppercase;
-    letter-spacing: 0.08em; /* Spaziatura ancora più ampia per eleganza */
+    letter-spacing: 0.08em;
     color: var(--p-dark);
 }
 
@@ -91,16 +83,15 @@
     flex-grow: 1;
     height: 1px;
     background-color: var(--p-dark);
-    opacity: 0.12; /* Molto discreta */
+    opacity: 0.12;
     margin-left: 30px;
-    /* Tratteggio tipo "linea di proiezione" */
     background-image: linear-gradient(90deg, var(--p-dark) 70%, transparent 70%);
     background-size: 30px 1px;
 }
 
-/* --- MOBILE RESPONSIVE --- */
+/* --- MOBILE RESPONSIVE SPECIFICO PER LE SEZIONI --- */
 @media (max-width: 992px) {
-    /* Ridotto padding e margini anche su mobile per evitare scroll infiniti */
+    /* Questo blocchetto agisce SOLO sulle classi .section e .section-title, lasciando intatto l'Hero */
     .section { padding: 40px 6%; }
     .section-title { margin-bottom: 25px; padding-top: 0; }
     .section-title h2 { font-size: 1.4rem; }
@@ -108,7 +99,7 @@
     .section-title::after { margin-left: 15px; }
 }
 
-/* --- BIG STATEMENT (RESTILIZZATO PER COESIONE) --- */
+/* --- BIG STATEMENT --- */
 .big-statement {
     font-size: clamp(2.4rem, 5vw, 4rem);
     line-height: 1.1;
@@ -134,5 +125,5 @@
     font-size: 0.65rem; 
     color: var(--p-blue); 
     font-weight: 800;
-    margin-bottom: 12px; /* Ridotto da 20px a 12px */
+    margin-bottom: 12px;
 }
