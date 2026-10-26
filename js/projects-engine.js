@@ -66,8 +66,7 @@ function initCategories() {
             allPhotos.forEach((src, i) => {
                 const img = document.createElement('img');
                 img.src = src;
-                img.style.cssText = `position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity 1.5s;opacity:${i===0?1:0};z-index:${i===0?1:0};`;
-                if(i === 0) img.classList.add('active');
+                img.style.cssText = `position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity 1.5s;opacity:${i===0?1:0};z-index:${i===0?1:0}; filter: contrast(1.05) saturate(0.9) brightness(0.95);`;                if(i === 0) img.classList.add('active');
                 slider.appendChild(img);
             });
             if(allPhotos.length > 1) {
@@ -132,7 +131,7 @@ window.renderProjects = function(yearFilter = 'all', stretch = false) {
             card.className = 'project-card animate-in';
             card.innerHTML = `
                 <div class="p-image" id="slider-${pIndex}">
-                    ${p.images.map((img, i) => `<img src="${img}" class="${i===0?'active':''}" style="opacity:${i===0?1:0}">`).join('')}
+                    ${p.images.map((img, i) => `<img src="${img}" class="${i===0?'active':''}" style="opacity:${i===0?1:0}; filter: contrast(1.05) saturate(0.9) brightness(0.95);">`).join('')}
                     ${p.images.length > 1 ? `<div class="slider-nav"><button class="nav-arrow" onclick="prevImg(${pIndex})">‹</button><button class="nav-arrow" onclick="nextImg(${pIndex})">›</button></div>` : ''}
                 </div>
                 <div class="p-content">
