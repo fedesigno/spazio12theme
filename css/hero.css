@@ -199,4 +199,19 @@
     .hero-thin { letter-spacing: 12px; margin-right: -12px; }
     .hero-subtitle { font-size: 1rem; letter-spacing: 4px; }
     .morph-word { min-width: 250px; }
+
+    /* Riduciamo lo zoom su smartphone per evitare l'effetto "troppo ingrandito" */
+    .slide {
+        transform: scale(1.08);
+        animation: smoothFadeZoomMobile 25s infinite ease-in-out;
+    }
+}
+
+/* Animazione dedicata per mobile con zoom ridotto (da 1.08 a 1.0) */
+@keyframes smoothFadeZoomMobile {
+    0% { opacity: 0; transform: scale(1.08); }
+    15% { opacity: 1; }
+    33% { opacity: 1; }
+    48% { opacity: 0; transform: scale(1); }
+    100% { opacity: 0; }
 }
