@@ -513,14 +513,47 @@
                 </div>
             </div>
 
-            <div class="footer-links">
-                <span class="footer-label">Info Legali</span>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
-                    <li><a href="#">Termini e Condizioni</a></li>
-                </ul>
-            </div>
+            <!-- LINK NEL FOOTER -->
+<div class="footer-links">
+    <span class="footer-label">Info Legali</span>
+    <ul>
+        <li><a href="javascript:void(0)" class="footer-legal-link" onclick="openLegalModal('privacy')">Privacy Policy</a></li>
+        <li><a href="javascript:void(0)" class="footer-legal-link" onclick="openLegalModal('cookie')">Cookie Policy</a></li>
+    </ul>
+</div>
+
+<!-- BOX MODALE A COMPARSA (NASCOSTO DI DEFAULT) -->
+<div id="legal-modal-overlay" class="legal-modal-overlay" onclick="closeLegalModal(event)">
+    <div class="legal-modal-box" onclick="event.stopPropagation()">
+        <button class="legal-modal-close" onclick="closeLegalModal()">&times;</button>
+        
+        <!-- CONTENUTO PRIVACY -->
+        <div id="modal-privacy-content" class="legal-modal-content" style="display: none;">
+            <h2>Informativa sulla Privacy</h2>
+            <h3>1. Titolare del Trattamento</h3>
+            <p>Il Titolare del trattamento dei dati è <strong>SPAZIODODICI</strong> (Arch. Alberto Chialva, Arch. Giulio Bianco, Ing. Sara Zanardini, Geom. Giulia D'Angelo), con sede in Pinerolo (TO) – Italia. Email: info@spaziododici.it</p>
+            
+            <h3>2. Tipologia di Dati Trattati</h3>
+            <p>Questo sito è una vetrina informativa e portfolio professionale. Non sono presenti moduli di registrazione, form di contatto con salvataggio dati o aree riservate. I dati di navigazione non vengono utilizzati né memorizzati per scopi di profilazione.</p>
+            
+            <h3>3. Modalità e Finalità</h3>
+            <p>Nessun dato personale degli utenti viene raccolto, venduto o ceduto a terzi. L'unico scopo del sito è la presentazione delle opere dello studio.</p>
+            
+            <h3>4. Diritti dell'Utente</h3>
+            <p>Gli utenti possono esercitare i diritti previsti dal Regolamento UE 2016/679 (GDPR) scrivendo a info@spaziododici.it.</p>
+        </div>
+
+        <!-- CONTENUTO COOKIE -->
+        <div id="modal-cookie-content" class="legal-modal-content" style="display: none;">
+            <h2>Informativa sui Cookie</h2>
+            <h3>Uso dei Cookie</h3>
+            <p>Questo sito web non utilizza cookie di profilazione, cookie analitici di terze parti o strumenti di tracciamento commerciale (come Google Analytics, Facebook Pixel o simili).</p>
+            
+            <h3>Cookie Tecnici</h3>
+            <p>Potrebbero essere utilizzati esclusivamente cookie tecnici o di sessione strettamente necessari al funzionamento del sito e alla fruizione dei contenuti visivi. Tali cookie non richiedono il consenso preventivo dell'utente ai sensi della normativa vigente.</p>
+        </div>
+    </div>
+</div>
 
             <div class="footer-credits">
                 <span class="footer-label">Progetto</span>

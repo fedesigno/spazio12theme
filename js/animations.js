@@ -86,3 +86,27 @@ document.addEventListener("DOMContentLoaded", function () {
         revealObserver.observe(item);
     });
 });
+
+function openLegalModal(type) {
+    const overlay = document.getElementById('legal-modal-overlay');
+    const privacyContent = document.getElementById('modal-privacy-content');
+    const cookieContent = document.getElementById('modal-cookie-content');
+
+    if (type === 'privacy') {
+        privacyContent.style.display = 'block';
+        cookieContent.style.display = 'none';
+    } else if (type === 'cookie') {
+        privacyContent.style.display = 'none';
+        cookieContent.style.display = 'block';
+    }
+
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Blocca lo scroll del sito dietro
+}
+
+function closeLegalModal(event) {
+    // Chiude solo se si clicca sul tasto X o fuori dal box (sull'overlay)
+    const overlay = document.getElementById('legal-modal-overlay');
+    overlay.classList.remove('active');
+    document.body.style.overflow = ''; // Ripristina lo scroll del sito
+}
